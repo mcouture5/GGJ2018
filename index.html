@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<style>
+			* {
+				font-family: "Comic Sans MS", cursive, sans-serif;
+				font-size: 100;
+			}
+		</style>
+		<script type="text/javascript" src="js/libs/phaser.min.js"></script>
+		<script type="text/javascript" src="js/states/preload.js"></script>
+		<script type="text/javascript" src="js/states/mainMenu.js"></script>
+		<script type="text/javascript" src="js/states/game.js"></script>
+
+		<script type="text/javascript">
+			(function(){
+				var game = new Phaser.Game(800, 600, Phaser.CANVAS, "game");
+				game.state.add("Preload", Preload);
+				game.state.add("MainMenu", MainMenu);
+				game.state.add("GameState", GameState);
+				game.state.start("Preload");
+			})();    
+		</script>
+	</head>
+	<body>
+		GGJ2018
+	</body>
+</html>
