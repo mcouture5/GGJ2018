@@ -6,11 +6,22 @@ Preload.prototype = {
 	init: function(params){
 	},
 	preload: function(){
-		// Use the script loader to avoid bloating the index with includes
-		//this.game.load.script('customGroup.js', 'js/customGroup.js');
-		//this.game.load.script('customSprite.js', 'js/customSprite.js');
+		game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		// Load the stage metadata before the stages are created
+		game.load.json('stage_1', 'assets/data/stage_1.json');
+		game.load.json('stage_2', 'assets/data/stage_2.json');
+		game.load.json('stage_3', 'assets/data/stage_3.json');
+		game.load.json('stage_4', 'assets/data/stage_4.json');
+		game.load.json('stage_5', 'assets/data/stage_5.json');
+
+		// Managers
+	    audioManager = new AudioManager();
+		gameManager = new GameManager();
 	},
 	create: function(){
+		//gameManager.loadStage();
+		game.state.start("MainMenu", true, false);
 	},
 	update: function(){
 	},
