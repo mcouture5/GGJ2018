@@ -150,9 +150,11 @@ Bee.prototype.update = function(){
             }
             break;
         case "SUICIDE":
+            this.animations.play('bee-rage');
+            this.scale.x = -Math.abs(this.scale.x);
             this.body.collideWorldBounds = false;
-            this.body.velocity.x = 400;
-            this.body.velocity.y = -400;
+            this.body.velocity.x = 220;
+            this.body.velocity.y = -220;
             break;
         case "GAMEEND":
             // Do nothing
