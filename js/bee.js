@@ -27,29 +27,39 @@ Bee = function(game){
     this.body.velocity.x = Math.cos(this.startDir) * this.moveConst;
     
     // temporary movement controls
-    EventBus.onMorseDirection.add(function(result) {
-        var direction = result.direction;
-        var dotsAndDashes = result.dotsAndDashes;
-        switch (direction) {
-            case 'N':
-                this.moveNorth();
-                break;
-            case 'S':
-                this.moveSouth();
-                break;
-            case 'W':
-                this.moveWest();
-                break;
-            case 'E':
-                this.moveEast();
-                break;
-            case 'INVALID':
-                this.stopMoving();
-                break;
-            default:
-                throw new Error('unexpected direction=' + direction);
-        }
-    }, this);
+    var cheating = false;
+    if (cheating) {
+        game.input.keyboard.addKey(Phaser.KeyCode.LEFT).onDown.add(this.moveWest, this);
+        game.input.keyboard.addKey(Phaser.KeyCode.RIGHT).onDown.add(this.moveEast, this);
+        game.input.keyboard.addKey(Phaser.KeyCode.UP).onDown.add(this.moveNorth, this);
+        game.input.keyboard.addKey(Phaser.KeyCode.DOWN).onDown.add(this.moveSouth, this);
+        game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(this.stopMoving, this);
+    }
+    else {
+        EventBus.onMorseDirection.add(function (result) {
+            var direction = result.direction;
+            var dotsAndDashes = result.dotsAndDashes;
+            switch (direction) {
+                case 'N':
+                    this.moveNorth();
+                    break;
+                case 'S':
+                    this.moveSouth();
+                    break;
+                case 'W':
+                    this.moveWest();
+                    break;
+                case 'E':
+                    this.moveEast();
+                    break;
+                case 'INVALID':
+                    this.stopMoving();
+                    break;
+                default:
+                    throw new Error('unexpected direction=' + direction);
+            }
+        }, this);
+    }
 
     this.health = 1000;
     this.maxHealth = 1000;
