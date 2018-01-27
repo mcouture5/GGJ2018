@@ -22,6 +22,9 @@ GameStage.prototype = {
         this.queenBee = new QueenBee();
         game.add.existing(this.queenBee);
 
+        // Flowers
+        game.add.existing(new Flower(game));
+
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
