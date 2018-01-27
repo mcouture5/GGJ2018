@@ -1,26 +1,36 @@
 /**
- * Converts Morse Code space bar presses into a Morse direction: N(orth), S(outh), E(ast), W(est), or INVALID.
+ * A global object which converts Morse Code space bar presses into a Morse direction:
+ * - "-." = "N"
+ * - "..." = "S"
+ * - "." = "E"
+ * - ".--" = "W"
+ * - anything else = "INVALID"
  */
-var MorseInput = function(){
-    // get the space key
-    this.spaceKey = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+var MorseInput = {
 
-    // dot duration is 250 milliseconds
-    // pause duration is 3x dot duration
-    this.dotDuration = 250;
-    this.pauseDuration = this.dotDuration * 3;
+    // public methods
 
-    // keep track of the last space key down date
-    this.spaceKeyDownDate = null;
+    /**
+     * Initializes the global object. Call this as soon as the game keyboard is available.
+     */
+    init: function() {
+        // get the space key
+        this.spaceKey = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
-    // keep a timer for the resolution of Morse directions
-    this.resolveTimer = null;
+        // dot duration is 250 milliseconds
+        // pause duration is 3x dot duration
+        this.dotDuration = 250;
+        this.pauseDuration = this.dotDuration * 3;
 
-    // keep track of the current dots and dashes
-    this.dotsAndDashes = "";
-};
+        // keep track of the last space key down date
+        this.spaceKeyDownDate = null;
 
-MorseInput.prototype = {
+        // keep a timer for the resolution of Morse directions
+        this.resolveTimer = null;
+
+        // keep track of the current dots and dashes
+        this.dotsAndDashes = "";
+    },
 
     /**
      * Starts listening.
@@ -39,6 +49,18 @@ MorseInput.prototype = {
         this.spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         this.spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
     },
+
+    /**
+     * Resolves the morse direction early. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}.
+     * Does not trigger the global onMorseDirection event.
+     */
+    resolveEarly: function() {
+        // resolve without triggering the event and return the result
+        var triggerEvent = false;
+        return this.resolve(triggerEvent);
+    },
+
+    // implementation details
 
     /**
      * Handles space key down.
@@ -74,29 +96,41 @@ MorseInput.prototype = {
             this.dotsAndDashes += '-';
         }
 
-        // start the resolution timer. If the pause duration elapses, resolve the Morse direction.
+        // start the resolution timer. If the pause duration elapses, resolve the Morse direction, triggering the global
+        // onMorseDirection event.
         var me = this;
-        this.resolveTimer = setTimeout(function() { me.resolve(); }, this.pauseDuration);
+        var triggerEvent = true;
+        this.resolveTimer = setTimeout(function() { me.resolve(triggerEvent); }, this.pauseDuration);
     },
 
     /**
-     * Resolves the Morse direction.
+     * Resolves the Morse direction. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}. If
+     * triggerEvent is true, also triggers the global onMorseDirection event.
      */
-    resolve: function() {
-        // get the Morse direction
-        var morseDirection = this.getMorseDirection();
+    resolve: function(triggerEvent) {
+        // get the direction and the dots and dashes
+        var direction = this.getDirection();
+        var dotsAndDashes = this.dotsAndDashes;
 
         // clear the dots and dashes
         this.dotsAndDashes = '';
 
-        // send the Morse direction to the global event bus
-        EventBus.onMorseDirection.dispatch(morseDirection);
+        // create the result object
+        var result = {direction: direction, dotsAndDashes: dotsAndDashes};
+
+        // if needed, trigger the global onMorseDirection event
+        if (triggerEvent) {
+            EventBus.onMorseDirection.dispatch(result);
+        }
+
+        // return the result
+        return result;
     },
 
     /**
-     * Returns the Morse Code direction for the current dots and dashes. If invalid, returns 'INVALID'.
+     * Returns the direction for the current dots and dashes. If invalid, returns 'INVALID'.
      */
-    getMorseDirection: function() {
+    getDirection: function() {
         switch (this.dotsAndDashes) {
             case '-.':
                 return 'N';

@@ -3,7 +3,7 @@
  */
 var EventBus = {
 
-    // triggered by MorseInput. Returns a Morse direction ("N", "S", "W", "E", or "INVALID")
+    // triggered by MorseInput. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}.
     onMorseDirection: new Phaser.Signal()
 
     // onFoo: new Phaser.Signal();
