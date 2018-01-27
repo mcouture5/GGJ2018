@@ -17,6 +17,8 @@ GameStage.prototype = {
 
         //Background
         game.add.image(0, 0, this.stageData.background);
+        // Directions
+        game.add.image(0, 0, 'directions');
 
         // initialize the queen bee
         this.queenBee = new QueenBee();

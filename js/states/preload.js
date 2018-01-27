@@ -26,6 +26,9 @@ Preload.prototype = {
 		game.load.image('test2', 'assets/images/test2.jpg');
 		game.load.image('test3', 'assets/images/test3.jpg');
 
+		// Directions
+		game.load.image('directions', 'assets/images/Directions.png');
+
 		//Backgrounds
 		game.load.image('background-stage-1', 'assets/images/Background.png');
 		game.load.image('stage-mask', 'assets/images/stage-mask.jpg');
