@@ -1,6 +1,7 @@
 var GameStage = function(){
     this.level = 1;
     this.stageData = {};
+    this.bees = [];
 };
  
 GameStage.prototype = {
@@ -31,6 +32,7 @@ GameStage.prototype = {
         }
 
         let bee = this.game.world.add(new Bee(this.game));
+        this.bees.push(bee);
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
@@ -106,6 +108,8 @@ GameStage.prototype = {
     onStageFailed: function (bee) {
         // Stage has been failed
         gameManager.stageFailed();
+        // Stop all bees!
+        this.bees.forEach((bee) => bee.stopMoving());
         // Bring the failed bee to the front
         game.world.bringToTop(bee);
         // Show the failed mask
