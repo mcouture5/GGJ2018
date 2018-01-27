@@ -109,6 +109,9 @@ var MorseInput = {
             this.dotsAndDashes += '-';
         }
 
+        // trigger the global onMorsePartial event
+        EventBus.onMorsePartial.dispatch(this.dotsAndDashes);
+
         // declare a shared variable
         var early;
 
@@ -144,7 +147,7 @@ var MorseInput = {
         var result = {direction: direction, dotsAndDashes: dotsAndDashes};
 
         // trigger the global onMorseComplete event
-        EventBus.onMorseDirection.dispatch(result);
+        EventBus.onMorseComplete.dispatch(result);
 
         // if resolving early, mute the input for a bit
         if (early) {

@@ -110,7 +110,7 @@ GameStage.prototype = {
             this.selectedBee = this.bees[0];
             this.selectedBee.selected = true;
             var self = this;
-            EventBus.onMorseDirection.add(this.morseHandler, this);
+            EventBus.onMorseComplete.add(this.morseHandler, this);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();
@@ -143,7 +143,7 @@ GameStage.prototype = {
         gameManager.stageCleared();
 
         this.stageText.destroy();
-        EventBus.onMorseDirection.remove(this.morseHandler, this);
+        EventBus.onMorseComplete.remove(this.morseHandler, this);
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input

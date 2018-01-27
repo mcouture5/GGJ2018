@@ -16,7 +16,7 @@ GameManager.prototype = {
 	beginStage: function () {
         // Start listening to input
         MorseInput.start();
-		EventBus.onMorseDirection.add(this.testMorseInput, this);
+		EventBus.onMorseComplete.add(this.testMorseInput, this);
 	},
 	stageCleared: function () {
         // Stop listening to input
@@ -33,11 +33,11 @@ GameManager.prototype = {
 	},
 	restartStage: function () {
 		this.rageQuittingBee = null;
-		EventBus.onMorseDirection.remove(this.testMorseInput, this);
+		EventBus.onMorseComplete.remove(this.testMorseInput, this);
         game.state.restart(true, false, this.currentStage);
 	},
 	nextStage: function () {
-		EventBus.onMorseDirection.remove(this.testMorseInput, this);
+		EventBus.onMorseComplete.remove(this.testMorseInput, this);
 		this.currentStage++;
 		this.loadStage();
 	},
