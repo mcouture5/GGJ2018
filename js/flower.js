@@ -1,11 +1,11 @@
-var Flower = function(game){
+var Flower = function(game, x, y){
     var bmd = game.add.bitmapData(30, 30);
     bmd.ctx.beginPath();
     bmd.ctx.rect(0, 0, 30, 30);
     bmd.ctx.fillStyle = '#ff0000';
     bmd.ctx.fill();
-
-    Phaser.Sprite.call(this, game, 200, 200, bmd);
+    console.log(x, y);
+    Phaser.Sprite.call(this, game, x, y, bmd);
     game.physics.arcade.enable(this);
     this.body.immovable = true;
     this.anchor.setTo(0.5, 0.5);

@@ -17,5 +17,25 @@
             "x": 500,
             "y": 100
         }
+    ],
+    "flowers": [
+        {
+            "x": 200,
+            "y": 400,
+            "gathertime": 5
+        },
+        {
+            "x": 200,
+            "y": 200,
+            "gathertime": 5
+        }
+    ],
+    "bees": [
+        {
+            "startDelay": 0
+        },
+        {
+            "startDelay": 2
+        }
     ]
 }

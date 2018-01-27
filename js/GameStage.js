@@ -25,7 +25,7 @@ GameStage.prototype = {
 
         // Directions
         game.add.image(0, 0, 'directions');
-
+        
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
@@ -35,6 +35,13 @@ GameStage.prototype = {
         this.beeGroup.enableBody = true;
         this.borders = game.add.group();
         this.borders.enableBody = true;
+        
+        // Flowers
+        // Run through the flowers and create/place them
+        var flowerData = this.stageData.flowers;
+        flowerData.forEach(function (fl) {
+            this.flowers.add(new Flower(game, fl.x, fl.y));
+        }, this);
 
         // Stage borders
         // Top
@@ -66,9 +73,6 @@ GameStage.prototype = {
             obstacle.body.immovable = true;
         }, this);
 
-        // Flowers
-        this.flowers.add(new Flower(game));
-
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
 
@@ -93,25 +97,28 @@ GameStage.prototype = {
         // After all has been created, reveal the stage!
         this.fadeIn().onComplete.add(function () {
             // Add bees!
-            this.bees = [
-                this.beeGroup.add(new Bee(game)),
-                this.beeGroup.add(new Bee(game)),
-                this.beeGroup.add(new Bee(game))
-            ];
-            var beeCount = this.bees.length;
-            for(var i = 0; i < beeCount; i++) {
+            this.bees = new Array(this.stageData.bees.length);
+            for(var i = 0; i < this.stageData.bees.length; i++) {
                 var self = this;
                 (function(j) {
-                    self.bees[i].events.onInputDown.add(function() {
-                        MorseInput.resolveEarly();
-                        self.selectedBee.selected = false;
-                        self.selectedBee = self.bees[j];
-                        self.bees[j].selected = true;
-                    }, this);
-                })(i);
+                    setTimeout(function(){
+                        console.log(self.stageData.bees[j].startDelay);
+                        self.bees[j] = self.beeGroup.add(new Bee(game));
+                        (function(k) {
+                            if (!self.selectedBee) {
+                                self.selectedBee = self.bees[j];
+                                self.selectedBee.selected = true;
+                            }
+                            self.bees[j].events.onInputDown.add(function() {
+                                MorseInput.resolveEarly();
+                                self.selectedBee.selected = false;
+                                self.selectedBee = self.bees[j];
+                                self.bees[k].selected = true;
+                            }, this);
+                        })(j);
+                    }, self.stageData.bees[j].startDelay * 1000);
+                })(i)
             }
-            this.selectedBee = this.bees[0];
-            this.selectedBee.selected = true;
             var self = this;
             EventBus.onMorseComplete.add(this.handleMorseComplete, this);
             EventBus.onMorsePartial.add(this.handleMorsePartial, this);
@@ -149,6 +156,7 @@ GameStage.prototype = {
         // Stage has been cleared
         gameManager.stageCleared();
 
+        this.selectedBee = null;
         this.stageText.destroy();
         EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
         EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
@@ -169,6 +177,7 @@ GameStage.prototype = {
         }, this);
     },
     onStageFailed: function (rageQuitBee) {
+        this.selectedBee = null;
         // Stop listening to the morse input
         EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
         EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
