@@ -2,11 +2,16 @@ Bee = function(game){
 	Phaser.Sprite.call(this, game, 900, 100, 'bee');
     this.inputEnabled = true;
     this.startX = 200;
-    this.anchor.setTo(0.5, 1);
+    this.anchor.setTo(0.5, 0.5);
     this.speed = this.game.rnd.integerInRange(8,12);
-    this.scale.setTo(0.5, 0.5);
-    this.animations.add('idle', [0,1,2,3,4,5,6,7,8], this.speed, true);
-    this.animations.play('idle');
+    this.animations.add('bee-happy', [12,13,14,15], this.speed, true);
+    this.animations.add('bee-pollen', [0,1,2,3], this.speed, true);
+    this.animations.add('bee-rage', [16,17,18,19], this.speed, true);
+    this.animations.add('bee-collecting', [24,25], this.speed, true);
+    this.animations.add('bee-frustrated', [4,5,6,7], this.speed, true);
+    this.animations.add('bee-frustrated-pollen', [8,9,10,11], this.speed, true);
+    this.animations.add('bee-rage-pollen', [20,21,22,23], this.speed, true);
+    this.animations.play('bee-happy');
     this.state = "START";
     this.moveConst = 50;
     this.colliding = false;
@@ -59,6 +64,8 @@ Bee.prototype.constructor = Bee;
 
 
 Bee.prototype.moveWest = function(){
+    this.scale.x = Math.abs(this.scale.x);
+    this.animations.play('bee-happy');
     if (this.state === 'W') {
         this.body.velocity.x -= this.moveConst;
     } else {
@@ -68,6 +75,8 @@ Bee.prototype.moveWest = function(){
     this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
+    this.scale.x = -Math.abs(this.scale.x);
+    this.animations.play('bee-happy');
     if (this.state === 'E') {
         this.body.velocity.x += this.moveConst;
     } else {
@@ -77,6 +86,7 @@ Bee.prototype.moveEast = function(){
     this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
+    this.animations.play('bee-happy');
     if (this.state === 'N') {
         this.body.velocity.y -= this.moveConst;
     } else {
@@ -86,6 +96,7 @@ Bee.prototype.moveNorth = function(){
     this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
+    this.animations.play('bee-happy');
     if (this.state === 'S') {
         this.body.velocity.y += this.moveConst;
     } else {
@@ -96,6 +107,7 @@ Bee.prototype.moveSouth = function(){
 };
 Bee.prototype.stopMoving = function(){
     this.state = "STOP";
+    this.animations.play('bee-frustrated');
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 };
@@ -127,6 +139,7 @@ Bee.prototype.update = function(){
         case "START":
             break;
         case "STOP":
+            this.animations.play('bee-frustrated');
             this.damage(1);
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);

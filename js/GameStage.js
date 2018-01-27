@@ -122,8 +122,8 @@ GameStage.prototype = {
         game.physics.arcade.collide(this.beeGroup, this.borders);
 	},
 	render: function(){
-        this.borders.forEachAlive(this.renderGroup, this);
-        this.obstacles.forEachAlive(this.renderGroup, this);
+        //this.borders.forEachAlive(this.renderGroup, this);
+        //this.obstacles.forEachAlive(this.renderGroup, this);
 	},
     renderGroup: function(member)
     {
@@ -163,6 +163,8 @@ GameStage.prototype = {
         }, this);
     },
     onStageFailed: function (rageQuitBee) {
+        // Stop listening to the morse input
+        EventBus.onMorseDirection.remove(this.morseHandler, this);
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request
         var allowRageQuit = gameManager.stageFailed(rageQuitBee);

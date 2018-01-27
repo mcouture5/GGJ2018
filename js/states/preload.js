@@ -43,7 +43,7 @@ Preload.prototype = {
 		game.load.json('stage_5', 'assets/data/stage_5.json');
         
 		// Spritesheets
-        game.load.spritesheet('bee', 'assets/images/bee.png', 120, 120);
+        game.load.spritesheet('bee', 'assets/images/bee.png', 80, 80);
 
 		// Force loading assets
     	game.load.start();
