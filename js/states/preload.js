@@ -13,6 +13,11 @@ Preload.prototype = {
 		//this.game.load.script('customSprite.js', 'js/customSprite.js');
 	},
 	create: function(){
+        var morseInput = new MorseInput();
+        morseInput.start();
+        morseInput.onMorseDirection.add(function(morseDirection) {
+        	console.log(morseDirection);
+		});
 	},
 	update: function(){
 	},

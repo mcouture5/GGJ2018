@@ -1,5 +1,5 @@
 /**
- * Converts Morse Code space bar presses into the Morse direction: N(orth), S(outh), E(ast), W(est), or INVALID.
+ * Converts Morse Code space bar presses into a Morse direction: N(orth), S(outh), E(ast), W(est), or INVALID.
  */
 var MorseInput = function(){
     // get the space key
@@ -13,11 +13,14 @@ var MorseInput = function(){
     // keep track of the last space key down date
     this.spaceKeyDownDate = null;
 
-    // keep a timer for post-key resolution for Morse Code directions
+    // keep a timer for the resolution of Morse directions
     this.resolveTimer = null;
 
     // keep track of the current dots and dashes
     this.dotsAndDashes = "";
+
+    // create an onMorseDirection signal which others can listen to
+    this.onMorseDirection = new Phaser.Signal();
 };
 
 MorseInput.prototype = {
@@ -74,7 +77,7 @@ MorseInput.prototype = {
             this.dotsAndDashes += '-';
         }
 
-        // start the resolve timer. If the pause duration elapses, resolve the Morse direction.
+        // start the resolution timer. If the pause duration elapses, resolve the Morse direction.
         var me = this;
         this.resolveTimer = setTimeout(function() { me.resolve(); }, this.pauseDuration);
     },
@@ -90,7 +93,7 @@ MorseInput.prototype = {
         this.dotsAndDashes = '';
 
         // send the Morse direction to the global event bus
-        // stub
+        this.onMorseDirection.dispatch(morseDirection)
     },
 
     /**
