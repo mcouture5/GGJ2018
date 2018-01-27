@@ -9,7 +9,6 @@ Bee = function(game){
     
     this.state = "START";
     this.moveConst = 50;
-    this.stubbornness = 0;
     game.physics.arcade.enable(this);
     
     this.startDir = this.game.rnd.realInRange(0.5 * Math.PI, 1 * Math.PI);
@@ -23,14 +22,14 @@ Bee = function(game){
     game.input.keyboard.addKey(Phaser.KeyCode.DOWN).onDown.add(this.moveSouth, this);
     game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(this.stopMoving, this);
 
-    this.health = 100;
-    this.maxHealth = 100;
+    this.health = 1000;
+    this.maxHealth = 1000;
     this.healthMeterBar = this.game.add.plugin(Phaser.Plugin.HealthMeter);
     this.healthMeterBar.bar(this, {
         y: - this.height, x: 0,
         width: 70, height: 5,
-        foreground: '#ff0000',
-        background: '#aa0000',
+        foreground: '#fff',
+        background: '#ff0000',
         alpha: 0.6,
     });
 };
@@ -76,9 +75,9 @@ Bee.prototype.update = function(){
         case "START":
             break;
         case "STOP":
-            this.stubbornness += 1;
-            if (this.stubbornness % 10 === 0) {
-                console.log(this.stubbornness);
+            this.damage(1);
+            if (this.health % 100 === 0 && this.health > 0) {
+                console.log(this.health);
             }
             break;
     }

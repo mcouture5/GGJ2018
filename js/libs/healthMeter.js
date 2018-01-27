@@ -127,7 +127,7 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
-    var x = this.char.x + this.options.x,
+    var x = this.char.x + this.options.x - this.char.width / 2,
         y = this.char.y + this.options.y;
 
     if (!this.healthBar) {
@@ -139,7 +139,6 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
         this.backBar = this.game.add.sprite(x, y, bmd);
         this.backBar.alpha = this.options.alpha;
-        this.backBar.anchor.set(0.5, 0.5);
         //this.backBar.fixedToCamera = true;
 
         bmd = this.game.add.bitmapData(this.options.width, this.options.height);
@@ -149,7 +148,6 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
         bmd.ctx.fill();
         this.healthBar = this.game.add.sprite(x, y, bmd);
         this.healthBar.width = (this.char.health / this.char.maxHealth) * this.options.width;
-        this.healthBar.anchor.set(0.5, 0.5);
         //this.healthBar.fixedToCamera = true;
 
         return;
@@ -159,10 +157,14 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
     this.healthBar.x = this.backBar.x = x;
     this.healthBar.y = this.backBar.y = y;
 
+    this.healthBar.width = (this.char.health / this.char.maxHealth) * this.options.width;
+
+    /*
     this.game.add.tween(this.healthBar).to(
         {width: (this.char.health / this.char.maxHealth) * this.options.width},
         200, "Linear", true
     );
+    */
 };
 
 Phaser.Plugin.HealthMeter.prototype.updateIcons = function() {
