@@ -96,7 +96,8 @@ GameStage.prototype = {
                 this.beeGroup.add(new Bee(game)),
                 this.beeGroup.add(new Bee(game))
             ];
-            for(var i = 0; i < 3; i++) {
+            var beeCount = this.bees.length;
+            for(var i = 0; i < beeCount; i++) {
                 var self = this;
                 (function(j) {
                     self.bees[i].events.onInputDown.add(function() {
