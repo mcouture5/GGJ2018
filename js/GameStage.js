@@ -164,7 +164,8 @@ GameStage.prototype = {
     },
     onStageFailed: function (rageQuitBee) {
         // Stop listening to the morse input
-        EventBus.onMorseDirection.remove(this.morseHandler, this);
+        EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
+        EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request
         var allowRageQuit = gameManager.stageFailed(rageQuitBee);
