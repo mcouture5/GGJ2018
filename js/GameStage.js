@@ -18,6 +18,10 @@ GameStage.prototype = {
         //Background
         game.add.image(0, 0, this.stageData.background);
 
+        // initialize the queen bee
+        this.queenBee = new QueenBee();
+        game.add.existing(this.queenBee);
+
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;

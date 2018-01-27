@@ -18,6 +18,9 @@ Preload.prototype = {
 		// Begin loading assets
 		////////////////////////
 
+		// load queen bee
+		game.load.image('queen-bee', 'assets/images/Queen.png');
+
 		// Load obstacles
 		game.load.image('test1', 'assets/images/test1.jpg');
 		game.load.image('test2', 'assets/images/test2.jpg');
