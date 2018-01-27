@@ -7,10 +7,6 @@ var QueenBee = function() {
     // enable arcade physics
     game.physics.arcade.enable(this);
 
-    // listen for morse input
-    EventBus.onMorseComplete.add(this.handleMorseComplete, this);
-    EventBus.onMorsePartial.add(this.handleMorsePartial, this);
-
     // how long to keep commands displayed
     this.commandDuration = 2000;
 
@@ -26,40 +22,6 @@ QueenBee.prototype.constructor = QueenBee;
 
 QueenBee.prototype.update = function() {
     Phaser.Sprite.prototype.update.call(this);
-};
-
-/**
- * Handles a complete Morse input.
- */
-QueenBee.prototype.handleMorseComplete = function(result) {
-    var direction = result.direction;
-    var dotsAndDashes = result.dotsAndDashes;
-    switch (direction) {
-        case 'N':
-            this.north();
-            break;
-        case 'S':
-            this.south();
-            break;
-        case 'W':
-            this.west();
-            break;
-        case 'E':
-            this.east();
-            break;
-        case 'INVALID':
-            this.confused(dotsAndDashes);
-            break;
-        default:
-            throw new Error('unexpected direction=' + direction);
-    }
-};
-
-/**
- * Handles a partial Morse input.
- */
-QueenBee.prototype.handleMorsePartial = function(dotsAndDashes) {
-    this.command(dotsAndDashes);
 };
 
 /**
@@ -122,9 +84,6 @@ QueenBee.prototype.confused = function(dotsAndDashes) {
 };
 
 QueenBee.prototype.destroy = function() {
-    // stop listening for morse directions
-    EventBus.onMorseComplete.remove(this.morseHandler, this);
-
     // destroy any lingering command text objects and command timers
     if (this.commandTextObj) {
         this.commandTextObj.destroy();

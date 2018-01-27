@@ -110,7 +110,8 @@ GameStage.prototype = {
             this.selectedBee = this.bees[0];
             this.selectedBee.selected = true;
             var self = this;
-            EventBus.onMorseComplete.add(this.morseHandler, this);
+            EventBus.onMorseComplete.add(this.handleMorseComplete, this);
+            EventBus.onMorsePartial.add(this.handleMorsePartial, this);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();
@@ -143,7 +144,8 @@ GameStage.prototype = {
         gameManager.stageCleared();
 
         this.stageText.destroy();
-        EventBus.onMorseComplete.remove(this.morseHandler, this);
+        EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
+        EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
@@ -212,27 +214,35 @@ GameStage.prototype = {
                 gameManager.nextStage();
             }, this);
     },
-    morseHandler(result) {
+    handleMorseComplete: function(result) {
         var direction = result.direction;
         var dotsAndDashes = result.dotsAndDashes;
         switch (direction) {
             case 'N':
+                this.queenBee.north();
                 this.selectedBee.moveNorth();
                 break;
             case 'S':
+                this.queenBee.south();
                 this.selectedBee.moveSouth();
                 break;
             case 'W':
+                this.queenBee.west();
                 this.selectedBee.moveWest();
                 break;
             case 'E':
+                this.queenBee.east();
                 this.selectedBee.moveEast();
                 break;
             case 'INVALID':
+                this.queenBee.confused(dotsAndDashes);
                 this.selectedBee.stopMoving();
                 break;
             default:
                 throw new Error('unexpected direction=' + direction);
         }
+    },
+    handleMorsePartial: function(dotsAndDashes) {
+	    this.queenBee.command(dotsAndDashes);
     }
-}
+};
