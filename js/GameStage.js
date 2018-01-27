@@ -19,19 +19,21 @@ GameStage.prototype = {
         game.add.image(0, 0, this.stageData.background);
 
         //Initialize groups
-        obstacles = game.add.group();
-        obstacles.enableBody = true;
+        this.obstacles = game.add.group();
+        this.obstacles.enableBody = true;
+        this.beeGroup = game.add.group();
+        this.beeGroup.enableBody = true;
 
         // Run through the obsctacles and create/place them
         let obstacleData = this.stageData.obstacles;
 
         //  Here we'll create 12 of them evenly spaced apart
         for (let ob of obstacleData) {
-            let obstacle = obstacles.create(ob.x, ob.y, ob.sprite);
+            let obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
             obstacle.body.immovable = true;
         }
 
-        let bee = this.game.world.add(new Bee(this.game));
+        let bee = this.beeGroup.add(new Bee(this.game));
         this.bees.push(bee);
 
         // Listen for bee events
@@ -73,7 +75,7 @@ GameStage.prototype = {
         }, this);
 	},
 	update: function(){
-        //game.physics.arcade.collide(stars, obstacles);
+        game.physics.arcade.collide(this.beeGroup, this.obstacles);
 	},
 	render: function(){
 	},
