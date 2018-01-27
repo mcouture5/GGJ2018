@@ -33,7 +33,8 @@ GameStage.prototype = {
             obstacle.body.immovable = true;
         }
 
-        let bee = this.beeGroup.add(new Bee(this.game));
+        var bee = new Bee(game);
+        this.beeGroup.add(bee);
         this.bees.push(bee);
 
         // Listen for bee events
@@ -75,7 +76,7 @@ GameStage.prototype = {
         }, this);
 	},
 	update: function(){
-        game.physics.arcade.collide(this.beeGroup, this.obstacles);
+        let beeColliding = game.physics.arcade.collide(this.beeGroup, this.obstacles);
 	},
 	render: function(){
 	},
