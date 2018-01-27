@@ -25,11 +25,16 @@ var MorseInput = {
         // keep track of the last space key down date
         this.spaceKeyDownDate = null;
 
-        // keep a timer for the resolution of Morse directions
+        // keep a timer for the resolution of Morse input
         this.resolveTimer = null;
 
         // keep track of the current dots and dashes
         this.dotsAndDashes = "";
+
+        // mute input duration is 3x dot duration
+        // keep track of whether we are muting input
+        this.muteInputDuration = this.dotDuration * 3;
+        this.muteInput = false;
     },
 
     /**
@@ -51,24 +56,11 @@ var MorseInput = {
     },
 
     /**
-     * Resolves the Morse direction. Triggers the global onMorseDirection event.
+     * Resolves the Morse input early, triggering the global onMorseComplete event. Mutes the input for a bit.
      */
-    resolve: function() {
-        // clear the resolution timer
-        clearTimeout(this.resolveTimer);
-
-        // get the direction and the dots and dashes
-        var direction = this.getDirection();
-        var dotsAndDashes = this.dotsAndDashes;
-
-        // clear the dots and dashes
-        this.dotsAndDashes = '';
-
-        // create the result object
-        var result = {direction: direction, dotsAndDashes: dotsAndDashes};
-
-        // trigger the global onMorseDirection event
-        EventBus.onMorseDirection.dispatch(result);
+    resolveEarly: function() {
+        var early = true;
+        this.resolveImpl(early);
     },
 
     // implementation details
@@ -77,6 +69,11 @@ var MorseInput = {
      * Handles space key down.
      */
     handleSpaceKeyDown: function() {
+        // if muting input, return early
+        if (this.muteInput) {
+            return;
+        }
+
         // if we already have a last key down date, return early
         if (this.spaceKeyDownDate){
             return;
@@ -93,6 +90,11 @@ var MorseInput = {
      * Handles space key up.
      */
     handleSpaceKeyUp: function() {
+        // if muting input, return early
+        if (this.muteInput) {
+            return;
+        }
+
         // determine the key press duration
         var spaceKeyPressDuration = (new Date())- this.spaceKeyDownDate;
 
@@ -107,16 +109,49 @@ var MorseInput = {
             this.dotsAndDashes += '-';
         }
 
-        // if the current dots and dashes is 4 or more characters, it's clearly invalid, so resolve and return early
+        // declare a shared variable
+        var early;
+
+        // if the current dots and dashes is 4 or more characters, it's clearly invalid, so resolve early and return early
         if (this.dotsAndDashes.length >= 4) {
-            this.resolve();
+            early = true;
+            this.resolveImpl(early);
             return;
         }
 
-        // start the resolution timer. If the pause duration elapses, resolve the Morse direction, triggering the global
-        // onMorseDirection event.
+        // start the resolution timer. If the pause duration elapses, resolve
         var me = this;
-        this.resolveTimer = setTimeout(function() { me.resolve(); }, this.pauseDuration);
+        early = false;
+        this.resolveTimer = setTimeout(function() { me.resolveImpl(early); }, this.pauseDuration);
+    },
+
+    /**
+     * The shared implementation for resolving the Morse input, triggering the global onMorseComplete event. If we're
+     * resolving early, mute the input for a bit.
+     */
+    resolveImpl: function(early) {
+        // clear the resolution timer
+        clearTimeout(this.resolveTimer);
+
+        // get the direction and the dots and dashes
+        var direction = this.getDirection();
+        var dotsAndDashes = this.dotsAndDashes;
+
+        // clear the dots and dashes
+        this.dotsAndDashes = '';
+
+        // create the result object
+        var result = {direction: direction, dotsAndDashes: dotsAndDashes};
+
+        // trigger the global onMorseComplete event
+        EventBus.onMorseDirection.dispatch(result);
+
+        // if resolving early, mute the input for a bit
+        if (early) {
+            this.muteInput = true;
+            var me = this;
+            setTimeout(function() { me.muteInput = false; }, this.muteInputDuration);
+        }
     },
 
     /**
