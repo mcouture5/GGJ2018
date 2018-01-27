@@ -152,7 +152,7 @@ Bee.prototype.suicide = function () {
     this.animRage();
 };
 Bee.prototype.getPollen = function(flower){
-    if (flower.isClaimed()) {
+    if (flower.isClaimed() || this.hasPollen) {
         return;
     }
     flower.claim();
