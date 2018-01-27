@@ -20,6 +20,9 @@
 				game.state.add("MainMenu", MainMenu);
 				game.state.add("GameState", GameState);
 				game.state.start("Preload");
+
+                // prevent the space key from bubbling up to the web browser
+                game.input.keyboard.addKeyCapture(Phaser.KeyCode.SPACEBAR);
 			})();    
 		</script>
 	</head>
