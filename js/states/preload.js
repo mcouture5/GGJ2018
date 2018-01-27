@@ -8,6 +8,11 @@ Preload.prototype = {
 	preload: function(){
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
+		// Load obstacles
+		game.load.image('test1', 'assets/images/test1.jpg');
+		game.load.image('test2', 'assets/images/test2.jpg');
+		game.load.image('test3', 'assets/images/test3.jpg');
+
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
 		game.load.json('stage_2', 'assets/data/stage_2.json');

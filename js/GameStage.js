@@ -11,12 +11,32 @@ GameStage.prototype = {
 	preload: function(){
 	},
 	create: function(){
+        //Initialize groups
+        obstacles = game.add.group();
+        obstacles.enableBody = true;
+
         this.stageData = game.cache.getJSON('stage_' + this.level);
         //start game text
-        var text = this.stageData.name;
-        var style = { font: "30px Arial", fill: "#fff", align: "center" };
-        var t = game.add.text(game.width/2, game.height/2, text, style);
+        let text = this.stageData.name;
+        let style = { font: "30px Arial", fill: "#fff", align: "center" };
+        let t = game.add.text(game.width/2, game.height/2, text, style);
         t.anchor.set(0.5);
+        if (this.level < 5) {
+            t.inputEnabled = true;
+            t.input.useHandCursor = true;
+            t.events.onInputDown.add(function(){
+                gameManager.nextStage();
+            }, this);
+        }
+
+        // Run through the obsctacles and create/place them
+        let obstacleData = this.stageData.obstacles;
+
+        //  Here we'll create 12 of them evenly spaced apart
+        for (let ob of obstacleData) {
+            let obstacle = obstacles.create(ob.x, ob.y, ob.sprite);
+            obstacle.body.immovable = true;
+        }
 
         var bee = this.game.world.add(new Bee(this.game));
 
@@ -27,6 +47,7 @@ GameStage.prototype = {
 		});
 	},
 	update: function(){
+        //game.physics.arcade.collide(stars, obstacles);
 	},
 	render: function(){
 	},

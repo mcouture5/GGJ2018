@@ -14,5 +14,6 @@ GameManager.prototype = {
     },
 	nextStage: function () {
 		this.currentStage++;
+		this.loadStage();
 	}
 };

@@ -2,13 +2,19 @@
     "name": "Stage 3",
     "obstacles": [
         {
-            "sprite": "path/to/images",
-            "dimensions": {
-                "w": 200,
-                "h": 50
-            },
-            "x": 200,
-            "y": 200
+            "sprite": "test1",
+            "x": 146,
+            "y": 372
+        },
+        {
+            "sprite": "test2",
+            "x": 382,
+            "y": 763
+        },
+        {
+            "sprite": "test3",
+            "x": 632,
+            "y": 182
         }
     ]
 }
