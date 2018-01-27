@@ -101,6 +101,7 @@ GameStage.prototype = {
                 var self = this;
                 (function(j) {
                     self.bees[i].events.onInputDown.add(function() {
+                        MorseInput.resolveEarly();
                         self.selectedBee.selected = false;
                         self.selectedBee = self.bees[j];
                         self.bees[j].selected = true;
