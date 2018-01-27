@@ -18,9 +18,6 @@ var MorseInput = function(){
 
     // keep track of the current dots and dashes
     this.dotsAndDashes = "";
-
-    // create an onMorseDirection signal which others can listen to
-    this.onMorseDirection = new Phaser.Signal();
 };
 
 MorseInput.prototype = {
@@ -93,7 +90,7 @@ MorseInput.prototype = {
         this.dotsAndDashes = '';
 
         // send the Morse direction to the global event bus
-        this.onMorseDirection.dispatch(morseDirection)
+        EventBus.onMorseDirection.dispatch(morseDirection);
     },
 
     /**

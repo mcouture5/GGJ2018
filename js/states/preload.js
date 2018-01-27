@@ -13,9 +13,10 @@ Preload.prototype = {
 		//this.game.load.script('customSprite.js', 'js/customSprite.js');
 	},
 	create: function(){
+		// this is a MorseInput test! Rip this out later!
         var morseInput = new MorseInput();
         morseInput.start();
-        morseInput.onMorseDirection.add(function(morseDirection) {
+        EventBus.onMorseDirection.add(function(morseDirection) {
         	console.log(morseDirection);
 		});
 	},
