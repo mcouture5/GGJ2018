@@ -18,7 +18,7 @@ Bee = function(game){
         // Perform colliding behavior.
         // This method gets called AS the bee is colliding.
         console.log("stopped");
-        self.state = "STOP"
+        self.stopMoving();
     };
     this.body.onCollide.add(colliding);
     
@@ -36,29 +36,7 @@ Bee = function(game){
         game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(this.stopMoving, this);
     }
     else {
-        EventBus.onMorseDirection.add(function (result) {
-            var direction = result.direction;
-            var dotsAndDashes = result.dotsAndDashes;
-            switch (direction) {
-                case 'N':
-                    this.moveNorth();
-                    break;
-                case 'S':
-                    this.moveSouth();
-                    break;
-                case 'W':
-                    this.moveWest();
-                    break;
-                case 'E':
-                    this.moveEast();
-                    break;
-                case 'INVALID':
-                    this.stopMoving();
-                    break;
-                default:
-                    throw new Error('unexpected direction=' + direction);
-            }
-        }, this);
+        EventBus.onMorseDirection.add(this.morseHandler, this);
     }
 
     this.health = 1000;
@@ -75,6 +53,31 @@ Bee = function(game){
 
 Bee.prototype = Object.create(Phaser.Sprite.prototype);
 Bee.prototype.constructor = Bee;
+
+
+Bee.prototype.morseHandler = function(result){
+    var direction = result.direction;
+    var dotsAndDashes = result.dotsAndDashes;
+    switch (direction) {
+        case 'N':
+            this.moveNorth();
+            break;
+        case 'S':
+            this.moveSouth();
+            break;
+        case 'W':
+            this.moveWest();
+            break;
+        case 'E':
+            this.moveEast();
+            break;
+        case 'INVALID':
+            this.stopMoving();
+            break;
+        default:
+            throw new Error('unexpected direction=' + direction);
+    }
+};
 
 Bee.prototype.moveWest = function(){
     if (this.state === 'W') {
@@ -123,8 +126,7 @@ Bee.prototype.gameEnd = function(){
 
 Bee.prototype.suicide = function () {
     // FLY ME TO THE HIVE
-    this.body.velocity.x = 40;
-    this.body.velocity.y = -40;
+    this.state = "SUICIDE";
 };
 
 Bee.prototype.update = function(){
@@ -144,11 +146,15 @@ Bee.prototype.update = function(){
             this.damage(1);
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
-                if (this.health <= 0) {
-                    this.state = "GAMEEND";
-                    EventBus.onBeeRageQuit.dispatch(this);
-                }
             }
+            if (this.health <= 0) {
+                this.state = "GAMEEND";
+                EventBus.onBeeRageQuit.dispatch(this);
+            }
+            break;
+        case "SUICIDE":
+            this.body.velocity.x = 400;
+            this.body.velocity.y = -400;
             break;
         case "GAMEEND":
             // Do nothing
@@ -164,4 +170,10 @@ Bee.prototype.damage = function(amount){
         // override damage to not kill the bee at health 0
     }
     return this;
+};
+
+Bee.prototype.destroy = function(){
+    // Unbind events
+    EventBus.onMorseDirection.remove(this.morseHandler, this);
+	Phaser.Sprite.prototype.destroy.call(this);
 };

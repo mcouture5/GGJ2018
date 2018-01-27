@@ -1,5 +1,6 @@
 GameManager = function(stages){
 	this.currentStage = 1;
+	this.rageQuittingBee = null;
 };
 
 GameManager.prototype.constructor = GameManager;
@@ -21,11 +22,17 @@ GameManager.prototype = {
         // Stop listening to input
         MorseInput.stop();
 	},
-	stageFailed: function () {
+	stageFailed: function (bee) {
         // Stop listening to input
         MorseInput.stop();
+		// Multiple bees cane rage quite, lets just deal with one
+		if (!this.rageQuittingBee) {
+			this.rageQuittingBee = bee;
+		}
+		return this.rageQuittingBee == bee;
 	},
 	restartStage: function () {
+		this.rageQuittingBee = null;
 		EventBus.onMorseDirection.remove(this.testMorseInput, this);
         game.state.restart(true, false, this.currentStage);
 	},

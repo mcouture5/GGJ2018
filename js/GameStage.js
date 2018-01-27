@@ -25,13 +25,13 @@ GameStage.prototype = {
         this.beeGroup.enableBody = true;
 
         // Run through the obsctacles and create/place them
-        let obstacleData = this.stageData.obstacles;
+        var obstacleData = this.stageData.obstacles;
 
         //  Here we'll create 12 of them evenly spaced apart
-        for (let ob of obstacleData) {
-            let obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
+        obstacleData.forEach(function (ob) {
+            var obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
             obstacle.body.immovable = true;
-        }
+        }, this);
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
@@ -69,7 +69,7 @@ GameStage.prototype = {
         }, this);
 	},
 	update: function(){
-        let beeColliding = game.physics.arcade.collide(this.beeGroup, this.obstacles);
+        game.physics.arcade.collide(this.beeGroup, this.obstacles);
 	},
 	render: function(){
 	},
@@ -88,7 +88,7 @@ GameStage.prototype = {
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
-            let t = game.add.text(game.width/2, game.height/2 + game.height/4, 'You done got all that pollens!', globalStyle);
+            var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'You done got all that pollens!', globalStyle);
             t.anchor.set(0.5);
             if (this.level < 5) {
                 t.inputEnabled = true;
@@ -102,8 +102,13 @@ GameStage.prototype = {
         }, this);
     },
     onStageFailed: function (rageQuitBee) {
-        // Stage has been failed
-        gameManager.stageFailed();
+        // Stage has been failed. The manager will tell the stage
+        // if it can kill the raged be, or just ignore its rage request
+        var allowRageQuit = gameManager.stageFailed(rageQuitBee);
+        // If not allowed, this means another bee is already rage quitting.
+        if (!allowRageQuit) {
+            return;
+        }
         // Stop all bees!
         this.bees.forEach(function (bee) {
             if (bee != rageQuitBee) {
@@ -111,13 +116,14 @@ GameStage.prototype = {
             }
         });
         // Bring the failed bee to the front
+        game.add.existing(rageQuitBee);
         game.world.bringToTop(rageQuitBee);
         // Show the failed mask
         this.showFailedMask().onComplete.add(function () {
             // Shoot the bee into the hive for a spectacular finale
             rageQuitBee.suicide();
             // Wait for input
-            let t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
+            var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
             t.anchor.set(0.5);
             if (this.level < 5) {
                 t.inputEnabled = true;
