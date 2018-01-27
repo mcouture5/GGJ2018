@@ -118,6 +118,9 @@ GameStage.prototype = {
         this.resultMaskTween.onComplete.removeAll();
         this.failedMaskTween.onComplete.removeAll();
         this.fadeInTween.onComplete.removeAll();
+
+        // destroy the queen bee
+        this.queenBee.destroy();
 	},
     onStageCleared: function () {
         // Stage has been cleared
