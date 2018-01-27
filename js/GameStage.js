@@ -135,6 +135,7 @@ GameStage.prototype = {
         });
 	},
 	render: function(){
+        //game.debug.body(this.queenBee, 'rgba(255,0,0,0.4)');
         //this.borders.forEachAlive(this.renderGroup, this);
         //this.obstacles.forEachAlive(this.renderGroup, this);
 	},

@@ -18,7 +18,7 @@ Preload.prototype = {
 		////////////////////////
 
 		// load queen bee
-		game.load.image('queen-bee', 'assets/images/Queen.png');
+        game.load.spritesheet('queen-bee', 'assets/images/Queensprite.png', 195, 385);
 
 		// Load obstacles
 		game.load.image('test1', 'assets/images/test1.jpg');
@@ -44,6 +44,7 @@ Preload.prototype = {
         
 		// Spritesheets
         game.load.spritesheet('bee', 'assets/images/bee.png', 80, 80);
+        game.load.spritesheet('bee-glow', 'assets/images/bee-glow.png', 80, 80);
 
 		// Force loading assets
     	game.load.start();

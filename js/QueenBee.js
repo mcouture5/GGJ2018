@@ -4,8 +4,14 @@
 var QueenBee = function() {
     Phaser.Sprite.call(this, game, 830, 0, 'queen-bee');
 
+    this.animations.add('queen-idle', [0], 1, false);
+    this.animations.add('queen-speech', [1], 1, false);
+    this.animations.add('queen-speech-whoops', [2], 1, false);
+    this.animations.play('queen-idle');
+
     // enable arcade physics
     game.physics.arcade.enable(this);
+    this.body.setCircle(175, 25, -100);
 
     // how long to keep commands displayed
     this.commandDuration = 2000;
@@ -45,7 +51,10 @@ QueenBee.prototype.command = function(command) {
 
     // set up the command timer which will destroy the command text object after the command duration as elapsed
     var me = this;
-    this.commandTimer = setTimeout(function() { me.commandTextObj.destroy() }, this.commandDuration);
+    this.commandTimer = setTimeout(function() {
+        me.commandTextObj.destroy();
+        me.animations.play('queen-idle');
+    }, this.commandDuration);
 };
 
 /**
@@ -53,6 +62,7 @@ QueenBee.prototype.command = function(command) {
  */
 QueenBee.prototype.north = function() {
     this.command('N -.');
+    this.animations.play('queen-speech');
 };
 
 /**
@@ -60,6 +70,7 @@ QueenBee.prototype.north = function() {
  */
 QueenBee.prototype.south = function() {
     this.command('S ...');
+    this.animations.play('queen-speech');
 };
 
 /**
@@ -67,6 +78,7 @@ QueenBee.prototype.south = function() {
  */
 QueenBee.prototype.west = function() {
     this.command('W .--');
+    this.animations.play('queen-speech');
 };
 
 /**
@@ -74,6 +86,7 @@ QueenBee.prototype.west = function() {
  */
 QueenBee.prototype.east = function() {
     this.command('E .');
+    this.animations.play('queen-speech');
 };
 
 /**
@@ -81,6 +94,7 @@ QueenBee.prototype.east = function() {
  */
 QueenBee.prototype.confused = function(dotsAndDashes) {
     this.command('? ' + dotsAndDashes);
+    this.animations.play('queen-speech-whoops');
 };
 
 QueenBee.prototype.destroy = function() {

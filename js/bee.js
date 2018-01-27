@@ -36,6 +36,12 @@ Bee = function(game){
     this.body.velocity.y = Math.sin(this.startDir) * this.moveConst;
     this.body.velocity.x = Math.cos(this.startDir) * this.moveConst;
     
+    // Add the glow sprite behind the main sprite
+    //this.glowSprite = new GlowSprite('bee-glow', this);
+    //this.addChildAt(this.glowSprite, 0);
+    //game.add.existing(this.glowSprite);
+
+
     // temporary movement controls
     var cheating = false;
     if (cheating) {
