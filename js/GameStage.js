@@ -64,16 +64,6 @@ GameStage.prototype = {
                 this.beeGroup.add(new Bee(game))
             ];
 
-            //start game text
-            this.stageText = game.add.text(game.width/2, game.height/2, this.stageData.name, globalStyle);
-            this.stageText.anchor.set(0.5);
-            this.stageText.inputEnabled = true;
-            this.stageText.input.useHandCursor = true;
-            this.stageText.events.onInputDown.add(function(){
-                //this.onStageCleared();
-                EventBus.onBeeRageQuit.dispatch(bee);
-            }, this);
-
             // Tell the game manager the stage has begun
             gameManager.beginStage();
         }, this);
@@ -111,15 +101,21 @@ GameStage.prototype = {
             }
         }, this);
     },
-    onStageFailed: function (bee) {
+    onStageFailed: function (rageQuitBee) {
         // Stage has been failed
         gameManager.stageFailed();
         // Stop all bees!
-        this.bees.forEach((bee) => bee.stopMoving());
+        this.bees.forEach(function (bee) {
+            if (bee != rageQuitBee) {
+                bee.gameEnd()
+            }
+        });
         // Bring the failed bee to the front
-        game.world.bringToTop(bee);
+        game.world.bringToTop(rageQuitBee);
         // Show the failed mask
         this.showFailedMask().onComplete.add(function () {
+            // Shoot the bee into the hive for a spectacular finale
+            rageQuitBee.suicide();
             // Wait for input
             let t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
             t.anchor.set(0.5);

@@ -101,6 +101,16 @@ Bee.prototype.stopMoving = function(){
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 };
+Bee.prototype.gameEnd = function(){
+    this.state = "GAMEEND";
+};
+
+Bee.prototype.suicide = function () {
+    // FLY ME TO THE HIVE
+    this.body.velocity.x = 40;
+    this.body.velocity.y = -40;
+};
+
 Bee.prototype.update = function(){
 	Phaser.Sprite.prototype.update.call(this);
 	switch(this.state) {
@@ -118,7 +128,16 @@ Bee.prototype.update = function(){
             this.damage(1);
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
+                if (this.health <= 0) {
+                    this.state = "GAMEEND";
+                    EventBus.onBeeRageQuit.dispatch(this);
+                }
             }
+            break;
+        case "GAMEEND":
+            // Do nothing
+            this.body.velocity.x = 0;
+            this.body.velocity.y = 0;
             break;
     }
 };
