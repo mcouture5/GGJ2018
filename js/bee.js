@@ -12,7 +12,14 @@ Bee = function(game){
 
     game.physics.arcade.enable(this);
 
-    this.body.onCollide = new Phaser.Signal()
+    this.body.onCollide = new Phaser.Signal();
+    var self = this;
+    function colliding (){
+        // Perform colliding behavior.
+        // This method gets called AS the bee is colliding.
+        console.log("stopped");
+        self.state = "STOP"
+    };
     this.body.onCollide.add(colliding);
     
     this.startDir = this.game.rnd.realInRange(0.5 * Math.PI, 1 * Math.PI);
@@ -40,12 +47,6 @@ Bee = function(game){
 
 Bee.prototype = Object.create(Phaser.Sprite.prototype);
 Bee.prototype.constructor = Bee;
-
-function colliding (){
-    // Perform colliding behavior.
-    // This method gets called AS the bee is colliding.
-    console.log('collide');
-};
 
 Bee.prototype.moveWest = function(){
     this.state = "W";
