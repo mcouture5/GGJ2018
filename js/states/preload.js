@@ -6,7 +6,6 @@ Preload.prototype = {
 	init: function(params){
 	},
 	preload: function(){
-
 		game.load.onLoadStart.add(this.loadStart, this);
 		game.load.onFileComplete.add(this.fileComplete, this);
 		game.load.onLoadComplete.add(this.loadComplete, this);
@@ -67,7 +66,6 @@ Preload.prototype = {
         MorseInput.init();
 	},
 	create: function(){
-		gameManager.reset();
 	},
 	update: function(){
 	},
@@ -83,5 +81,9 @@ Preload.prototype = {
 	},
 	loadComplete: function() {
 		text.setText("Load Complete");
+		// gameManager.reset();
+
+		// TODO remove the following code for skipping straight to stage 1
+		game.state.start('GameStage', true, false, 1);
 	}
 }
