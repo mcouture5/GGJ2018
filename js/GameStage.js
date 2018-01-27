@@ -18,6 +18,8 @@ GameStage.prototype = {
         var t = game.add.text(game.width/2, game.height/2, text, style);
         t.anchor.set(0.5);
 
+        var bee = this.game.world.add(new Bee(this.game));
+
         // start MorseInput
         MorseInput.start();
         EventBus.onMorseDirection.add(function(result) {

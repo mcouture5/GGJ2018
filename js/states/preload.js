@@ -14,6 +14,8 @@ Preload.prototype = {
 		game.load.json('stage_3', 'assets/data/stage_3.json');
 		game.load.json('stage_4', 'assets/data/stage_4.json');
 		game.load.json('stage_5', 'assets/data/stage_5.json');
+        
+        this.game.load.spritesheet('bee', 'assets/images/bee.png', 120, 120);
 
 		// Managers
 	    audioManager = new AudioManager();
