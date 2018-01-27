@@ -17,21 +17,45 @@ GameStage.prototype = {
 
         //Background
         game.add.image(0, 0, this.stageData.background);
-        // Directions
-        game.add.image(0, 0, 'directions');
 
         // initialize the queen bee
         this.queenBee = new QueenBee();
         game.add.existing(this.queenBee);
 
+        // Directions
+        game.add.image(0, 0, 'directions');
+
         // Flowers
         game.add.existing(new Flower(game));
-
+        
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
         this.beeGroup = game.add.group();
         this.beeGroup.enableBody = true;
+        this.borders = game.add.group();
+        this.borders.enableBody = true;
+
+        // Stage borders
+        // Top
+        var topBorder = this.borders.create(0, 0, 'collision');
+        topBorder.scale.setTo(game.width, 50);
+        topBorder.body.immovable = true;
+
+        // Right
+        var rightBorder = this.borders.create(game.width - 50, 0, 'collision');
+        rightBorder.scale.setTo(50, game.height)
+        rightBorder.body.immovable = true;
+
+         // Bottom
+        var bottomBorder = this.borders.create(0, game.height - 50, 'collision');
+        bottomBorder.scale.setTo(game.width, 50);
+        bottomBorder.body.immovable = true;
+        
+         // Left
+        var leftBorder = this.borders.create(0, 0, 'collision');
+        leftBorder.scale.setTo(50, game.height);
+        leftBorder.body.immovable = true;
 
         // Run through the obsctacles and create/place them
         var obstacleData = this.stageData.obstacles;
@@ -63,7 +87,6 @@ GameStage.prototype = {
         this.failedMaskTween = game.add.tween(this.failedMask).to( { alpha: 0.5 }, 500, Phaser.Easing.Linear.None, false);
         this.fadeInTween = game.add.tween(this.fadeMask).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, false);
 
-
         // After all has been created, reveal the stage!
         this.fadeIn().onComplete.add(function () {
             // Add bees!
@@ -79,9 +102,16 @@ GameStage.prototype = {
 	},
 	update: function(){
         game.physics.arcade.collide(this.beeGroup, this.obstacles);
+        game.physics.arcade.collide(this.beeGroup, this.borders);
 	},
 	render: function(){
+        this.borders.forEachAlive(this.renderGroup, this);
+        this.obstacles.forEachAlive(this.renderGroup, this);
 	},
+    renderGroup: function(member)
+    {
+        game.debug.body(member, 'rgba(255,0,0,0.4)');
+    },
 	shutdown: function(){
         // Cleanup events
         EventBus.onBeeRageQuit.remove(this.onStageFailed, this);

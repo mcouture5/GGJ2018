@@ -25,6 +25,7 @@ Preload.prototype = {
 		game.load.image('test1', 'assets/images/test1.jpg');
 		game.load.image('test2', 'assets/images/test2.jpg');
 		game.load.image('test3', 'assets/images/test3.jpg');
+		game.load.image('collision', 'assets/images/collision.png');
 
 		// Directions
 		game.load.image('directions', 'assets/images/Directions.png');
