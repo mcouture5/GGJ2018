@@ -56,11 +56,17 @@ var MorseInput = {
     },
 
     /**
-     * Resolves the Morse input early, triggering the global onMorseComplete event. Mutes the input for a bit.
+     * Resolves the Morse input early, triggering the global onMorseComplete event.
      */
     resolveEarly: function() {
-        var early = true;
-        this.resolveImpl(early);
+        // if no dots and dashes, return early
+        if (this.dotsAndDashes === '') {
+            return;
+        }
+
+        // resolve. Do not mute input
+        var muteInput = false;
+        this.resolveImpl(muteInput);
     },
 
     // implementation details
@@ -113,26 +119,27 @@ var MorseInput = {
         EventBus.onMorsePartial.dispatch(this.dotsAndDashes);
 
         // declare a shared variable
-        var early;
+        var muteInput;
 
-        // if the current dots and dashes is 4 or more characters, it's clearly invalid, so resolve early and return early
+        // if the current dots and dashes is 4 or more characters, it's clearly invalid, so resolve and return early.
+        // Make sure to mute the input to make things go smoother.
         if (this.dotsAndDashes.length >= 4) {
-            early = true;
-            this.resolveImpl(early);
+            muteInput = true;
+            this.resolveImpl(muteInput);
             return;
         }
 
         // start the resolution timer. If the pause duration elapses, resolve
         var me = this;
-        early = false;
-        this.resolveTimer = setTimeout(function() { me.resolveImpl(early); }, this.pauseDuration);
+        muteInput = false;
+        this.resolveTimer = setTimeout(function() { me.resolveImpl(muteInput); }, this.pauseDuration);
     },
 
     /**
-     * The shared implementation for resolving the Morse input, triggering the global onMorseComplete event. If we're
-     * resolving early, mute the input for a bit.
+     * The shared implementation for resolving the Morse input, triggering the global onMorseComplete event. If needed,
+     * mute the input for a bit.
      */
-    resolveImpl: function(early) {
+    resolveImpl: function(muteInput) {
         // clear the resolution timer
         clearTimeout(this.resolveTimer);
 
@@ -149,8 +156,8 @@ var MorseInput = {
         // trigger the global onMorseComplete event
         EventBus.onMorseComplete.dispatch(result);
 
-        // if resolving early, mute the input for a bit
-        if (early) {
+        // if needed, mute the input for a bit
+        if (muteInput) {
             this.muteInput = true;
             var me = this;
             setTimeout(function() { me.muteInput = false; }, this.muteInputDuration);
