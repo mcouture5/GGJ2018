@@ -2,6 +2,7 @@ var GameStage = function(){
     this.level = 1;
     this.stageData = {};
     this.bees = [];
+    this.selectedBee;
 };
  
 GameStage.prototype = {
@@ -95,6 +96,20 @@ GameStage.prototype = {
                 this.beeGroup.add(new Bee(game)),
                 this.beeGroup.add(new Bee(game))
             ];
+            for(var i = 0; i < 3; i++) {
+                var self = this;
+                (function(j) {
+                    self.bees[i].events.onInputDown.add(function() {
+                        self.selectedBee.selected = false;
+                        self.selectedBee = self.bees[j];
+                        self.bees[j].selected = true;
+                    }, this);
+                })(i);
+            }
+            this.selectedBee = this.bees[0];
+            this.selectedBee.selected = true;
+            var self = this;
+            EventBus.onMorseDirection.add(this.morseHandler, this);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();
@@ -127,6 +142,7 @@ GameStage.prototype = {
         gameManager.stageCleared();
 
         this.stageText.destroy();
+        EventBus.onMorseDirection.remove(this.morseHandler, this);
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
@@ -194,5 +210,28 @@ GameStage.prototype = {
             .onComplete.add(function () {
                 gameManager.nextStage();
             }, this);
+    },
+    morseHandler(result) {
+        var direction = result.direction;
+        var dotsAndDashes = result.dotsAndDashes;
+        switch (direction) {
+            case 'N':
+                this.selectedBee.moveNorth();
+                break;
+            case 'S':
+                this.selectedBee.moveSouth();
+                break;
+            case 'W':
+                this.selectedBee.moveWest();
+                break;
+            case 'E':
+                this.selectedBee.moveEast();
+                break;
+            case 'INVALID':
+                this.selectedBee.stopMoving();
+                break;
+            default:
+                throw new Error('unexpected direction=' + direction);
+        }
     }
 }

@@ -1,5 +1,6 @@
 Bee = function(game){
 	Phaser.Sprite.call(this, game, 900, 100, 'bee');
+    this.inputEnabled = true;
     this.startX = 200;
     this.anchor.setTo(0.5, 1);
     this.speed = this.game.rnd.integerInRange(8,12);
@@ -8,6 +9,8 @@ Bee = function(game){
     this.animations.play('idle');
     this.state = "START";
     this.moveConst = 50;
+    this.colliding = false;
+    this.selected = false;
 
     game.physics.arcade.enable(this);
 
@@ -37,9 +40,6 @@ Bee = function(game){
         game.input.keyboard.addKey(Phaser.KeyCode.DOWN).onDown.add(this.moveSouth, this);
         game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(this.stopMoving, this);
     }
-    else {
-        EventBus.onMorseDirection.add(this.morseHandler, this);
-    }
 
     this.health = 1000;
     this.maxHealth = 1000;
@@ -57,29 +57,6 @@ Bee.prototype = Object.create(Phaser.Sprite.prototype);
 Bee.prototype.constructor = Bee;
 
 
-Bee.prototype.morseHandler = function(result){
-    var direction = result.direction;
-    var dotsAndDashes = result.dotsAndDashes;
-    switch (direction) {
-        case 'N':
-            this.moveNorth();
-            break;
-        case 'S':
-            this.moveSouth();
-            break;
-        case 'W':
-            this.moveWest();
-            break;
-        case 'E':
-            this.moveEast();
-            break;
-        case 'INVALID':
-            this.stopMoving();
-            break;
-        default:
-            throw new Error('unexpected direction=' + direction);
-    }
-};
 
 Bee.prototype.moveWest = function(){
     if (this.state === 'W') {
@@ -133,6 +110,11 @@ Bee.prototype.suicide = function () {
 
 Bee.prototype.update = function(){
 	Phaser.Sprite.prototype.update.call(this);
+    if (this.selected) {
+        this.tint = 0xFFFFFF;
+    } else {
+        this.tint = 0x999999;
+    }
 	switch(this.state) {
         case "W":
             break;
@@ -177,7 +159,6 @@ Bee.prototype.damage = function(amount){
 
 Bee.prototype.destroy = function(){
     // Unbind events
-    EventBus.onMorseDirection.remove(this.morseHandler, this);
     this.healthMeterBar.destroy();
     Phaser.Sprite.prototype.destroy.call(this);
 };
