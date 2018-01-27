@@ -7,7 +7,9 @@ Bee = function(game){
     this.animations.add('idle', [0,1,2,3,4,5,6,7,8], this.speed, true);
     this.animations.play('idle');
     this.state = "";
-    this.moveConst = 1;
+    this.moveConst = 50;
+
+    game.physics.arcade.enable(this);
     
     //temporary movement controls
     game.input.keyboard.addKey(Phaser.KeyCode.LEFT).onDown.add(this.moveWest, this);
@@ -38,16 +40,20 @@ Bee.prototype.update = function(){
 	Phaser.Sprite.prototype.update.call(this);
 	switch(this.state) {
         case "W":
-            this.x -= this.moveConst;
+            this.body.velocity.x = -this.moveConst;
+            this.body.velocity.y = 0;
             break;
         case "E":
-            this.x += this.moveConst;
+            this.body.velocity.x = this.moveConst;
+            this.body.velocity.y = 0;
             break;
         case "N":
-            this.y -= this.moveConst;
+            this.body.velocity.x = 0;
+            this.body.velocity.y = -this.moveConst;
             break;
         case "S":
-            this.y += this.moveConst;
+            this.body.velocity.x = 0;
+            this.body.velocity.y = this.moveConst;
             break;
     }
 };
