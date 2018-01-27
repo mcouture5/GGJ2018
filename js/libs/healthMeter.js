@@ -131,7 +131,6 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
         y = this.char.y + this.options.y;
 
     if (!this.healthBar) {
-        console.log('updateBar');
         var bmd = this.game.add.bitmapData(this.options.width, this.options.height);
         bmd.ctx.beginPath();
         bmd.ctx.rect(0, 0, this.options.width, this.options.height);
