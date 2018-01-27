@@ -77,24 +77,40 @@ Bee.prototype = Object.create(Phaser.Sprite.prototype);
 Bee.prototype.constructor = Bee;
 
 Bee.prototype.moveWest = function(){
-    this.state = "W";
-    this.body.velocity.x = -this.moveConst;
+    if (this.state === 'W') {
+        this.body.velocity.x -= this.moveConst;
+    } else {
+        this.body.velocity.x = -this.moveConst;
+    }
     this.body.velocity.y = 0;
+    this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
-    this.state = "E";
-    this.body.velocity.x = this.moveConst;
+    if (this.state === 'E') {
+        this.body.velocity.x += this.moveConst;
+    } else {
+        this.body.velocity.x = this.moveConst;
+    }
     this.body.velocity.y = 0;
+    this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
-    this.state = "N";
+    if (this.state === 'N') {
+        this.body.velocity.y -= this.moveConst;
+    } else {
+        this.body.velocity.y = -this.moveConst;
+    }
     this.body.velocity.x = 0;
-    this.body.velocity.y = -this.moveConst;
+    this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
-    this.state = "S";
+    if (this.state === 'S') {
+        this.body.velocity.y += this.moveConst;
+    } else {
+        this.body.velocity.y = this.moveConst;
+    }
     this.body.velocity.x = 0;
-    this.body.velocity.y = this.moveConst;
+    this.state = 'S';
 };
 Bee.prototype.stopMoving = function(){
     this.state = "STOP";
