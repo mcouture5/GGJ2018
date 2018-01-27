@@ -6,12 +6,25 @@ Preload.prototype = {
 	init: function(params){
 	},
 	preload: function(){
-		game.physics.startSystem(Phaser.Physics.ARCADE);
+
+		game.load.onLoadStart.add(this.loadStart, this);
+		game.load.onFileComplete.add(this.fileComplete, this);
+		game.load.onLoadComplete.add(this.loadComplete, this);
+
+		//	Progress report
+		text = game.add.text(32, 32, 'Click to start load', { fill: '#ffffff' });
+
+		////////////////////////
+		// Begin loading assets
+		////////////////////////
 
 		// Load obstacles
 		game.load.image('test1', 'assets/images/test1.jpg');
 		game.load.image('test2', 'assets/images/test2.jpg');
 		game.load.image('test3', 'assets/images/test3.jpg');
+
+		//Backgrounds
+		game.load.image('background-stage-1', 'assets/images/Background.png');
 
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
@@ -20,7 +33,18 @@ Preload.prototype = {
 		game.load.json('stage_4', 'assets/data/stage_4.json');
 		game.load.json('stage_5', 'assets/data/stage_5.json');
         
-        this.game.load.spritesheet('bee', 'assets/images/bee.png', 120, 120);
+		// Spritesheets
+        game.load.spritesheet('bee', 'assets/images/bee.png', 120, 120);
+
+		// Force loading assets
+    	game.load.start();
+
+		//////////////////////
+		// End loading assets
+		//////////////////////
+
+		// Physics
+		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// Managers
 	    audioManager = new AudioManager();
@@ -40,5 +64,14 @@ Preload.prototype = {
 	render: function(){
 	},
 	shutdown: function(){
+	},
+	loadStart: function() {
+		text.setText("Loading ...");
+	},
+	fileComplete: function(progress, cacheKey, success, totalLoaded, totalFiles) {
+		text.setText("File Complete: " + progress + "% - " + totalLoaded + " out of " + totalFiles);
+	},
+	loadComplete: function() {
+		text.setText("Load Complete");
 	}
 }

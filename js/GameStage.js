@@ -11,11 +11,16 @@ GameStage.prototype = {
 	preload: function(){
 	},
 	create: function(){
+        // Get stage data from the cache
+        this.stageData = game.cache.getJSON('stage_' + this.level);
+
+        //Background
+        game.add.image(0, 0, this.stageData.background);
+
         //Initialize groups
         obstacles = game.add.group();
         obstacles.enableBody = true;
 
-        this.stageData = game.cache.getJSON('stage_' + this.level);
         //start game text
         let text = this.stageData.name;
         let style = { font: "30px Arial", fill: "#fff", align: "center" };

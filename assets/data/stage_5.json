@@ -1,5 +1,6 @@
 {
     "name": "Stage 5",
+    "background": "background-stage-1",
     "obstacles": [
         {
             "sprite": "test1",
