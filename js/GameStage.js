@@ -124,11 +124,7 @@ GameStage.prototype = {
         game.physics.arcade.collide(this.beeGroup, this.obstacles);
         game.physics.arcade.collide(this.beeGroup, this.borders);
         game.physics.arcade.overlap(this.beeGroup, this.flowers, function(bee, flower) {
-            if (!flower.isClaimed()) {
-                flower.claim();
-                bee.getPollen();
-                game.add.tween(bee).to({ x: flower.x, y: flower.y }, 2000, null, true);
-            }
+            bee.getPollen(flower);
         });
 	},
 	render: function(){

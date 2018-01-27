@@ -11,7 +11,7 @@ Bee = function(game){
     this.animations.add('bee-frustrated', [4,5,6,7], this.speed, true);
     this.animations.add('bee-frustrated-pollen', [8,9,10,11], this.speed, true);
     this.animations.add('bee-rage-pollen', [20,21,22,23], this.speed, true);
-    this.animations.play('bee-happy');
+    this.animHappy();
     this.state = "START";
     this.moveConst = 50;
     this.selected = false;
@@ -61,14 +61,24 @@ Bee = function(game){
 Bee.prototype = Object.create(Phaser.Sprite.prototype);
 Bee.prototype.constructor = Bee;
 
+Bee.prototype.animHappy = function(){
+    this.animations.play(this.hasPollen ? 'bee-pollen' : 'bee-happy')
+};
 
+Bee.prototype.animRage = function(){
+    this.animations.play(this.hasPollen ? 'bee-rage-pollen' : 'bee-rage')
+};
+
+Bee.prototype.animFrustrated = function(){
+    this.animations.play(this.hasPollen ? 'bee-frustrated-pollen' : 'bee-frustrated')
+};
 
 Bee.prototype.moveWest = function(){
     if (this.state == 'POLLEN') {
         return;
     }
     this.scale.x = Math.abs(this.scale.x);
-    this.animations.play('bee-happy');
+    this.animHappy();
     if (this.state === 'W') {
         this.body.velocity.x -= this.moveConst;
     } else {
@@ -82,7 +92,7 @@ Bee.prototype.moveEast = function(){
         return;
     }
     this.scale.x = -Math.abs(this.scale.x);
-    this.animations.play('bee-happy');
+    this.animHappy();
     if (this.state === 'E') {
         this.body.velocity.x += this.moveConst;
     } else {
@@ -95,7 +105,7 @@ Bee.prototype.moveNorth = function(){
     if (this.state == 'POLLEN') {
         return;
     }
-    this.animations.play('bee-happy');
+    this.animHappy();
     if (this.state === 'N') {
         this.body.velocity.y -= this.moveConst;
     } else {
@@ -108,7 +118,7 @@ Bee.prototype.moveSouth = function(){
     if (this.state == 'POLLEN') {
         return;
     }
-    this.animations.play('bee-happy');
+    this.animHappy();
     if (this.state === 'S') {
         this.body.velocity.y += this.moveConst;
     } else {
@@ -122,7 +132,7 @@ Bee.prototype.stopMoving = function(){
         return;
     }
     this.state = "STOP";
-    this.animations.play('bee-frustrated');
+    this.animFrustrated();
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
 };
@@ -133,13 +143,43 @@ Bee.prototype.gameEnd = function(){
 Bee.prototype.suicide = function () {
     // FLY ME TO THE HIVE
     this.state = "SUICIDE";
+    this.animRage();
 };
-Bee.prototype.getPollen = function(){
+Bee.prototype.getPollen = function(flower){
+    if (flower.isClaimed()) {
+        return;
+    }
+    flower.claim();
     this.state = "POLLEN";
     this.hasPollen = true;
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
     this.inputEnabled = false;
+
+    var flowerAlignTween = game.add.tween(this).to({ x: flower.x, y: flower.y }, 1000, null, true);
+    flowerAlignTween.onComplete.add(function() {
+        this.animations.play('bee-collecting');
+    }, this);
+
+    var timer = game.time.create();
+    timer.add(5000, function() {
+        this.finishPollen();
+    }, this);
+    timer.start();
+};
+
+Bee.prototype.finishPollen = function(){
+    this.animHappy();
+    this.inputEnabled = true;
+    this.state = 'POLLEN_DONE';
+    var timer = game.time.create();
+    timer.add(4000, function() {
+        if (this.state === 'POLLEN_DONE') {
+            // still not moved
+            this.stopMoving();
+        }
+    }, this);
+    timer.start();
 };
 
 Bee.prototype.update = function(){
@@ -161,7 +201,6 @@ Bee.prototype.update = function(){
         case "START":
             break;
         case "STOP":
-            this.animations.play('bee-frustrated');
             this.damage(1);
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
@@ -172,13 +211,14 @@ Bee.prototype.update = function(){
             }
             break;
         case "SUICIDE":
-            this.animations.play('bee-rage');
             this.scale.x = -Math.abs(this.scale.x);
             this.body.collideWorldBounds = false;
             this.body.velocity.x = 220;
             this.body.velocity.y = -220;
             break;
         case "POLLEN":
+            break;
+        case "POLLEN_DONE":
             break;
         case "GAMEEND":
             // Do nothing
