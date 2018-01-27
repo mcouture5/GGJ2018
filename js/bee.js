@@ -8,11 +8,12 @@ Bee = function(game){
     this.animations.play('idle');
     this.state = "START";
     this.moveConst = 50;
-    this.colliding = false;
 
     game.physics.arcade.enable(this);
 
+    this.body.collideWorldBounds = true;
     this.body.onCollide = new Phaser.Signal();
+    this.body.onWorldBounds = new Phaser.Signal();
     var self = this;
     function colliding (){
         // Perform colliding behavior.
@@ -21,7 +22,8 @@ Bee = function(game){
         self.stopMoving();
     };
     this.body.onCollide.add(colliding);
-    
+    this.body.onWorldBounds.add(colliding);
+
     this.startDir = this.game.rnd.realInRange(0.5 * Math.PI, 1 * Math.PI);
     this.body.velocity.y = Math.sin(this.startDir) * this.moveConst;
     this.body.velocity.x = Math.cos(this.startDir) * this.moveConst;
@@ -153,6 +155,7 @@ Bee.prototype.update = function(){
             }
             break;
         case "SUICIDE":
+            this.body.collideWorldBounds = false;
             this.body.velocity.x = 400;
             this.body.velocity.y = -400;
             break;
