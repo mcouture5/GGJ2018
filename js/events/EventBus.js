@@ -4,7 +4,8 @@
 var EventBus = {
 
     // triggered by MorseInput. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}.
-    onMorseDirection: new Phaser.Signal()
+    onMorseDirection: new Phaser.Signal(),
 
+    onBeeRageQuit: new Phaser.Signal()
     // onFoo: new Phaser.Signal();
 };
