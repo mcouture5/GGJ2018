@@ -18,9 +18,9 @@ var MorseInput = {
         this.spaceKey = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
         // dot duration is 250 milliseconds
-        // pause duration is 3x dot duration
+        // pause duration is 2x dot duration
         this.dotDuration = 250;
-        this.pauseDuration = this.dotDuration * 3;
+        this.pauseDuration = this.dotDuration * 2;
 
         // keep track of the last space key down date
         this.spaceKeyDownDate = null;

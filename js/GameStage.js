@@ -17,11 +17,19 @@ GameStage.prototype = {
         var style = { font: "30px Arial", fill: "#fff", align: "center" };
         var t = game.add.text(game.width/2, game.height/2, text, style);
         t.anchor.set(0.5);
+
+        // start MorseInput
+        MorseInput.start();
+        EventBus.onMorseDirection.add(function(result) {
+        	console.log(result);
+		});
 	},
 	update: function(){
 	},
 	render: function(){
 	},
 	shutdown: function(){
+        // stop MorseInput
+        MorseInput.start();
 	}
 }
