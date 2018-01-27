@@ -64,6 +64,9 @@ Bee.prototype.constructor = Bee;
 
 
 Bee.prototype.moveWest = function(){
+    if (this.state == 'POLLEN') {
+        return;
+    }
     this.scale.x = Math.abs(this.scale.x);
     this.animations.play('bee-happy');
     if (this.state === 'W') {
@@ -75,6 +78,9 @@ Bee.prototype.moveWest = function(){
     this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
+    if (this.state == 'POLLEN') {
+        return;
+    }
     this.scale.x = -Math.abs(this.scale.x);
     this.animations.play('bee-happy');
     if (this.state === 'E') {
@@ -86,6 +92,9 @@ Bee.prototype.moveEast = function(){
     this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
+    if (this.state == 'POLLEN') {
+        return;
+    }
     this.animations.play('bee-happy');
     if (this.state === 'N') {
         this.body.velocity.y -= this.moveConst;
@@ -96,6 +105,9 @@ Bee.prototype.moveNorth = function(){
     this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
+    if (this.state == 'POLLEN') {
+        return;
+    }
     this.animations.play('bee-happy');
     if (this.state === 'S') {
         this.body.velocity.y += this.moveConst;
@@ -106,6 +118,9 @@ Bee.prototype.moveSouth = function(){
     this.state = 'S';
 };
 Bee.prototype.stopMoving = function(){
+    if (this.state == 'POLLEN') {
+        return;
+    }
     this.state = "STOP";
     this.animations.play('bee-frustrated');
     this.body.velocity.x = 0;
@@ -118,6 +133,9 @@ Bee.prototype.gameEnd = function(){
 Bee.prototype.suicide = function () {
     // FLY ME TO THE HIVE
     this.state = "SUICIDE";
+};
+Bee.prototype.getPollen = function(){
+    this.state = "POLLEN";
 };
 
 Bee.prototype.update = function(){
@@ -156,6 +174,11 @@ Bee.prototype.update = function(){
             this.body.velocity.x = 220;
             this.body.velocity.y = -220;
             break;
+        case "POLLEN":
+            this.body.velocity.x = 0;
+            this.body.velocity.y = 0;
+            this.inputEnabled = false;
+            break;
         case "GAMEEND":
             // Do nothing
             this.body.velocity.x = 0;
@@ -173,7 +196,6 @@ Bee.prototype.damage = function(amount){
 };
 
 Bee.prototype.destroy = function(){
-    // Unbind events
     this.healthMeterBar.destroy();
     Phaser.Sprite.prototype.destroy.call(this);
 };

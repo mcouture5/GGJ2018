@@ -26,9 +26,6 @@ GameStage.prototype = {
         // Directions
         game.add.image(0, 0, 'directions');
 
-        // Flowers
-        game.add.existing(new Flower(game));
-        
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
@@ -36,6 +33,8 @@ GameStage.prototype = {
         this.beeGroup.enableBody = true;
         this.borders = game.add.group();
         this.borders.enableBody = true;
+        this.flowers = game.add.group();
+        this.flowers.enableBody = true;
 
         // Stage borders
         // Top
@@ -66,6 +65,9 @@ GameStage.prototype = {
             var obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
             obstacle.body.immovable = true;
         }, this);
+
+        // Flowers
+        this.flowers.add(new Flower(game));
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
@@ -121,6 +123,12 @@ GameStage.prototype = {
 	update: function(){
         game.physics.arcade.collide(this.beeGroup, this.obstacles);
         game.physics.arcade.collide(this.beeGroup, this.borders);
+        game.physics.arcade.overlap(this.beeGroup, this.flowers, function(bee, flower) {
+            if (!flower.isClaimed()) {
+                flower.claim();
+                bee.getPollen();
+            }
+        });
 	},
 	render: function(){
         //this.borders.forEachAlive(this.renderGroup, this);
