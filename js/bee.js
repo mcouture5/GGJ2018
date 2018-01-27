@@ -141,3 +141,11 @@ Bee.prototype.update = function(){
             break;
     }
 };
+
+Bee.prototype.damage = function(amount){
+    if (this.alive && this.health > 0) {
+        this.health -= amount;
+        // override damage to not kill the bee at health 0
+    }
+    return this;
+};
