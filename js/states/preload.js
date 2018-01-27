@@ -22,14 +22,13 @@ Preload.prototype = {
 		gameManager = new GameManager();
 	},
 	create: function(){
-		//gameManager.loadStage();
-		//game.state.start("MainMenu", true, false);
 		// this is a MorseInput test! Rip this out later!
         var morseInput = new MorseInput();
         morseInput.start();
         EventBus.onMorseDirection.add(function(morseDirection) {
         	console.log(morseDirection);
 		});
+		gameManager.reset();
 	},
 	update: function(){
 	},
