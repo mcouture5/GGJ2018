@@ -25,6 +25,9 @@ Preload.prototype = {
 
 		//Backgrounds
 		game.load.image('background-stage-1', 'assets/images/Background.png');
+		game.load.image('stage-mask', 'assets/images/stage-mask.jpg');
+		game.load.image('result-mask', 'assets/images/result-mask.jpg');
+		game.load.image('stage-begin-mask', 'assets/images/stage-begin-mask.jpg');
 
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
