@@ -8,6 +8,7 @@ var Flower = function(game){
     Phaser.Sprite.call(this, game, 200, 200, bmd);
     game.physics.arcade.enable(this);
     this.body.immovable = true;
+    this.anchor.setTo(0.5, 0.5);
 
     this.claimed = false;
 };

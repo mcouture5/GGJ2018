@@ -29,12 +29,12 @@ GameStage.prototype = {
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
+        this.flowers = game.add.group();
+        this.flowers.enableBody = true;
         this.beeGroup = game.add.group();
         this.beeGroup.enableBody = true;
         this.borders = game.add.group();
         this.borders.enableBody = true;
-        this.flowers = game.add.group();
-        this.flowers.enableBody = true;
 
         // Stage borders
         // Top
@@ -127,6 +127,7 @@ GameStage.prototype = {
             if (!flower.isClaimed()) {
                 flower.claim();
                 bee.getPollen();
+                game.add.tween(bee).to({ x: flower.x, y: flower.y }, 2000, null, true);
             }
         });
 	},
