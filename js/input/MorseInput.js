@@ -53,7 +53,10 @@ var MorseInput = {
     /**
      * Resolves the Morse direction. Triggers the global onMorseDirection event.
      */
-    resolve: function(triggerEvent) {
+    resolve: function() {
+        // clear the resolution timer
+        clearTimeout(this.resolveTimer);
+
         // get the direction and the dots and dashes
         var direction = this.getDirection();
         var dotsAndDashes = this.dotsAndDashes;
@@ -104,11 +107,16 @@ var MorseInput = {
             this.dotsAndDashes += '-';
         }
 
+        // if the current dots and dashes is 4 or more characters, it's clearly invalid, so resolve and return early
+        if (this.dotsAndDashes.length >= 4) {
+            this.resolve();
+            return;
+        }
+
         // start the resolution timer. If the pause duration elapses, resolve the Morse direction, triggering the global
         // onMorseDirection event.
         var me = this;
-        var triggerEvent = true;
-        this.resolveTimer = setTimeout(function() { me.resolve(triggerEvent); }, this.pauseDuration);
+        this.resolveTimer = setTimeout(function() { me.resolve(); }, this.pauseDuration);
     },
 
     /**
