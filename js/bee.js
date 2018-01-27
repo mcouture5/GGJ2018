@@ -175,5 +175,6 @@ Bee.prototype.damage = function(amount){
 Bee.prototype.destroy = function(){
     // Unbind events
     EventBus.onMorseDirection.remove(this.morseHandler, this);
-	Phaser.Sprite.prototype.destroy.call(this);
+    this.healthMeterBar.destroy();
+    Phaser.Sprite.prototype.destroy.call(this);
 };

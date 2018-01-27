@@ -224,3 +224,10 @@ Phaser.Plugin.HealthMeter.prototype.updateIcons = function() {
 Phaser.Plugin.HealthMeter.prototype.healthPrint = function() {
     return this.char.health + ' / ' + this.char.maxHealth;
 };
+
+Phaser.Plugin.HealthMeter.prototype.destroy = function() {
+    if (this.options.mode == 'bar') {
+        this.healthBar.destroy();
+        this.backBar.destroy();
+    }
+}
