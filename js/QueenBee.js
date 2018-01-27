@@ -58,6 +58,7 @@ QueenBee.prototype.command = function(command) {
     // if there's an existing command text object, destroy it and clear the command timer
     if (this.commandTextObj) {
         this.commandTextObj.destroy();
+        this.commandTextObj = null;
         clearTimeout(this.commandTimer);
     }
 
@@ -67,11 +68,11 @@ QueenBee.prototype.command = function(command) {
         fill: "#000000",
         backgroundColor: "#ffffff"
     };
-    this.commandText = game.add.text(this.x + 20, this.y + 5, command, style);
+    this.commandTextObj = game.add.text(this.x + 20, this.y + 5, command, style);
 
     // set up the command timer which will destroy the command text object after the command duration as elapsed
     var me = this;
-    this.commandTimer = setTimeout(function() { me.commandText.destroy() }, this.commandDuration);
+    this.commandTimer = setTimeout(function() { me.commandTextObj.destroy() }, this.commandDuration);
 };
 
 /**
