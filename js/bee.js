@@ -14,8 +14,8 @@ Bee = function(game){
     this.animations.play('bee-happy');
     this.state = "START";
     this.moveConst = 50;
-    this.colliding = false;
     this.selected = false;
+    this.hasPollen = false;
 
     game.physics.arcade.enable(this);
 
@@ -136,6 +136,10 @@ Bee.prototype.suicide = function () {
 };
 Bee.prototype.getPollen = function(){
     this.state = "POLLEN";
+    this.hasPollen = true;
+    this.body.velocity.x = 0;
+    this.body.velocity.y = 0;
+    this.inputEnabled = false;
 };
 
 Bee.prototype.update = function(){
@@ -175,9 +179,6 @@ Bee.prototype.update = function(){
             this.body.velocity.y = -220;
             break;
         case "POLLEN":
-            this.body.velocity.x = 0;
-            this.body.velocity.y = 0;
-            this.inputEnabled = false;
             break;
         case "GAMEEND":
             // Do nothing
