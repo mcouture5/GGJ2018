@@ -51,13 +51,21 @@ var MorseInput = {
     },
 
     /**
-     * Resolves the morse direction early. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}.
-     * Does not trigger the global onMorseDirection event.
+     * Resolves the Morse direction. Triggers the global onMorseDirection event.
      */
-    resolveEarly: function() {
-        // resolve without triggering the event and return the result
-        var triggerEvent = false;
-        return this.resolve(triggerEvent);
+    resolve: function(triggerEvent) {
+        // get the direction and the dots and dashes
+        var direction = this.getDirection();
+        var dotsAndDashes = this.dotsAndDashes;
+
+        // clear the dots and dashes
+        this.dotsAndDashes = '';
+
+        // create the result object
+        var result = {direction: direction, dotsAndDashes: dotsAndDashes};
+
+        // trigger the global onMorseDirection event
+        EventBus.onMorseDirection.dispatch(result);
     },
 
     // implementation details
@@ -101,30 +109,6 @@ var MorseInput = {
         var me = this;
         var triggerEvent = true;
         this.resolveTimer = setTimeout(function() { me.resolve(triggerEvent); }, this.pauseDuration);
-    },
-
-    /**
-     * Resolves the Morse direction. Returns {direction: "N" | "S" | "E" | "W" | "INVALID", dotsAndDashes: string}. If
-     * triggerEvent is true, also triggers the global onMorseDirection event.
-     */
-    resolve: function(triggerEvent) {
-        // get the direction and the dots and dashes
-        var direction = this.getDirection();
-        var dotsAndDashes = this.dotsAndDashes;
-
-        // clear the dots and dashes
-        this.dotsAndDashes = '';
-
-        // create the result object
-        var result = {direction: direction, dotsAndDashes: dotsAndDashes};
-
-        // if needed, trigger the global onMorseDirection event
-        if (triggerEvent) {
-            EventBus.onMorseDirection.dispatch(result);
-        }
-
-        // return the result
-        return result;
     },
 
     /**
