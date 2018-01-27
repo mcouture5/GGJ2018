@@ -26,6 +26,7 @@ Phaser.Plugin.HealthMeter = function(game, parent) {
 
     this.options.mode = 'text';
     this.options.icon = null;
+    // Offsets from character
     this.options.x = 50;
     this.options.y = 50;
     this.options.width = 32;
@@ -104,7 +105,7 @@ Phaser.Plugin.HealthMeter.prototype.update = function() {
     }
 
     if (this.char.health === this.oldHealth) {
-        return;
+        //return;
     }
 
     this._draw();
@@ -126,28 +127,38 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
+    var x = this.char.x + this.options.x,
+        y = this.char.y + this.options.y;
+
     if (!this.healthBar) {
+        console.log('updateBar');
         var bmd = this.game.add.bitmapData(this.options.width, this.options.height);
         bmd.ctx.beginPath();
         bmd.ctx.rect(0, 0, this.options.width, this.options.height);
         bmd.ctx.fillStyle = this.options.background;
         bmd.ctx.fill();
 
-        var backBar = this.game.add.sprite(this.options.x, this.options.y, bmd);
-        backBar.alpha = this.options.alpha;
-        backBar.fixedToCamera = true;
+        this.backBar = this.game.add.sprite(x, y, bmd);
+        this.backBar.alpha = this.options.alpha;
+        this.backBar.anchor.set(0.5, 0.5);
+        //this.backBar.fixedToCamera = true;
 
         bmd = this.game.add.bitmapData(this.options.width, this.options.height);
         bmd.ctx.beginPath();
         bmd.ctx.rect(0, 0, this.options.width, this.options.height);
         bmd.ctx.fillStyle = this.options.foreground;;
         bmd.ctx.fill();
-        this.healthBar = this.game.add.sprite(this.options.x, this.options.y, bmd);
+        this.healthBar = this.game.add.sprite(x, y, bmd);
         this.healthBar.width = (this.char.health / this.char.maxHealth) * this.options.width;
-        this.healthBar.fixedToCamera = true;
+        this.healthBar.anchor.set(0.5, 0.5);
+        //this.healthBar.fixedToCamera = true;
 
         return;
     }
+
+    // Follow the character
+    this.healthBar.x = this.backBar.x = x;
+    this.healthBar.y = this.backBar.y = y;
 
     this.game.add.tween(this.healthBar).to(
         {width: (this.char.health / this.char.maxHealth) * this.options.width},

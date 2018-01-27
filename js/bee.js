@@ -15,6 +15,17 @@ Bee = function(game){
     game.input.keyboard.addKey(Phaser.KeyCode.UP).onDown.add(this.moveNorth, this);
     game.input.keyboard.addKey(Phaser.KeyCode.DOWN).onDown.add(this.moveSouth, this);
     game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR).onDown.add(this.stopMoving, this);
+
+    this.health = 100;
+    this.maxHealth = 100;
+    this.healthMeterBar = this.game.add.plugin(Phaser.Plugin.HealthMeter);
+    this.healthMeterBar.bar(this, {
+        y: - this.height, x: 0,
+        width: 70, height: 5,
+        foreground: '#ff0000',
+        background: '#aa0000',
+        alpha: 0.6,
+    });
 };
 
 Bee.prototype = Object.create(Phaser.Sprite.prototype);
