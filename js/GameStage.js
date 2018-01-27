@@ -33,10 +33,6 @@ GameStage.prototype = {
             obstacle.body.immovable = true;
         }
 
-        var bee = new Bee(game);
-        this.beeGroup.add(bee);
-        this.bees.push(bee);
-
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
 
@@ -61,6 +57,13 @@ GameStage.prototype = {
 
         // After all has been created, reveal the stage!
         this.fadeIn().onComplete.add(function () {
+            // Add bees!
+            this.bees = [
+                this.beeGroup.add(new Bee(game)),
+                this.beeGroup.add(new Bee(game)),
+                this.beeGroup.add(new Bee(game))
+            ];
+
             //start game text
             this.stageText = game.add.text(game.width/2, game.height/2, this.stageData.name, globalStyle);
             this.stageText.anchor.set(0.5);
