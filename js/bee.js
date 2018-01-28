@@ -187,6 +187,7 @@ Bee.prototype.finishPollen = function(chillTime){
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
     this.audioPollenCollected.play();
+    this.health = this.maxHealth;
     var timer = game.time.create();
     timer.add(chillTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
