@@ -177,18 +177,18 @@ Bee.prototype.getPollen = function(flower){
     }, this);
 
     var timer = game.time.create();
-    timer.add(5000, function() {
-        this.finishPollen();
+    timer.add(flower.gatherTime * 1000, function() {
+        this.finishPollen(flower.gatherTime);
     }, this);
     timer.start();
 };
 
-Bee.prototype.finishPollen = function(){
+Bee.prototype.finishPollen = function(gatherTime){
     this.animHappy();
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
     var timer = game.time.create();
-    timer.add(4000, function() {
+    timer.add(gatherTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
             // still not moved
             this.stopMoving();

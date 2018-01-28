@@ -40,7 +40,7 @@ GameStage.prototype = {
         // Run through the flowers and create/place them
         var flowerData = this.stageData.flowers;
         flowerData.forEach(function (fl) {
-            this.flowers.add(new Flower(game, fl.x, fl.y));
+            this.flowers.add(new Flower(game, fl.x, fl.y, fl.gatherTime));
         }, this);
 
         // Stage borders

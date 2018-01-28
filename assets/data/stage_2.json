@@ -6,16 +6,6 @@
             "sprite": "test1",
             "x": 100,
             "y": 700
-        },
-        {
-            "sprite": "test2",
-            "x": 200,
-            "y": 100
-        },
-        {
-            "sprite": "test3",
-            "x": 500,
-            "y": 100
         }
     ],
     "flowers": [

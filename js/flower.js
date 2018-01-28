@@ -1,4 +1,4 @@
-var Flower = function(game, x, y){
+var Flower = function(game, x, y, gatherTime){
     var bmd = game.add.bitmapData(30, 30);
     bmd.ctx.beginPath();
     bmd.ctx.rect(0, 0, 30, 30);
@@ -9,6 +9,7 @@ var Flower = function(game, x, y){
     game.physics.arcade.enable(this);
     this.body.immovable = true;
     this.anchor.setTo(0.5, 0.5);
+    this.gatherTime = gatherTime;
 
     this.claimed = false;
 };
