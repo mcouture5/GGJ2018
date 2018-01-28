@@ -173,7 +173,6 @@ Bee.prototype.getPollen = function(flower){
     var flowerAlignTween = game.add.tween(this).to({ x: flower.x, y: flower.y }, 1000, null, true);
     flowerAlignTween.onComplete.add(function() {
         this.animations.play('bee-collecting');
-        this.audioPollenCollected.play();
     }, this);
 
     var timer = game.time.create();
@@ -187,6 +186,7 @@ Bee.prototype.finishPollen = function(gatherTime){
     this.animHappy();
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
+    this.audioPollenCollected.play();
     var timer = game.time.create();
     timer.add(gatherTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
