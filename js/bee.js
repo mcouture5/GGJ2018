@@ -20,7 +20,6 @@ Bee = function(game){
     this.moveConst = 50;
     this.selected = false;
     this.hasPollen = false;
-    this.returningToHive = false;
 
     game.physics.arcade.enable(this);
     this.body.setSize(55, 50, 10, 20);
@@ -86,7 +85,7 @@ Bee.prototype.animFrustrated = function(){
 };
 
 Bee.prototype.moveWest = function(){
-    if (this.state == 'POLLEN' || this.returningToHive) {
+    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
         return;
     }
     this.scale.x = Math.abs(this.scale.x);
@@ -100,7 +99,7 @@ Bee.prototype.moveWest = function(){
     this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
-    if (this.state == 'POLLEN' || this.returningToHive) {
+    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
         return;
     }
     this.scale.x = -Math.abs(this.scale.x);
@@ -114,7 +113,7 @@ Bee.prototype.moveEast = function(){
     this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
-    if (this.state == 'POLLEN' || this.returningToHive) {
+    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
         return;
     }
     this.animHappy();
@@ -127,7 +126,7 @@ Bee.prototype.moveNorth = function(){
     this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
-    if (this.state == 'POLLEN' || this.returningToHive) {
+    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
         return;
     }
     this.animHappy();
@@ -140,7 +139,7 @@ Bee.prototype.moveSouth = function(){
     this.state = 'S';
 };
 Bee.prototype.stopMoving = function(){
-    if (this.state == 'POLLEN' || this.returningToHive) {
+    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
         return;
     }
     this.state = "STOP";
@@ -255,7 +254,6 @@ Bee.prototype.update = function(){
 
 Bee.prototype.returnToHive = function(){
     // Disable movement, collision, and tween shrink then kill
-    this.returningToHive = true;
     this.inputEnabled = false;
     this.body.collideWorldBounds = false;
     this.state = "RETURNING";
