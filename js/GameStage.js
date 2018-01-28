@@ -31,7 +31,13 @@ GameStage.prototype = {
 
         // Directions
         game.add.image(0, 0, 'directions');
-        
+
+        // Glow
+        this.glow = this.game.add.sprite(0, 0, 'glow');
+        this.glow.anchor.setTo(0.5, 0.5);
+        this.glow.scale.setTo(1.4, 1.4);
+        this.glow.alpha = 0.75;
+
         //Initialize groups
         this.obstacles = game.add.group();
         this.obstacles.enableBody = true;
@@ -172,6 +178,16 @@ GameStage.prototype = {
         if (this.timer.running) {
             this.updateTimeText();
         }
+
+        // Glow to follow bee
+        if (this.selectedBee) {
+            this.glow.x = this.selectedBee.x;
+            this.glow.y = this.selectedBee.y;
+        } else {
+            this.glow.x = -1000;
+            this.glow.y = -1000;
+        }
+
         game.physics.arcade.collide(this.beeGroup, this.obstacles);
         game.physics.arcade.collide(this.beeGroup, this.borders);
         game.physics.arcade.overlap(this.beeGroup, this.flowers, function(bee, flower) {
@@ -190,6 +206,10 @@ GameStage.prototype = {
                             newBeeSelected = true;
                         }
                     }, this);
+                    if (!newBeeSelected) {
+                        this.glow.x = -1000;
+                        this.glow.y = -1000;
+                    }
                 }
                 // If the be is already returning, dont tell it to keep returning dammit
                 if (!pollenBee.isReturning()) {

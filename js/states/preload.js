@@ -87,6 +87,7 @@ Preload.prototype = {
         game.load.image('status1', 'assets/images/StatusIcon1.png');
         game.load.image('status2', 'assets/images/StatusIcon2.png');
         game.load.image('status3', 'assets/images/StatusIcon3.png');
+        game.load.image('glow', 'assets/images/glow.png');
 
         // SFX
         game.load.audio('angry-2', ['assets/sounds/angry-2.mp3']);

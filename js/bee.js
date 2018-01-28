@@ -197,7 +197,7 @@ Bee.prototype.update = function(){
     if (this.selected) {
         this.tint = 0xFFFFFF;
     } else {
-        this.tint = 0x999999;
+        this.tint = 0xCCCCCC;
     }
 	switch(this.state) {
         case "W":
