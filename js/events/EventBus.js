@@ -13,6 +13,8 @@ var EventBus = {
 
     onBeeRageQuit: new Phaser.Signal(),
 
-    onBeeReturned: new Phaser.Signal()
+    onBeeReturned: new Phaser.Signal(),
+
+    onFlowerEated: new Phaser.Signal()
     // onFoo: new Phaser.Signal();
 };

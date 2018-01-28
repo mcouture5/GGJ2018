@@ -77,6 +77,7 @@ GameStage.prototype = {
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
         EventBus.onBeeReturned.add(this.onBeeReturned, this);
+        EventBus.onFlowerEated.add(this.onFowerEated, this);
 
         ////////////////////////////
         // Masks must be added last
@@ -155,6 +156,7 @@ GameStage.prototype = {
 	},
 	render: function(){
         //game.debug.body(this.queenBee, 'rgba(255,0,0,0.4)');
+        //this.flowers.forEachAlive(this.renderGroup, this);
         //this.bees.forEach(this.renderGroup, this);
         //this.borders.forEachAlive(this.renderGroup, this);
         //this.obstacles.forEachAlive(this.renderGroup, this);
@@ -173,6 +175,9 @@ GameStage.prototype = {
         // destroy the queen bee
         this.queenBee.destroy();
 	},
+    onFowerEated: function (flower) {
+        flower.wilt();
+    },
     onBeeReturned: function () {
         if (this.beeGroup.countLiving() == 0) {
             this.onStageCleared();

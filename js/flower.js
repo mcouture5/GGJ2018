@@ -1,12 +1,13 @@
 var Flower = function(game, x, y, gatherTime){
-    var bmd = game.add.bitmapData(30, 30);
-    bmd.ctx.beginPath();
-    bmd.ctx.rect(0, 0, 30, 30);
-    bmd.ctx.fillStyle = '#ff0000';
-    bmd.ctx.fill();
-    console.log(x, y);
-    Phaser.Sprite.call(this, game, x, y, bmd);
+    Phaser.Sprite.call(this, game, x, y, 'stage-1-flower');
+
+    this.animations.add('flower', [0], 1, false);
+    this.animations.add('wilted', [1], 1, false);
+    this.animations.play('flower');
+
     game.physics.arcade.enable(this);
+    this.body.setCircle(40, 30, 20);
+
     this.body.immovable = true;
     this.anchor.setTo(0.5, 0.5);
     this.gatherTime = gatherTime;
@@ -23,9 +24,12 @@ Flower.prototype.update = function(){
 
 Flower.prototype.claim = function(){
     this.claimed = true;
-    this.tint = 0x000000;
 };
 
 Flower.prototype.isClaimed = function(){
     return this.claimed;
+};
+
+Flower.prototype.wilt = function () {
+    this.animations.play('wilted');
 };

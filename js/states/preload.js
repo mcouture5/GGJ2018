@@ -26,6 +26,9 @@ Preload.prototype = {
 		game.load.image('test3', 'assets/images/test3.jpg');
 		game.load.image('collision', 'assets/images/collision.png');
 
+		// Flowers
+        game.load.spritesheet('stage-1-flower', 'assets/images/Flower1.png', 130, 130);
+
 		// Directions
 		game.load.image('directions', 'assets/images/Directions.png');
 
@@ -42,7 +45,7 @@ Preload.prototype = {
 		game.load.json('stage_4', 'assets/data/stage_4.json');
 		game.load.json('stage_5', 'assets/data/stage_5.json');
         
-		// Spritesheets
+		// Bee spritesheets
         game.load.spritesheet('bee', 'assets/images/bee.png', 80, 80);
         game.load.spritesheet('bee-glow', 'assets/images/bee-glow.png', 80, 80);
 

@@ -169,13 +169,14 @@ Bee.prototype.getPollen = function(flower){
     this.body.velocity.y = 0;
     this.inputEnabled = false;
 
-    var flowerAlignTween = game.add.tween(this).to({ x: flower.x, y: flower.y }, 1000, null, true);
+    var flowerAlignTween = game.add.tween(this).to({ x: flower.x + 5, y: flower.y - 25 }, 1000, null, true);
     flowerAlignTween.onComplete.add(function() {
         this.animations.play('bee-collecting');
     }, this);
 
     var timer = game.time.create();
     timer.add(flower.gatherTime * 1000, function() {
+        EventBus.onFlowerEated.dispatch(flower);
         this.finishPollen(flower.gatherTime);
     }, this);
     timer.start();
@@ -259,7 +260,7 @@ Bee.prototype.returnToHive = function(){
     this.state = "RETURNING";
     var returnTween = game.add.tween(this.scale).to({x: 0, y: 0}, 500, null, true);
     returnTween.onComplete.add(function() {
-        this.destroy(); // instead of destroy so countLiving works.
+        this.destroy();
         EventBus.onBeeReturned.dispatch();
     }, this);
     return this;
