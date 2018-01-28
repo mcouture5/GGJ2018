@@ -63,6 +63,7 @@ Preload.prototype = {
 		game.load.image('level-end-info-box', 'assets/images/LevelEndInfoBox.png');
 
 		// Buttons
+        game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 93);
         game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
         game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
 
@@ -140,6 +141,6 @@ Preload.prototype = {
 		// gameManager.reset();
 
 		// TODO remove the following code for skipping straight to stage 1
-		game.state.start('GameStage', true, false, 1);
+		gameManager.loadStage();
 	}
 }

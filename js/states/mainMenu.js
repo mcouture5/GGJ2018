@@ -10,36 +10,29 @@ MainMenu.prototype = {
 	create: function(){
 		this.stage.backgroundColor = '#000000';
 
+		gameManager = new GameManager();
+
 		var key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		key.onDown.add(this.start, this);
 
-		var w = this.scale.width, h = this.scale.height;
+		var x = game.world.centerX, y = game.world.centerY;
 
-		var titleText = this.game.add.text(w / 2, h / 2, 'oh no not the BEES! not the BEEEESS!', {
+		var titleText = this.game.add.text(x, y, 'oh no not the BEES! not the BEEEESS!', {
 			fill: '#fff',
 		});
 		titleText.anchor.set(0.5, 0.5);
 
-		var startText = this.game.add.text(w / 2, h * 3 / 4, 'START (space)', {
-			fill: '#fff',
-		});
-		startText.anchor.set(0.5, 0.5);
-		startText.inputEnabled = true;
-		startText.input.useHandCursor = true;
-		startText.events.onInputDown.add(this.start, this);
+		var startBtn = game.add.button(x, y + 100, 'play-button', this.start, this, 1, 0, 1, 0);
+		startBtn.anchor.set(0.5, 0.5);
 
-		var aboutText = this.game.add.text(w / 2, h * 3 / 4 + 50, 'about', {
-			fill: '#fff',
-		})
-		aboutText.anchor.set(0.5, 0.5);
-		aboutText.inputEnabled = true;
-		aboutText.input.useHandCursor = true;
-		aboutText.events.onInputDown.add(function(){
-			this.game.state.start('About');
-		}, this);
+		var aboutBtn = game.add.button(x, y + 200, 'controls-button', this.about, this, 1, 0, 1, 0);
+		aboutBtn.anchor.set(0.5, 0.5);
 	},
 	start: function(){
-		this.game.state.start('GameStage', true, false, 1);
+		gameManager.loadStage();
+	},
+	about: function(){
+		this.game.state.start('About');
 	},
 	update: function(){
 	},
@@ -56,16 +49,12 @@ About.prototype = {
 	create: function(){
 		this.stage.backgroundColor = '#0000ff';
 
-		var w = this.scale.width, h = this.scale.height;
+		var x = game.world.centerX, y = game.world.centerY;
 
-		var backText = this.game.add.text(w / 2, h * 3 / 4 + 50, '<< back', {
-			fill: '#fff',
-		})
-		backText.anchor.set(0.5, 0.5);
-		backText.inputEnabled = true;
-		backText.input.useHandCursor = true;
-		backText.events.onInputDown.add(function(){
-			this.game.state.start('MainMenu');
-		}, this);
+		var backBtn = game.add.button(x, y + 200, 'play-button', this.menu, this, 1, 0, 1, 0);
+		backBtn.anchor.set(0.5, 0.5);
+	},
+	menu: function(){
+		this.game.state.start('MainMenu');
 	},
 }
