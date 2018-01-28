@@ -121,6 +121,9 @@ Preload.prototype = {
 		AudioManager.init();
 	},
 	create: function(){
+	    // detect when the important sounds are ready
+	    var buzzMelodyLoop = game.add.audio('buzz-melody-loop');
+	    game.sound.setDecodedCallback([buzzMelodyLoop], this.onSoundsDecoded,this);
 	},
 	update: function(){
 	},
@@ -136,9 +139,11 @@ Preload.prototype = {
 	},
 	loadComplete: function() {
 		text.setText("Load Complete");
-		gameManager.reset();
+	},
+    onSoundsDecoded: function() {
+        gameManager.reset();
 
-		// TODO remove the following code for skipping straight to stage 1
-		// gameManager.loadStage();
-	}
-}
+        // TODO remove the following code for skipping straight to stage 1
+        // gameManager.loadStage();
+    }
+};
