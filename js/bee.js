@@ -15,6 +15,7 @@ Bee = function(game){
     this.audioAngry = [game.add.audio('angry-2'), game.add.audio('angry-3')];
     this.audioAngryIndex = 0;
     this.audioRage = game.add.audio('angry-rage-quit');
+    this.audioPollenCollected = game.add.audio('pollen-collected');
     this.state = "START";
     this.moveConst = 50;
     this.selected = false;
@@ -170,6 +171,7 @@ Bee.prototype.getPollen = function(flower){
     var flowerAlignTween = game.add.tween(this).to({ x: flower.x, y: flower.y }, 1000, null, true);
     flowerAlignTween.onComplete.add(function() {
         this.animations.play('bee-collecting');
+        this.audioPollenCollected.play();
     }, this);
 
     var timer = game.time.create();

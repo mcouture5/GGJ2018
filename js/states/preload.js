@@ -50,6 +50,7 @@ Preload.prototype = {
         game.load.audio('angry-2', ['assets/sounds/angry-2.mp3']);
         game.load.audio('angry-3', ['assets/sounds/angry-3.mp3']);
         game.load.audio('angry-rage-quit', ['assets/sounds/angry-rage-quit.mp3']);
+        game.load.audio('pollen-collected', ['assets/sounds/pollen-collected.mp3']);
 
 		// Force loading assets
     	game.load.start();
