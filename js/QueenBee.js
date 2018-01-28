@@ -72,7 +72,7 @@ QueenBee.prototype.command = function(command) {
 QueenBee.prototype.north = function() {
     this.command('N ' + MorseInput.NORTH);
     this.animations.play('queen-speech');
-    AudioManager.playSound('north');
+    AudioManager.playSound('confirm');
 };
 
 /**
@@ -81,7 +81,7 @@ QueenBee.prototype.north = function() {
 QueenBee.prototype.south = function() {
     this.command('S ' + MorseInput.SOUTH);
     this.animations.play('queen-speech');
-    AudioManager.playSound('south');
+    AudioManager.playSound('confirm');
 };
 
 /**
@@ -90,7 +90,7 @@ QueenBee.prototype.south = function() {
 QueenBee.prototype.west = function() {
     this.command('W ' + MorseInput.WEST);
     this.animations.play('queen-speech');
-    AudioManager.playSound('west');
+    AudioManager.playSound('confirm');
 };
 
 /**
@@ -99,7 +99,7 @@ QueenBee.prototype.west = function() {
 QueenBee.prototype.east = function() {
     this.command('E ' + MorseInput.EAST);
     this.animations.play('queen-speech');
-    AudioManager.playSound('east');
+    AudioManager.playSound('confirm');
 };
 
 /**

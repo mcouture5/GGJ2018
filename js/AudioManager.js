@@ -23,10 +23,7 @@ var AudioManager = {
         this.angry3Sound = null;
         this.angryRageQuitSound = null;
         this.pollenCollectedSound = null;
-        this.northSound = null;
-        this.southSound = null;
-        this.westSound = null;
-        this.eastSound = null;
+        this.confirmSound = null;
         this.invalidSound = null;
     },
 
@@ -136,26 +133,11 @@ var AudioManager = {
                     this.pollenCollectedSound = game.add.audio('pollen-collected');
                 }
                 return this.pollenCollectedSound;
-            case 'north':
-                if (!this.northSound) {
-                    this.northSound = game.add.audio('north');
+            case 'confirm':
+                if (!this.confirmSound) {
+                    this.confirmSound = game.add.audio('confirm');
                 }
-                return this.northSound;
-            case 'south':
-                if (!this.southSound) {
-                    this.southSound = game.add.audio('south');
-                }
-                return this.southSound;
-            case 'west':
-                if (!this.westSound) {
-                    this.westSound = game.add.audio('west');
-                }
-                return this.westSound;
-            case 'east':
-                if (!this.eastSound) {
-                    this.eastSound = game.add.audio('east');
-                }
-                return this.eastSound;
+                return this.confirmSound;
             case 'invalid':
                 if (!this.invalidSound) {
                     this.invalidSound = game.add.audio('invalid');
@@ -172,20 +154,14 @@ var AudioManager = {
     getVolumeBySoundKey: function(soundKey) {
         switch (soundKey) {
             case 'angry-2':
-                return 0.9;
+                return 0.8;
             case 'angry-3':
-                return 0.9;
+                return 0.8;
             case 'angry-rage-quit':
-                return 0.9;
+                return 0.8;
             case 'pollen-collected':
                 return 1;
-            case 'north':
-                return 0.5;
-            case 'south':
-                return 0.5;
-            case 'west':
-                return 0.5;
-            case 'east':
+            case 'confirm':
                 return 0.5;
             case 'invalid':
                 return 0.5;
