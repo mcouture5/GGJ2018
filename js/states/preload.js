@@ -52,6 +52,7 @@ Preload.prototype = {
 
 		//Backgrounds
 		game.load.image('background-title', 'assets/images/TitleScreen.png');
+		game.load.image('background-controls', 'assets/images/ControlsPage.png');
 		game.load.image('background-stage-1', 'assets/images/Background.png');
 		game.load.image('background-stage-2', 'assets/images/Backgroundwater.png');
 		game.load.image('background-stage-3', 'assets/images/Background3.png');
@@ -60,6 +61,7 @@ Preload.prototype = {
 		game.load.image('stage-begin-mask', 'assets/images/stage-begin-mask.jpg');
 		game.load.image('level-end-info-box', 'assets/images/LevelEndInfoBox.png');
 		game.load.image('win-screen', 'assets/images/WinScreen.png');
+		game.load.spritesheet('spacebar', 'assets/images/Spacebar_sprite.png', 300, 88);
 
 		// Buttons
 		game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 92);

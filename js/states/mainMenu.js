@@ -43,11 +43,14 @@ var ControlsMenu = function(game){
 
 ControlsMenu.prototype = {
 	create: function(){
-		console.log("controls screen!");
-		var x = game.world.centerX, y = game.world.centerY;
+		game.add.image(0, 0, 'background-controls');
 
-		var backBtn = game.add.button(x, y + 200, 'play-button', this.menu, this, 1, 0, 1, 0);
-		backBtn.anchor.set(0.5, 0.5);
+		var spacebar = game.add.sprite(370, 514, 'spacebar');
+		spacebar.animations.add('loop', [0, 1, 2, 2, 3, 3, 3, 3, 4, 4]);
+		spacebar.animations.play('loop', 5, true);
+
+		var x = game.world.centerX, y = game.world.centerY;
+		var backBtn = game.add.button(0, 0, 'play-button', this.menu, this, 1, 0, 1, 0);
 	},
 	menu: function(){
 		this.game.state.start('MainMenu');
