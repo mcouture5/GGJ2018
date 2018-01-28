@@ -129,7 +129,7 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
-    var x = this.char.x, y = this.char.y - this.char.height + 10;
+    var x = this.char.x, y = this.char.y - this.char.height + 20;
 
     if (!this.statusIcon1) {
         this.statusIcon1 = this.game.add.sprite(x, y, 'status1');
@@ -164,6 +164,7 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
         // Follow the character
         this.currentIcon.x = x;
         this.currentIcon.y = y;
+        this.currentIcon.scale.setTo(0.6, 0.6);
         this.currentIcon.visible = true;
     }
 };

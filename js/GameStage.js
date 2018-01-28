@@ -47,7 +47,7 @@ GameStage.prototype = {
         var borderThick = 25;
         // Top
         var topBorder = this.borders.create(0, 0, 'collision');
-        topBorder.scale.setTo(game.width, borderThick);
+        topBorder.scale.setTo(game.width, borderThick * 2);
         topBorder.body.immovable = true;
 
         // Right
