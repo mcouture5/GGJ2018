@@ -78,6 +78,9 @@ GameStage.prototype = {
         obstacleData.forEach(function (ob) {
             var obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
             obstacle.body.immovable = true;
+            if (ob.collision) {
+                obstacle.body.setSize(ob.collision.w, ob.collision.h, ob.collision.x, ob.collision.y);
+            }
         }, this);
 
         // Timer text
@@ -193,7 +196,7 @@ GameStage.prototype = {
         //this.flowers.forEachAlive(this.renderGroup, this);
         //this.bees.forEach(this.renderGroup, this);
         //this.borders.forEachAlive(this.renderGroup, this);
-        //this.obstacles.forEachAlive(this.renderGroup, this);
+        this.obstacles.forEachAlive(this.renderGroup, this);
 	},
     updateTimeText: function () {
         //Time elapsed in seconds

@@ -129,7 +129,7 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
-    var x = this.char.x, y = this.char.y - this.char.height + 20;
+    var x = this.char.x, y = this.char.y - this.char.height + 30;
 
     if (!this.statusIcon1) {
         this.statusIcon1 = this.game.add.sprite(x, y, 'status1');

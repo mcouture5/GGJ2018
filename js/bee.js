@@ -21,7 +21,7 @@ Bee = function(game, speedMultiplier){
     this.hasPollen = false;
 
     game.physics.arcade.enable(this);
-    this.body.setSize(55, 50, 10, 20);
+    this.body.setSize(55, 35, 10, 35);
 
     this.body.collideWorldBounds = true;
     this.body.onCollide = new Phaser.Signal();
