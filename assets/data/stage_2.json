@@ -27,6 +27,9 @@
     ],
     "flowers": [
         {
+            "flowerSprite": "Flower2",
+            "petalSprite": "Petal2",
+            "flowerCenter": { "x": -5, "y": -30 },
             "x": 300,
             "y": 300,
             "gatherTime": 5

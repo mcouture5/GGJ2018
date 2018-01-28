@@ -1,26 +1,35 @@
 {
     "name": "Stage 5",
-    "background": "background-stage-1",
+    "background": "background-stage-2",
     "obstacles": [
         {
-            "sprite": "rocks",
+            "sprite": "waterrocks",
             "x": 125,
             "y": 350
         }
     ],
     "flowers": [
         {
-            "x": 250,
+            "flowerSprite": "Flower4",
+            "petalSprite": "Petal2",
+            "flowerCenter": { "x": 0, "y": -20 },
+            "x": 225,
             "y": 600,
             "gatherTime": 3
         },
         {
-            "x": 600,
+            "flowerSprite": "Flower3",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 0, "y": -20 },
+            "x": 550,
             "y": 600,
             "gatherTime": 3
         },
         {
-            "x": 950,
+            "flowerSprite": "Flower4",
+            "petalSprite": "Petal2",
+            "flowerCenter": { "x": 0, "y": -20 },
+            "x": 850,
             "y": 600,
             "gatherTime": 3
         }

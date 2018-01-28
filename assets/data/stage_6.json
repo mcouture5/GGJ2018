@@ -15,16 +15,25 @@
     ],
     "flowers": [
         {
+            "flowerSprite": "Flower2",
+            "petalSprite": "Petal2",
+            "flowerCenter": { "x": -5, "y": -30 },
             "x": 150,
             "y": 500,
             "gatherTime": 2
         },
         {
+            "flowerSprite": "Flower1",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
             "x": 500,
             "y": 600,
             "gatherTime": 2
         },
         {
+            "flowerSprite": "Flower2",
+            "petalSprite": "Petal2",
+            "flowerCenter": { "x": -5, "y": -30 },
             "x": 850,
             "y": 600,
             "gatherTime": 2

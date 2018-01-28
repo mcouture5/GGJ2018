@@ -4,6 +4,9 @@
     "obstacles": [],
     "flowers": [
         {
+            "flowerSprite": "Flower1",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
             "x": 200,
             "y": 400,
             "gatherTime": 5

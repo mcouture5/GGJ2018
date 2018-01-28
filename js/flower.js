@@ -1,5 +1,5 @@
-var Flower = function(game, x, y, gatherTime){
-    Phaser.Sprite.call(this, game, x, y, 'stage-1-flower');
+var Flower = function(game, x, y, gatherTime, flowerSprite, petalSprite, flowerCenter){
+    Phaser.Sprite.call(this, game, x, y, flowerSprite);
 
     this.animations.add('flower', [0], 1, false);
     this.animations.add('wilted', [1], 1, false);
@@ -11,9 +11,10 @@ var Flower = function(game, x, y, gatherTime){
     this.body.immovable = true;
     this.anchor.setTo(0.5, 0.5);
     this.gatherTime = gatherTime;
+    this.flowerCenter = flowerCenter;
 
     this.petalEmitter = game.add.emitter(this.x, this.y, 100);
-    this.petalEmitter.makeParticles('stage-1-petal');
+    this.petalEmitter.makeParticles(petalSprite);
     this.petalEmitter.height = this.height - 40;
     this.petalEmitter.width = this.width - 40;
     this.petalEmitter.gravity = 10;

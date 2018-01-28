@@ -167,7 +167,7 @@ Bee.prototype.getPollen = function(flower){
     this.health = this.maxHealth;
     this.audioAngryIndex = 0;
 
-    var flowerAlignTween = game.add.tween(this).to({ x: flower.x + 5, y: flower.y - 25 }, 1000, null, true);
+    var flowerAlignTween = game.add.tween(this).to({ x: flower.x + flower.flowerCenter.x, y: flower.y + flower.flowerCenter.y }, 1000, null, true);
     flowerAlignTween.onComplete.add(function() {
         this.animations.play('bee-collecting');
     }, this);

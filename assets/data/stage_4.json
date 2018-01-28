@@ -1,20 +1,26 @@
 {
     "name": "Stage 4",
-    "background": "background-stage-1",
+    "background": "background-stage-2",
     "obstacles": [
         {
-            "sprite": "log",
+            "sprite": "waterlog",
             "x": 450,
             "y": 225
         }
     ],
     "flowers": [
         {
+            "flowerSprite": "Flower3",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 0, "y": -20 },
             "x": 365,
             "y": 375,
             "gatherTime": 2
         },
         {
+            "flowerSprite": "Flower3",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 0, "y": -20 },
             "x": 650,
             "y": 375,
             "gatherTime": 2
