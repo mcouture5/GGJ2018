@@ -59,6 +59,7 @@ Preload.prototype = {
 		game.load.image('result-mask', 'assets/images/result-mask.jpg');
 		game.load.image('stage-begin-mask', 'assets/images/stage-begin-mask.jpg');
 		game.load.image('level-end-info-box', 'assets/images/LevelEndInfoBox.png');
+		game.load.image('win-screen', 'assets/images/WinScreen.png');
 
 		// Buttons
 		game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 92);

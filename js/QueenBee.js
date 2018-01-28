@@ -48,12 +48,8 @@ QueenBee.prototype.command = function(command) {
     }
 
     // create the new command text object
-    var style = {
-        font: 'bold 30px Verdana',
-        fill: '#612F19',
-    };
     this.bubble.visible = true;
-    this.commandTextObj = this.addChild(game.make.text(10, 45, command, style));
+    this.commandTextObj = this.addChild(game.make.text(10, 45, command, globalStyle));
     this.commandTextObj.anchor.set(1, 0);
 
     // set up the command timer which will destroy the command text object after the command duration as elapsed

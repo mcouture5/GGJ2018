@@ -84,7 +84,11 @@ GameStage.prototype = {
         }, this);
 
         // Timer text
-        this.timerText = game.add.text(20, 20, 'Time: 00:00', globalStyle);
+        var timerBg = game.add.sprite(5, 5, 'level-end-info-box');
+        timerBg.scale.setTo(0.27, 0.27);
+        this.timerText = game.add.text(57, 38, 'Time\n00:00', globalStyle);
+        this.timerText.anchor.set(0.5);
+        this.timerText.fontSize = '16px';
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
@@ -205,7 +209,7 @@ GameStage.prototype = {
     updateTimeText: function () {
         //Time elapsed in seconds
         var elapsed = this.timer.seconds.toFixed(0);
-        this.timerText.text = "Time: " + this.toReadableTime(elapsed);
+        this.timerText.text = "Time\n" + this.toReadableTime(elapsed);
     },
     toReadableTime: function (elapsed) {
         //Convert seconds into minutes and seconds
@@ -272,9 +276,9 @@ GameStage.prototype = {
                 game.add.sprite(game.world.centerX - 192, 175, 'level-end-info-box');
 
                 // Show time completed
-                var style = { font: "58px Arial", fill: "#000", align: "center" };
-                var t = game.add.text(game.world.centerX, 290, this.timerText.text, style);
+                var t = game.add.text(game.world.centerX, 290, this.timerText.text, globalStyle);
                 t.anchor.set(0.5);
+                t.fontSize = '42px';
 
                 // Add next button
                 game.add.button(game.world.centerX - 101, 450, 'next-button', this.fadeAndGoToNextStage, this, 0, 0, 1, 0);
@@ -321,11 +325,12 @@ GameStage.prototype = {
             rageQuitBee.suicide();
 
             // Wait for input
-            var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
+            var t = game.add.text(game.width/2, game.height/2 - game.height/4, 'Oh No! One of the workers has quit. \n Try again!', globalStyle);
             t.anchor.set(0.5);
+            t.fill = '#fff';
 
             // Add try again
-            var btn = game.add.button(game.world.centerX, game.world.centerY, 'play-button', gameManager.restartStage, gameManager, 0, 0, 1, 0);
+            var btn = game.add.button(game.world.centerX, game.world.centerY + 80, 'play-button', gameManager.restartStage, gameManager, 0, 0, 1, 0);
             btn.anchor.set(0.5);
         }, this);
     },
