@@ -183,7 +183,10 @@ GameStage.prototype = {
                         }
                     }, this);
                 }
-                pollenBee.returnToHive();
+                // If the be is already returning, dont tell it to keep returning dammit
+                if (!pollenBee.isReturning()) {
+                    pollenBee.returnToHive();
+                }
             }
         }, null, this);
 	},

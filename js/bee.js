@@ -261,6 +261,10 @@ Bee.prototype.returnToHive = function(){
     return this;
 };
 
+Bee.prototype.isReturning = function () {
+    return this.state == "RETURNING";
+};
+
 Bee.prototype.damage = function(amount){
     if (this.alive && this.health > 0) {
         this.health -= amount;
