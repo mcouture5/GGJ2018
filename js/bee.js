@@ -58,13 +58,7 @@ Bee = function(game, speedMultiplier){
     this.health = 1000;
     this.maxHealth = 1000;
     this.healthMeterBar = this.game.add.plugin(Phaser.Plugin.HealthMeter);
-    this.healthMeterBar.bar(this, {
-        y: - this.height, x: 0,
-        width: 70, height: 5,
-        foreground: '#fff',
-        background: '#ff0000',
-        alpha: 0.6,
-    });
+    this.healthMeterBar.bar(this);
 };
 
 Bee.prototype = Object.create(Phaser.Sprite.prototype);
