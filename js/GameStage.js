@@ -205,7 +205,9 @@ GameStage.prototype = {
     updateTimeText: function () {
         //Time elapsed in seconds
         var elapsed = this.timer.seconds.toFixed(0);
-    
+        this.timerText.text = "Time: " + this.toReadableTime(elapsed);
+    },
+    toReadableTime: function (elapsed) {
         //Convert seconds into minutes and seconds
         var minutes = Math.floor(elapsed / 60);
         var seconds = Math.floor(elapsed) - (60 * minutes);
@@ -215,8 +217,8 @@ GameStage.prototype = {
     
         //Display seconds, add a 0 to the start if less than 10
         result += (seconds < 10) ? ":0" + seconds : ":" + seconds;
-    
-        this.timerText.text = "Time: " + result;
+        
+        return result;
     },
     renderGroup: function(member)
     {
@@ -241,11 +243,14 @@ GameStage.prototype = {
         }
     },
     onStageCleared: function () {
+        // Get the final time
+        var finalTime = this.timer.seconds.toFixed(0);
+
         // Stop time
         this.timer.stop();
 
         // Stage has been cleared
-        gameManager.stageCleared();
+        gameManager.stageCleared(this.toReadableTime(finalTime));
 
         this.selectedBee = null;
 
@@ -260,7 +265,7 @@ GameStage.prototype = {
         // Stop sounds
 	    this.buzzLoopSound.stop();
 
-        if (this.level < 6) {
+        if (gameManager.hasNextLevel()) {
             // Fade in the result mask
             this.showResultMask().onComplete.add(function () {
                 // Show results

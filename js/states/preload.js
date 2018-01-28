@@ -142,7 +142,6 @@ Preload.prototype = {
 	},
     onSoundsDecoded: function() {
         gameManager.reset();
-
         // TODO remove the following code for skipping straight to stage 1
         // gameManager.loadStage();
     }

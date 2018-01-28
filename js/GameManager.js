@@ -1,11 +1,16 @@
 GameManager = function(stages){
 	this.currentStage = 1;
 	this.rageQuittingBee = null;
+	this.scores = {};
+	this.totalLevels = 6;
 };
 
 GameManager.prototype.constructor = GameManager;
 
 GameManager.prototype = {
+	hasNextLevel: function () {
+		return this.currentStage < this.totalLevels;
+	},
 	loadStage: function() {
 		game.state.start("GameStage", true, false, this.currentStage);
 	},
@@ -19,9 +24,14 @@ GameManager.prototype = {
 
 		EventBus.onMorseComplete.add(this.testMorseInput, this);
 	},
-	stageCleared: function () {
-        // start playing the interlude music
-        AudioManager.startSong('song-about-bees', 1000, 1000);
+	stageCleared: function (durationInStage, playBeesSong) {
+		// Keep track of score
+		this.scores[this.currentStage] = durationInStage;
+
+        // start playing the interlude music, only if there are more levels
+		if (this.hasNextLevel()) {
+        	AudioManager.startSong('song-about-bees', 1000, 1000);
+		}
 
         // Stop listening to input
 		MorseInput.stop();
