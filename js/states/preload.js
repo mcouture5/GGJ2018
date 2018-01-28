@@ -32,7 +32,7 @@ Preload.prototype = {
 		game.load.image('rocks', 'assets/images/rocks.png');
 		game.load.image('waterlog', 'assets/images/waterlog.png');
 		game.load.image('waterrocks', 'assets/images/waterrocks.png');
-		game.load.image('desertrock', 'assets/images/desertrock.png');
+		game.load.image('desertrock', 'assets/images/Desertrock.png');
 		game.load.image('desertrock2', 'assets/images/desertrock2.png');
 
 		// Flowers
