@@ -44,6 +44,9 @@ GameEnd.prototype = {
 		var stage6Score = game.add.text(scoreStartX, scoreStartY + (ySpacing * 5), 'Stage 6: ' + scores[6], globalStyle);
         stage6Score.anchor.set(0.5);
 
+		var stage7Score = game.add.text(midX + 120, midY, 'Stage 7: ' + scores[7], globalStyle);
+        stage7Score.anchor.set(0.5);
+
         // Load up a bunch of happy bees!
 	},
 	update: function(){

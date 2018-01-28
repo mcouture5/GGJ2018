@@ -2,7 +2,7 @@ GameManager = function(stages){
 	this.currentStage = 1;
 	this.rageQuittingBee = null;
 	this.scores = {};
-	this.totalLevels = 6;
+	this.totalLevels = 7;
 };
 
 GameManager.prototype.constructor = GameManager;

@@ -1,0 +1,118 @@
+{
+    "name": "Stage 7",
+    "background": "background-stage-3",
+    "theme": "ladida",
+    "obstacles": [],
+    "flowers": [
+        {
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 100,
+            "y": 100,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower6",
+            "petalSprite": "Petal3",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 230,
+            "y": 650,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 500,
+            "y": 125,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 200,
+            "y": 300,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower6",
+            "petalSprite": "Petal3",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 425,
+            "y": 300,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 820,
+            "y": 400,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower6",
+            "petalSprite": "Petal3",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 880,
+            "y": 600,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower6",
+            "petalSprite": "Petal3",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 700,
+            "y": 300,
+            "gatherTime": 5
+        },
+        {
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": 5, "y": -25 },
+            "x": 500,
+            "y": 500,
+            "gatherTime": 5
+        }
+    ],
+    "bees": [
+        {
+            "startDelay": 0,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 1,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 2,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 3,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 4,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 5,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 6,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 7,
+            "speedMultiplier": 2
+        },
+        {
+            "startDelay": 8,
+            "speedMultiplier": 2
+        }
+    ]
+}
