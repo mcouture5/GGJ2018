@@ -18,6 +18,9 @@ MainMenu.prototype = {
 		var startBtn = game.add.button(463, 344, 'play-button', this.start, this, 1, 0, 1, 0);
 		var controlsBtn = game.add.button(710, 344, 'controls-button', this.controls, this, 1, 0, 1, 0);
 		var creditsBtn = game.add.button(585, 484, 'credits-button', this.credits, this, 1, 0, 1, 0);
+
+		// start playing the main menu music
+		AudioManager.startSong('buzz-melody', 1000, 1000);
 	},
 	start: function(){
 		gameManager.loadStage();
