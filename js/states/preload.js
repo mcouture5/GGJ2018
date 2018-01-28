@@ -46,6 +46,11 @@ Preload.prototype = {
         game.load.spritesheet('bee', 'assets/images/bee.png', 80, 80);
         game.load.spritesheet('bee-glow', 'assets/images/bee-glow.png', 80, 80);
 
+        // SFX
+        game.load.audio('angry-2', ['assets/sounds/angry-2.mp3']);
+        game.load.audio('angry-3', ['assets/sounds/angry-3.mp3']);
+        game.load.audio('angry-rage-quit', ['assets/sounds/angry-rage-quit.mp3']);
+
 		// Force loading assets
     	game.load.start();
 

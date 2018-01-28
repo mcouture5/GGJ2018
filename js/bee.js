@@ -12,6 +12,9 @@ Bee = function(game){
     this.animations.add('bee-frustrated-pollen', [8,9,10,11], this.speed, true);
     this.animations.add('bee-rage-pollen', [20,21,22,23], this.speed, true);
     this.animHappy();
+    this.audioAngry = [game.add.audio('angry-2'), game.add.audio('angry-3')];
+    this.audioAngryIndex = 0;
+    this.audioRage = game.add.audio('angry-rage-quit');
     this.state = "START";
     this.moveConst = 50;
     this.selected = false;
@@ -144,6 +147,8 @@ Bee.prototype.stopMoving = function(){
 };
 Bee.prototype.gameEnd = function(){
     this.state = "GAMEEND";
+    this.body.velocity.x = 0;
+    this.body.velocity.y = 0;
 };
 
 Bee.prototype.suicide = function () {
@@ -211,9 +216,18 @@ Bee.prototype.update = function(){
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
             }
+            if (this.health < this.maxHealth * 0.5 && this.audioAngryIndex === 0) {
+                // first warning
+                this.audioAngry[this.audioAngryIndex++].play();
+            }
+            if (this.health < this.maxHealth * 0.25 && this.audioAngryIndex === 1) {
+                // second warning
+                this.audioAngry[this.audioAngryIndex++].play();
+            }
             if (this.health <= 0) {
-                this.state = "GAMEEND";
+                this.gameEnd();
                 EventBus.onBeeRageQuit.dispatch(this);
+                this.audioRage.play();
             }
             break;
         case "SUICIDE":
@@ -227,9 +241,6 @@ Bee.prototype.update = function(){
         case "POLLEN_DONE":
             break;
         case "GAMEEND":
-            // Do nothing
-            this.body.velocity.x = 0;
-            this.body.velocity.y = 0;
             break;
     }
 };
