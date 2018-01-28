@@ -1,21 +1,36 @@
 {
-    "name": "Stage 3",
+    "name": "Stage 2",
     "background": "background-stage-1",
     "obstacles": [
         {
             "sprite": "test1",
-            "x": 146,
-            "y": 372
-        },
-        {
-            "sprite": "test2",
-            "x": 382,
-            "y": 763
+            "x": 125,
+            "y": 350
         },
         {
             "sprite": "test3",
-            "x": 632,
-            "y": 182
+            "x": 800,
+            "y": 350
+        }
+    ],
+    "flowers": [
+        {
+            "x": 300,
+            "y": 275,
+            "gatherTime": 5
+        },
+        {
+            "x": 500,
+            "y": 600,
+            "gatherTime": 5
+        }
+    ],
+    "bees": [
+        {
+            "startDelay": 0
+        },
+        {
+            "startDelay": 2
         }
     ]
 }
