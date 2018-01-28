@@ -11,10 +11,7 @@ Bee = function(game, speedMultiplier){
     this.animations.add('bee-frustrated-pollen', [8,9,10,11], this.speed, true);
     this.animations.add('bee-rage-pollen', [20,21,22,23], this.speed, true);
     this.animHappy();
-    this.audioAngry = [game.add.audio('angry-2'), game.add.audio('angry-3')];
     this.audioAngryIndex = 0;
-    this.audioRage = game.add.audio('angry-rage-quit');
-    this.audioPollenCollected = game.add.audio('pollen-collected');
     this.state = "START";
     this.moveConst = 50 * speedMultiplier;
     this.selected = false;
@@ -184,7 +181,7 @@ Bee.prototype.finishPollen = function(chillTime){
     this.animHappy();
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
-    this.audioPollenCollected.play();
+    AudioManager.playSound('pollen-collected');
     var timer = game.time.create();
     timer.add(chillTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
@@ -220,16 +217,16 @@ Bee.prototype.update = function(){
             }
             if (this.health < this.maxHealth * 0.6 && this.audioAngryIndex === 0) {
                 // first warning
-                this.audioAngry[this.audioAngryIndex++].play();
+                AudioManager.playSound('angry-2');
             }
             if (this.health < this.maxHealth * 0.3 && this.audioAngryIndex === 1) {
                 // second warning
-                this.audioAngry[this.audioAngryIndex++].play();
+                AudioManager.playSound('angry-3');
             }
             if (this.health <= 0) {
                 this.gameEnd();
                 EventBus.onBeeRageQuit.dispatch(this);
-                this.audioRage.play();
+                AudioManager.playSound('angry-rage-quit');
             }
             break;
         case "SUICIDE":

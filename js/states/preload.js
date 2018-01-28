@@ -110,7 +110,6 @@ Preload.prototype = {
 		game.physics.startSystem(Phaser.Physics.ARCADE);
 
 		// Managers
-	    audioManager = new AudioManager();
 		gameManager = new GameManager();
 
         // prevent the space key from bubbling up to the web browser
@@ -120,7 +119,7 @@ Preload.prototype = {
         MorseInput.init();
 
         // initialize the music manager
-		MusicManager.init();
+		AudioManager.init();
 	},
 	create: function(){
 	},

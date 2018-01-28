@@ -153,7 +153,7 @@ GameStage.prototype = {
 
             // start playing the theme music
             var song = this.stageData.theme;
-            MusicManager.startSong(song, 1000, 1000);
+            AudioManager.startSong(song, 1000, 1000);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();

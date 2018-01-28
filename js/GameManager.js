@@ -21,14 +21,14 @@ GameManager.prototype = {
 	},
 	stageCleared: function () {
         // start playing the interlude music
-        MusicManager.startSong('song-about-bees', 1000, 1000);
+        AudioManager.startSong('song-about-bees', 1000, 1000);
 
         // Stop listening to input
 		MorseInput.stop();
 	},
 	stageFailed: function (bee) {
         // start playing the interlude music
-        MusicManager.startSong('song-about-bees', 1000, 1000);
+        AudioManager.startSong('song-about-bees', 1000, 1000);
 
 		// Stop listening to input
 		MorseInput.stop();
