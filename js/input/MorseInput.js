@@ -22,7 +22,7 @@ var MorseInput = {
      * Initializes the global object. Call this as soon as the game keyboard is available.
      */
     init: function() {
-        // dot duration is 250 milliseconds
+        // dot duration is in milliseconds
         // pause duration is 2x dot duration
         this.dotDuration = 200;
         this.pauseDuration = this.dotDuration * 2;
