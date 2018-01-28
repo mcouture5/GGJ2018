@@ -93,7 +93,6 @@ Preload.prototype = {
         game.load.audio('ladida-loop', ['assets/sounds/ladida-loop.mp3']);
         game.load.audio('transmission-loop', ['assets/sounds/transmission-loop.mp3']);
         game.load.audio('chords-loop', ['assets/sounds/chords-loop.mp3']);
-        game.load.audio('buzz-melody-loop', ['assets/sounds/buzz-melody-loop.mp3']);
         game.load.audio('song-about-bees-loop', ['assets/sounds/song-about-bees-loop-harmony.mp3']);
         game.load.audio('buzz-melody-loop', ['assets/sounds/buzz-melody-loop.mp3']);
         game.load.audio('chords-loop', ['assets/sounds/chords-loop.mp3']);
@@ -121,9 +120,16 @@ Preload.prototype = {
 		AudioManager.init();
 	},
 	create: function(){
-	    // detect when the important sounds are ready
-	    var buzzMelodyLoop = game.add.audio('buzz-melody-loop');
-	    game.sound.setDecodedCallback([buzzMelodyLoop], this.onSoundsDecoded,this);
+	    // detect when the sounds with large filesize are ready
+	    game.sound.setDecodedCallback([
+	    	game.add.audio('buzz-loop'),
+            game.add.audio('ladida-loop'),
+        	game.add.audio('transmission-loop'),
+        	game.add.audio('chords-loop'),
+        	game.add.audio('song-about-bees-loop'),
+            game.add.audio('buzz-melody-loop'),
+            game.add.audio('chords-loop')
+		], this.onSoundsDecoded,this);
 	},
 	update: function(){
 	},
