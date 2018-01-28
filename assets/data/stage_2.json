@@ -4,28 +4,25 @@
     "obstacles": [
         {
             "sprite": "test1",
-            "x": 100,
-            "y": 700
+            "x": 225,
+            "y": 150
+        },
+        {
+            "sprite": "test3",
+            "x": 375,
+            "y": 200
         }
     ],
     "flowers": [
         {
-            "x": 200,
-            "y": 400,
-            "gathertime": 5
-        },
-        {
-            "x": 200,
-            "y": 200,
-            "gathertime": 5
+            "x": 300,
+            "y": 300,
+            "gatherTime": 5
         }
     ],
     "bees": [
         {
             "startDelay": 0
-        },
-        {
-            "startDelay": 2
         }
     ]
 }
