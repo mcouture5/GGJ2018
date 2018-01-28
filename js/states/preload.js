@@ -62,8 +62,7 @@ Preload.prototype = {
 
 		// Buttons
 		game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 92);
-		// TODO use real credits button
-		game.load.spritesheet('credits-button', 'assets/images/controls_button_ss.png', 201, 92);
+		game.load.spritesheet('credits-button', 'assets/images/credits_button_ss.png', 201, 93);
 		game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
 		game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
 
