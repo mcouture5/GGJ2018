@@ -30,7 +30,7 @@ var AudioManager = {
     },
 
     /**
-     * Starts a new song, stopping the currently playing song.
+     * Starts a new song, stopping the currently playing song. If it already the currently playing song, does nothing.
      */
     startSong: function(songKey, oldSongFadeDuration, newSongFadeDuration) {
         // get the song and volume
@@ -40,6 +40,11 @@ var AudioManager = {
         // update old and current song
         this.oldSong = this.currentSong;
         this.currentSong = song;
+
+        // if the old and current song are the same, return early
+        if (this.oldSong === this.currentSong) {
+            return;
+        }
 
         // if needed, fade out the old song and then fade in the new song
         if (this.oldSong) {
