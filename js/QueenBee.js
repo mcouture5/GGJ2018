@@ -40,27 +40,37 @@ QueenBee.prototype.update = function() {
  * The queen makes a pronouncement!
  */
 QueenBee.prototype.command = function(command) {
+    if (!this.bubble) {
+        this.bubble = this.addChild(game.make.sprite(60, 20, 'queen-bubble'));
+        this.bubble.visible = false;
+        this.bubble.anchor.set(1, 0);
+        this.bubble.scale.set(0.7, 0.7);
+    }
+
     // if there's an existing command text object, destroy it and clear the command timer
     if (this.commandTextObj) {
         this.commandTextObj.destroy();
         this.commandTextObj = null;
-        clearTimeout(this.commandTimer);
+        this.commandTimer.destroy();
     }
 
     // create the new command text object
     var style = {
-        font: "32px Arial",
-        fill: "#000000",
-        backgroundColor: "#ffffff"
+        font: 'bold 30px Verdana',
+        fill: '#612F19',
     };
-    this.commandTextObj = game.add.text(this.x + 20, this.y + 5, command, style);
+    this.bubble.visible = true;
+    this.commandTextObj = this.addChild(game.make.text(15, 35, command, style));
+    this.commandTextObj.anchor.set(1, 0);
 
     // set up the command timer which will destroy the command text object after the command duration as elapsed
-    var me = this;
-    this.commandTimer = setTimeout(function() {
-        me.commandTextObj.destroy();
-        me.animations.play('queen-idle');
-    }, this.commandDuration);
+    this.commandTimer = game.time.create();
+    this.commandTimer.add(this.commandDuration, function() {
+        this.commandTextObj.destroy();
+        this.bubble.visible = false;
+        this.animations.play('queen-idle');
+    }, this);
+    this.commandTimer.start();
 };
 
 /**
