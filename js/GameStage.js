@@ -144,6 +144,10 @@ GameStage.prototype = {
             spaceKey.onDown.add(this.handleSpaceKeyDown, this);
             spaceKey.onUp.add(this.handleSpaceKeyUp, this);
 
+            // start playing the theme music
+            this.themeMusic = game.add.audio('ladida-loop');
+            this.themeMusic.play('', 0, 0.05, true);
+
             // Tell the game manager the stage has begun
             gameManager.beginStage();
         }, this);
@@ -239,6 +243,9 @@ GameStage.prototype = {
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
 
+        // stop playing the theme music
+        this.themeMusic.stop();
+
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
@@ -267,6 +274,9 @@ GameStage.prototype = {
         // stop listening to space key up and down
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
+
+        // stop playing the theme music
+        this.themeMusic.stop();
 
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request
