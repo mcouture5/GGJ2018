@@ -1,0 +1,39 @@
+{
+    "name": "Stage 5",
+    "background": "background-stage-1",
+    "obstacles": [
+        {
+            "sprite": "test1",
+            "x": 125,
+            "y": 350
+        }
+    ],
+    "flowers": [
+        {
+            "x": 250,
+            "y": 600,
+            "gatherTime": 3
+        },
+        {
+            "x": 600,
+            "y": 600,
+            "gatherTime": 3
+        },
+        {
+            "x": 950,
+            "y": 600,
+            "gatherTime": 3
+        }
+    ],
+    "bees": [
+        {
+            "startDelay": 0
+        },
+        {
+            "startDelay": 1
+        },
+        {
+            "startDelay": 2
+        }
+    ]
+}
