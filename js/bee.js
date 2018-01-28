@@ -20,8 +20,10 @@ Bee = function(game){
     this.moveConst = 50;
     this.selected = false;
     this.hasPollen = false;
+    this.returningToHive = false;
 
     game.physics.arcade.enable(this);
+    this.body.setSize(55, 50, 10, 20);
 
     this.body.collideWorldBounds = true;
     this.body.onCollide = new Phaser.Signal();
@@ -84,7 +86,7 @@ Bee.prototype.animFrustrated = function(){
 };
 
 Bee.prototype.moveWest = function(){
-    if (this.state == 'POLLEN') {
+    if (this.state == 'POLLEN' || this.returningToHive) {
         return;
     }
     this.scale.x = Math.abs(this.scale.x);
@@ -98,7 +100,7 @@ Bee.prototype.moveWest = function(){
     this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
-    if (this.state == 'POLLEN') {
+    if (this.state == 'POLLEN' || this.returningToHive) {
         return;
     }
     this.scale.x = -Math.abs(this.scale.x);
@@ -112,7 +114,7 @@ Bee.prototype.moveEast = function(){
     this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
-    if (this.state == 'POLLEN') {
+    if (this.state == 'POLLEN' || this.returningToHive) {
         return;
     }
     this.animHappy();
@@ -125,7 +127,7 @@ Bee.prototype.moveNorth = function(){
     this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
-    if (this.state == 'POLLEN') {
+    if (this.state == 'POLLEN' || this.returningToHive) {
         return;
     }
     this.animHappy();
@@ -138,7 +140,7 @@ Bee.prototype.moveSouth = function(){
     this.state = 'S';
 };
 Bee.prototype.stopMoving = function(){
-    if (this.state == 'POLLEN') {
+    if (this.state == 'POLLEN' || this.returningToHive) {
         return;
     }
     this.state = "STOP";
@@ -242,9 +244,27 @@ Bee.prototype.update = function(){
             break;
         case "POLLEN_DONE":
             break;
+        case "RETURNING":
+            this.body.velocity.x = 80;
+            this.body.velocity.y = -80;
+            break;
         case "GAMEEND":
             break;
     }
+};
+
+Bee.prototype.returnToHive = function(){
+    // Disable movement, collision, and tween shrink then kill
+    this.returningToHive = true;
+    this.inputEnabled = false;
+    this.body.collideWorldBounds = false;
+    this.state = "RETURNING";
+    var returnTween = game.add.tween(this.scale).to({x: 0, y: 0}, 500, null, true);
+    returnTween.onComplete.add(function() {
+        this.destroy(); // instead of destroy so countLiving works.
+        EventBus.onBeeReturned.dispatch();
+    }, this);
+    return this;
 };
 
 Bee.prototype.damage = function(amount){

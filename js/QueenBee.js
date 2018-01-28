@@ -11,7 +11,7 @@ var QueenBee = function() {
 
     // enable arcade physics
     game.physics.arcade.enable(this);
-    this.body.setCircle(175, 25, -100);
+    this.body.setCircle(500, -10, -560);
 
     // how long to keep commands displayed
     this.commandDuration = 2000;

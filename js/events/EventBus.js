@@ -11,6 +11,8 @@ var EventBus = {
     // Returns the dots and dashes.
     onMorsePartial: new Phaser.Signal(),
 
-    onBeeRageQuit: new Phaser.Signal()
+    onBeeRageQuit: new Phaser.Signal(),
+
+    onBeeReturned: new Phaser.Signal()
     // onFoo: new Phaser.Signal();
 };

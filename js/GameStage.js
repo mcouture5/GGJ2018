@@ -44,24 +44,25 @@ GameStage.prototype = {
         }, this);
 
         // Stage borders
+        var borderThick = 25;
         // Top
         var topBorder = this.borders.create(0, 0, 'collision');
-        topBorder.scale.setTo(game.width, 50);
+        topBorder.scale.setTo(game.width, borderThick);
         topBorder.body.immovable = true;
 
         // Right
-        var rightBorder = this.borders.create(game.width - 50, 0, 'collision');
-        rightBorder.scale.setTo(50, game.height)
+        var rightBorder = this.borders.create(game.width - borderThick, 0, 'collision');
+        rightBorder.scale.setTo(borderThick, game.height)
         rightBorder.body.immovable = true;
 
          // Bottom
-        var bottomBorder = this.borders.create(0, game.height - 50, 'collision');
-        bottomBorder.scale.setTo(game.width, 50);
+        var bottomBorder = this.borders.create(0, game.height - borderThick, 'collision');
+        bottomBorder.scale.setTo(game.width, borderThick);
         bottomBorder.body.immovable = true;
         
          // Left
         var leftBorder = this.borders.create(0, 0, 'collision');
-        leftBorder.scale.setTo(50, game.height);
+        leftBorder.scale.setTo(borderThick, game.height);
         leftBorder.body.immovable = true;
 
         // Run through the obsctacles and create/place them
@@ -75,6 +76,7 @@ GameStage.prototype = {
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
+        EventBus.onBeeReturned.add(this.onBeeReturned, this);
 
         ////////////////////////////
         // Masks must be added last
@@ -133,9 +135,27 @@ GameStage.prototype = {
         game.physics.arcade.overlap(this.beeGroup, this.flowers, function(bee, flower) {
             bee.getPollen(flower);
         });
+        game.physics.arcade.overlap(this.beeGroup, this.queenBee, function(queenBee, pollenBee) {
+            if (pollenBee.hasPollen) {
+                if (this.selectedBee == pollenBee) {
+                    // Try to find the next available bee
+                    var newBeeSelected = false;
+                    this.beeGroup.forEachAlive(function (bee) {
+                        if (!newBeeSelected && this.selectedBee != bee) {
+                            this.selectedBee.selected = false;
+                            this.selectedBee = bee;
+                            bee.selected = true;
+                            newBeeSelected = true;
+                        }
+                    }, this);
+                }
+                pollenBee.returnToHive();
+            }
+        }, null, this);
 	},
 	render: function(){
         //game.debug.body(this.queenBee, 'rgba(255,0,0,0.4)');
+        //this.bees.forEach(this.renderGroup, this);
         //this.borders.forEachAlive(this.renderGroup, this);
         //this.obstacles.forEachAlive(this.renderGroup, this);
 	},
@@ -153,12 +173,16 @@ GameStage.prototype = {
         // destroy the queen bee
         this.queenBee.destroy();
 	},
+    onBeeReturned: function () {
+        if (this.beeGroup.countLiving() == 0) {
+            this.onStageCleared();
+        }
+    },
     onStageCleared: function () {
         // Stage has been cleared
         gameManager.stageCleared();
 
         this.selectedBee = null;
-        this.stageText.destroy();
         EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
         EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
         // Fade in the result mask

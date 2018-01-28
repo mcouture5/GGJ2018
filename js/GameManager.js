@@ -12,19 +12,19 @@ GameManager.prototype = {
 	reset: function(){
 		// Reset the game after a win/lose
 		game.state.start("MainMenu", true, false);
-    },
+    	},
 	beginStage: function () {
-        // Start listening to input
-        MorseInput.start();
+        	// Start listening to input
+        	MorseInput.start();
 		EventBus.onMorseComplete.add(this.testMorseInput, this);
 	},
 	stageCleared: function () {
-        // Stop listening to input
-        MorseInput.stop();
+        	// Stop listening to input
+        	MorseInput.stop();
 	},
 	stageFailed: function (bee) {
-        // Stop listening to input
-        MorseInput.stop();
+		// Stop listening to input
+		MorseInput.stop();
 		// Multiple bees cane rage quite, lets just deal with one
 		if (!this.rageQuittingBee) {
 			this.rageQuittingBee = bee;
@@ -34,7 +34,7 @@ GameManager.prototype = {
 	restartStage: function () {
 		this.rageQuittingBee = null;
 		EventBus.onMorseComplete.remove(this.testMorseInput, this);
-        game.state.restart(true, false, this.currentStage);
+        	game.state.restart(true, false, this.currentStage);
 	},
 	nextStage: function () {
 		EventBus.onMorseComplete.remove(this.testMorseInput, this);
