@@ -175,11 +175,11 @@ var AudioManager = {
     getVolumeBySoundKey: function(soundKey) {
         switch (soundKey) {
             case 'angry-2':
-                return 0.5;
+                return 0.25;
             case 'angry-3':
-                return 0.5;
+                return 0.25;
             case 'angry-rage-quit':
-                return 0.5;
+                return 0.25;
             case 'pollen-collected':
                 return 1;
             case 'confirm':
