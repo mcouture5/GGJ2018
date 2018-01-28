@@ -152,7 +152,8 @@ GameStage.prototype = {
             spaceKey.onUp.add(this.handleSpaceKeyUp, this);
 
             // start playing the theme music
-            MusicManager.startSong('ladida', 1000, 1000, 0.05);
+            var song = this.stageData.theme;
+            MusicManager.startSong(song, 1000, 1000);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();

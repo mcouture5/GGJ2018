@@ -92,7 +92,8 @@ var MusicManager = {
      * Fades in the new song after the old song has been faded out.
      */
     fadeInNewSong: function(newSongFadeDuration, newSongVolume) {
-        // play and fade in the new song
+        // stop, play, and fade in the new song
+        this.currentSong.stop();
         this.currentSong.play();
         this.currentSong.fadeTo(newSongFadeDuration, newSongVolume);
     }

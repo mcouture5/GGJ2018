@@ -1,6 +1,7 @@
 {
     "name": "Stage 3",
     "background": "background-stage-1",
+    "theme": "ladida",
     "obstacles": [
         {
             "sprite": "rocks",

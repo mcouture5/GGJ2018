@@ -1,6 +1,7 @@
 {
     "name": "Stage 5",
     "background": "background-stage-2",
+    "theme": "transmission",
     "obstacles": [
         {
             "sprite": "waterrocks",

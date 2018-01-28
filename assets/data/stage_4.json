@@ -1,6 +1,7 @@
 {
     "name": "Stage 4",
     "background": "background-stage-2",
+    "theme": "transmission",
     "obstacles": [
         {
             "sprite": "waterlog",
