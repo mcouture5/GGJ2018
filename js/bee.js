@@ -1,7 +1,6 @@
-Bee = function(game){
+Bee = function(game, speedMultiplier){
 	Phaser.Sprite.call(this, game, 900, 100, 'bee');
     this.inputEnabled = true;
-    this.startX = 200;
     this.anchor.setTo(0.5, 0.5);
     this.speed = this.game.rnd.integerInRange(8,12);
     this.animations.add('bee-happy', [12,13,14,15], this.speed, true);
@@ -17,7 +16,7 @@ Bee = function(game){
     this.audioRage = game.add.audio('angry-rage-quit');
     this.audioPollenCollected = game.add.audio('pollen-collected');
     this.state = "START";
-    this.moveConst = 50;
+    this.moveConst = 50 * speedMultiplier;
     this.selected = false;
     this.hasPollen = false;
 
@@ -148,8 +147,10 @@ Bee.prototype.stopMoving = function(){
 };
 Bee.prototype.gameEnd = function(){
     this.state = "GAMEEND";
-    this.body.velocity.x = 0;
-    this.body.velocity.y = 0;
+    if (this.body) {
+        this.body.velocity.x = 0;
+        this.body.velocity.y = 0;
+    }
 };
 
 Bee.prototype.suicide = function () {

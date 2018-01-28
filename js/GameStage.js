@@ -105,8 +105,7 @@ GameStage.prototype = {
                 var self = this;
                 (function(j) {
                     setTimeout(function(){
-                        console.log(self.stageData.bees[j].startDelay);
-                        self.bees[j] = self.beeGroup.add(new Bee(game));
+                        self.bees[j] = self.beeGroup.add(new Bee(game, self.stageData.bees[j].speedMultiplier));
                         (function(k) {
                             if (!self.selectedBee) {
                                 self.selectedBee = self.bees[j];
@@ -114,7 +113,9 @@ GameStage.prototype = {
                             }
                             self.bees[j].events.onInputDown.add(function() {
                                 MorseInput.resolveEarly();
-                                self.selectedBee.selected = false;
+                                if (self.selectedBee) {
+                                    self.selectedBee.selected = false;
+                                }
                                 self.selectedBee = self.bees[j];
                                 self.bees[k].selected = true;
                             }, this);
@@ -195,7 +196,7 @@ GameStage.prototype = {
             // Wait for input
             var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'You done got all that pollens!', globalStyle);
             t.anchor.set(0.5);
-            if (this.level < 5) {
+            if (this.level < 6) {
                 t.inputEnabled = true;
                 t.input.useHandCursor = true;
                 t.events.onInputDown.add(function(){
@@ -234,14 +235,12 @@ GameStage.prototype = {
             // Wait for input
             var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
             t.anchor.set(0.5);
-            if (this.level < 5) {
-                t.inputEnabled = true;
-                t.input.useHandCursor = true;
-                t.events.onInputDown.add(function() {
-                    // Restart the stage
-                    gameManager.restartStage();
-                }, this);
-            }
+            t.inputEnabled = true;
+            t.input.useHandCursor = true;
+            t.events.onInputDown.add(function() {
+                // Restart the stage
+                gameManager.restartStage();
+            }, this);
         }, this);
     },
     showResultMask: function () {

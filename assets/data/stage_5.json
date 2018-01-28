@@ -27,13 +27,16 @@
     ],
     "bees": [
         {
-            "startDelay": 0
+            "startDelay": 0,
+            "speedMultiplier": 2
         },
         {
-            "startDelay": 1
+            "startDelay": 1,
+            "speedMultiplier": 2
         },
         {
-            "startDelay": 2
+            "startDelay": 2,
+            "speedMultiplier": 2
         }
     ]
 }
