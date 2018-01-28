@@ -1,4 +1,4 @@
-AudioManager = function(){
+AudioManager = {
 };
 
 AudioManager.prototype.constructor = AudioManager;

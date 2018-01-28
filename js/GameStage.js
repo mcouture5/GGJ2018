@@ -141,7 +141,7 @@ GameStage.prototype = {
             var self = this;
 
             // set up the buzz loop sound
-            this.buzzLoopSound = game.add.audio('buzz-loop', 1, true);
+            this.buzzLoopSound = game.add.audio('buzz-loop', 0.5, true);
 
             // listen for morse complete and incomplete
             EventBus.onMorseComplete.add(this.handleMorseComplete, this);
@@ -151,12 +151,8 @@ GameStage.prototype = {
             spaceKey.onDown.add(this.handleSpaceKeyDown, this);
             spaceKey.onUp.add(this.handleSpaceKeyUp, this);
 
-            // create and start playing the theme music
-            if (!this.themeMusic) {
-                this.themeMusic = game.add.audio('ladida-loop', 0, true);
-            }
-            this.themeMusic.play();
-            this.themeMusic.fadeTo(1000, 0.05);
+            // start playing the theme music
+            MusicManager.startSong('ladida', 1000, 1000, 0.05);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();
@@ -253,9 +249,6 @@ GameStage.prototype = {
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
 
-        // stop playing the theme music
-        this.themeMusic.fadeTo(1000, 0);
-
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
@@ -284,9 +277,6 @@ GameStage.prototype = {
         // stop listening to space key up and down
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
-
-        // stop playing the theme music
-        this.themeMusic.fadeTo(1000, 0);
 
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request

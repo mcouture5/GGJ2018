@@ -107,6 +107,9 @@ Preload.prototype = {
 
         // initialize MorseInput
         MorseInput.init();
+
+        // initialize the music manager
+		MusicManager.init();
 	},
 	create: function(){
 	},

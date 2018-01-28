@@ -17,26 +17,18 @@ GameManager.prototype = {
 		// Start listening to input
 		MorseInput.start();
 
-        // create and stop playing the interlude music
-		if (!this.interludeMusic) {
-            this.interludeMusic = game.add.audio('song-about-bees-loop', 0, true);
-        }
-        this.interludeMusic.fadeTo(1000, 0);
-
 		EventBus.onMorseComplete.add(this.testMorseInput, this);
 	},
 	stageCleared: function () {
         // start playing the interlude music
-        this.interludeMusic.play();
-        this.interludeMusic.fadeTo(1000, 0.1);
+        MusicManager.startSong('song-about-bees', 1000, 1000, 0.1);
 
         // Stop listening to input
 		MorseInput.stop();
 	},
 	stageFailed: function (bee) {
         // start playing the interlude music
-        this.interludeMusic.play();
-        this.interludeMusic.fadeTo(1000, 0.1);
+        MusicManager.startSong('song-about-bees', 1000, 1000, 0.1);
 
 		// Stop listening to input
 		MorseInput.stop();
