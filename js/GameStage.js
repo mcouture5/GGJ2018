@@ -124,8 +124,17 @@ GameStage.prototype = {
                 })(i)
             }
             var self = this;
+
+            // set up the buzz loop sound
+            this.buzzLoopSound = game.add.audio('buzz-loop');
+
+            // listen for morse complete and incomplete
             EventBus.onMorseComplete.add(this.handleMorseComplete, this);
             EventBus.onMorsePartial.add(this.handleMorsePartial, this);
+
+            // listen for space key up and down
+            spaceKey.onDown.add(this.handleSpaceKeyDown, this);
+            spaceKey.onUp.add(this.handleSpaceKeyUp, this);
 
             // Tell the game manager the stage has begun
             gameManager.beginStage();
@@ -189,8 +198,15 @@ GameStage.prototype = {
         gameManager.stageCleared();
 
         this.selectedBee = null;
+
+        // stop listening to morse input
         EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
         EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
+
+        // stop listening to space key up and down
+        spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
+        spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
+
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Wait for input
@@ -209,9 +225,15 @@ GameStage.prototype = {
     },
     onStageFailed: function (rageQuitBee) {
         this.selectedBee = null;
-        // Stop listening to the morse input
+
+        // stop listening to morse input
         EventBus.onMorseComplete.remove(this.handleMorseComplete, this);
         EventBus.onMorsePartial.remove(this.handleMorsePartial, this);
+
+        // stop listening to space key up and down
+        spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
+        spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
+
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request
         var allowRageQuit = gameManager.stageFailed(rageQuitBee);
@@ -291,5 +313,13 @@ GameStage.prototype = {
     },
     handleMorsePartial: function(dotsAndDashes) {
 	    this.queenBee.command(dotsAndDashes);
+    },
+    handleSpaceKeyDown: function() {
+	    // start buzzing
+	    this.buzzLoopSound.play('',0,1,true);
+    },
+    handleSpaceKeyUp: function() {
+	    // stop buzzing
+	    this.buzzLoopSound.stop();
     }
 };

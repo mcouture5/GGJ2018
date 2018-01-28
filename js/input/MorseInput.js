@@ -14,9 +14,6 @@ var MorseInput = {
      * Initializes the global object. Call this as soon as the game keyboard is available.
      */
     init: function() {
-        // get the space key
-        this.spaceKey = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
-
         // dot duration is 250 milliseconds
         // pause duration is 2x dot duration
         this.dotDuration = 250;
@@ -42,8 +39,8 @@ var MorseInput = {
      */
     start: function() {
         // listen for space key down and up
-        this.spaceKey.onDown.add(this.handleSpaceKeyDown, this);
-        this.spaceKey.onUp.add(this.handleSpaceKeyUp, this);
+        spaceKey.onDown.add(this.handleSpaceKeyDown, this);
+        spaceKey.onUp.add(this.handleSpaceKeyUp, this);
     },
 
     /**
@@ -51,8 +48,8 @@ var MorseInput = {
      */
     stop: function() {
         // stop listening for space key down and up
-        this.spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
-        this.spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
+        spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
+        spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
     },
 
     /**

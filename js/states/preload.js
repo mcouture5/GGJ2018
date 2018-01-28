@@ -13,6 +13,9 @@ Preload.prototype = {
 		//	Progress report
 		text = game.add.text(32, 32, 'Click to start load', { fill: '#ffffff' });
 
+		// set space key global
+        spaceKey = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR)
+
 		////////////////////////
 		// Begin loading assets
 		////////////////////////
@@ -64,6 +67,7 @@ Preload.prototype = {
         game.load.audio('west', ['assets/sounds/west-2.mp3']);
         game.load.audio('east', ['assets/sounds/east-2.mp3']);
         game.load.audio('invalid', ['assets/sounds/invalid-2.mp3']);
+        game.load.audio('buzz-loop', ['assets/sounds/buzz-loop.mp3']);
 
 		// Force loading assets
     	game.load.start();
