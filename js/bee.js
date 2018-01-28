@@ -83,7 +83,7 @@ Bee.prototype.animFrustrated = function(){
 };
 
 Bee.prototype.moveWest = function(){
-    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
+    if (!this.input.enabled) {
         return;
     }
     this.scale.x = Math.abs(this.scale.x);
@@ -97,7 +97,7 @@ Bee.prototype.moveWest = function(){
     this.state = 'W';
 };
 Bee.prototype.moveEast = function(){
-    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
+    if (!this.input.enabled) {
         return;
     }
     this.scale.x = -Math.abs(this.scale.x);
@@ -111,7 +111,7 @@ Bee.prototype.moveEast = function(){
     this.state = 'E';
 };
 Bee.prototype.moveNorth = function(){
-    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
+    if (!this.input.enabled) {
         return;
     }
     this.animHappy();
@@ -124,7 +124,7 @@ Bee.prototype.moveNorth = function(){
     this.state = 'N';
 };
 Bee.prototype.moveSouth = function(){
-    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
+    if (!this.input.enabled) {
         return;
     }
     this.animHappy();
@@ -137,7 +137,7 @@ Bee.prototype.moveSouth = function(){
     this.state = 'S';
 };
 Bee.prototype.stopMoving = function(){
-    if (this.state === 'POLLEN' || this.state === 'RETURNING') {
+    if (!this.input.enabled) {
         return;
     }
     this.state = "STOP";
@@ -147,6 +147,7 @@ Bee.prototype.stopMoving = function(){
 };
 Bee.prototype.gameEnd = function(){
     this.state = "GAMEEND";
+    this.inputEnabled = false;
     if (this.body) {
         this.body.velocity.x = 0;
         this.body.velocity.y = 0;
@@ -156,6 +157,7 @@ Bee.prototype.gameEnd = function(){
 Bee.prototype.suicide = function () {
     // FLY ME TO THE HIVE
     this.state = "SUICIDE";
+    this.inputEnabled = false;
     this.animRage();
 };
 Bee.prototype.getPollen = function(flower){
