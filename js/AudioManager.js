@@ -172,23 +172,23 @@ var AudioManager = {
     getVolumeBySoundKey: function(soundKey) {
         switch (soundKey) {
             case 'angry-2':
-                return 1;
+                return 0.9;
             case 'angry-3':
-                return 1;
+                return 0.9;
             case 'angry-rage-quit':
-                return 1;
+                return 0.9;
             case 'pollen-collected':
                 return 1;
             case 'north':
-                return 1;
+                return 0.5;
             case 'south':
-                return 1;
+                return 0.5;
             case 'west':
-                return 1;
+                return 0.5;
             case 'east':
-                return 1;
+                return 0.5;
             case 'invalid':
-                return 1;
+                return 0.5;
             default:
                 throw new Error('unexpected soundKey=' + soundKey);
         }

@@ -218,10 +218,12 @@ Bee.prototype.update = function(){
             if (this.health < this.maxHealth * 0.6 && this.audioAngryIndex === 0) {
                 // first warning
                 AudioManager.playSound('angry-2');
+                this.audioAngryIndex++;
             }
             if (this.health < this.maxHealth * 0.3 && this.audioAngryIndex === 1) {
                 // second warning
                 AudioManager.playSound('angry-3');
+                this.audioAngryIndex++;
             }
             if (this.health <= 0) {
                 this.gameEnd();
