@@ -49,8 +49,9 @@ ControlsMenu.prototype = {
 		spacebar.animations.add('loop', [0, 1, 2, 2, 3, 3, 3, 3, 4, 4]);
 		spacebar.animations.play('loop', 5, true);
 
-		var x = game.world.centerX, y = game.world.centerY;
-		var backBtn = game.add.button(0, 0, 'play-button', this.menu, this, 1, 0, 1, 0);
+		var backBtn = game.add.button(10, game.world.height - 10, 'back-button', this.menu, this, 1, 0, 1, 0);
+		backBtn.scale.setTo(0.5, 0.5);
+		backBtn.anchor.setTo(0, 1);
 	},
 	menu: function(){
 		this.game.state.start('MainMenu');
@@ -62,11 +63,11 @@ var CreditsMenu = function(game){
 
 CreditsMenu.prototype = {
 	create: function(){
-		console.log("credits screen!");
-		var x = game.world.centerX, y = game.world.centerY;
+		game.add.image(0, 0, 'background-credits');
 
-		var backBtn = game.add.button(x, y + 200, 'play-button', this.menu, this, 1, 0, 1, 0);
-		backBtn.anchor.set(0.5, 0.5);
+		var backBtn = game.add.button(10, game.world.height - 10, 'back-button', this.menu, this, 1, 0, 1, 0);
+		backBtn.scale.setTo(0.5, 0.5);
+		backBtn.anchor.setTo(0, 1);
 	},
 	menu: function(){
 		this.game.state.start('MainMenu');

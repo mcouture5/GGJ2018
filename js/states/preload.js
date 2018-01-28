@@ -53,6 +53,7 @@ Preload.prototype = {
 		//Backgrounds
 		game.load.image('background-title', 'assets/images/TitleScreen.png');
 		game.load.image('background-controls', 'assets/images/ControlsPage.png');
+		game.load.image('background-credits', 'assets/images/Credits.png');
 		game.load.image('background-stage-1', 'assets/images/Background.png');
 		game.load.image('background-stage-2', 'assets/images/Backgroundwater.png');
 		game.load.image('background-stage-3', 'assets/images/Background3.png');
@@ -68,6 +69,7 @@ Preload.prototype = {
 		game.load.spritesheet('credits-button', 'assets/images/credits_button_ss.png', 201, 93);
 		game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
 		game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
+		game.load.spritesheet('back-button', 'assets/images/backbutton_ss.png', 208, 95);
 
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
