@@ -256,7 +256,7 @@ GameStage.prototype = {
             game.add.sprite(game.world.centerX - 192, 175, 'level-end-info-box');
 
             // Show time completed
-            let style = { font: "58px Arial", fill: "#000", align: "center" };
+            var style = { font: "58px Arial", fill: "#000", align: "center" };
             var t = game.add.text(game.world.centerX, 290, this.timerText.text, style);
             t.anchor.set(0.5);
 
