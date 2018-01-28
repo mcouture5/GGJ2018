@@ -49,6 +49,7 @@ Preload.prototype = {
 
 		// Directions
 		game.load.image('directions', 'assets/images/Directions.png');
+		game.load.image('arrow', 'assets/images/arrow.png');
 
 		//Backgrounds
 		game.load.image('background-title', 'assets/images/TitleScreen.png');

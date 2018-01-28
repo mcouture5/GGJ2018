@@ -55,6 +55,20 @@ GameStage.prototype = {
             this.flowers.add(new Flower(game, fl.x, fl.y, fl.gatherTime, fl.flowerSprite, fl.petalSprite, fl.flowerCenter));
         }, this);
 
+        if (this.level === 1) {
+            // First stage: point at flower
+            var f = this.flowers.getFirstExists();
+            var arrow = game.add.sprite(f.x, f.y - 50, 'arrow');
+            arrow.anchor.setTo(0.5, 1);
+            arrow.scale.setTo(0.5, 0.5);
+
+            var timer = game.time.create();
+            timer.add(5000, function() {
+                arrow.destroy();
+            }, this);
+            timer.start();
+        }
+
         // Stage borders
         var borderThick = 25;
         // Top
@@ -260,6 +274,19 @@ GameStage.prototype = {
 	},
     onFowerEated: function (flower) {
         flower.wilt();
+        if (this.level === 1) {
+            // First stage, point at queen bee
+            var arrow = game.add.sprite(this.queenBee.x, this.queenBee.y + 100, 'arrow');
+            arrow.anchor.setTo(0.5, 1);
+            arrow.scale.setTo(0.5, 0.5);
+            arrow.angle = -90;
+
+            var timer = game.time.create();
+            timer.add(5000, function() {
+                arrow.destroy();
+            }, this);
+            timer.start();
+        }
     },
     onBeeReturned: function () {
         if (this.beeGroup.countLiving() == 0) {
