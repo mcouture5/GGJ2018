@@ -28,6 +28,7 @@ Preload.prototype = {
 
 		// Flowers
         game.load.spritesheet('stage-1-flower', 'assets/images/Flower1.png', 130, 130);
+		game.load.image('stage-1-petal', 'assets/images/Petal1.png');
 
 		// Directions
 		game.load.image('directions', 'assets/images/Directions.png');
