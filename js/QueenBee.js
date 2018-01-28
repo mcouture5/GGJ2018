@@ -38,7 +38,6 @@ QueenBee.prototype.command = function(command) {
         this.bubble = this.addChild(game.make.sprite(60, 20, 'queen-bubble'));
         this.bubble.visible = false;
         this.bubble.anchor.set(1, 0);
-        this.bubble.scale.set(0.7, 0.7);
     }
 
     // if there's an existing command text object, destroy it and clear the command timer
@@ -54,7 +53,7 @@ QueenBee.prototype.command = function(command) {
         fill: '#612F19',
     };
     this.bubble.visible = true;
-    this.commandTextObj = this.addChild(game.make.text(15, 35, command, style));
+    this.commandTextObj = this.addChild(game.make.text(10, 45, command, style));
     this.commandTextObj.anchor.set(1, 0);
 
     // set up the command timer which will destroy the command text object after the command duration as elapsed
@@ -71,7 +70,7 @@ QueenBee.prototype.command = function(command) {
  * The queen commands NORTH!
  */
 QueenBee.prototype.north = function() {
-    this.command('N -.');
+    this.command('N ' + MorseInput.NORTH);
     this.animations.play('queen-speech');
     AudioManager.playSound('north');
 };
@@ -80,7 +79,7 @@ QueenBee.prototype.north = function() {
  * The queen commands SOUTH!
  */
 QueenBee.prototype.south = function() {
-    this.command('S ...');
+    this.command('S ' + MorseInput.SOUTH);
     this.animations.play('queen-speech');
     AudioManager.playSound('south');
 };
@@ -89,7 +88,7 @@ QueenBee.prototype.south = function() {
  * The queen commands WEST!
  */
 QueenBee.prototype.west = function() {
-    this.command('W .--');
+    this.command('W ' + MorseInput.WEST);
     this.animations.play('queen-speech');
     AudioManager.playSound('west');
 };
@@ -98,7 +97,7 @@ QueenBee.prototype.west = function() {
  * The queen commands EAST!
  */
 QueenBee.prototype.east = function() {
-    this.command('E .');
+    this.command('E ' + MorseInput.EAST);
     this.animations.play('queen-speech');
     AudioManager.playSound('east');
 };

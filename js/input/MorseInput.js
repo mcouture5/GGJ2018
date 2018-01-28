@@ -8,6 +8,14 @@
  */
 var MorseInput = {
 
+    DOT: '•',
+    DASH: '−',
+
+    NORTH: '−•',
+    SOUTH: '•••',
+    WEST: '•−−',
+    EAST: '•',
+
     // public methods
 
     /**
@@ -106,10 +114,10 @@ var MorseInput = {
 
         // if the duration is less than or equal to the dot duration, it's a dot. Else, it's a dash.
         if (spaceKeyPressDuration <= this.dotDuration){
-            this.dotsAndDashes += '.';
+            this.dotsAndDashes += this.DOT;
         }
         else {
-            this.dotsAndDashes += '-';
+            this.dotsAndDashes += this.DASH;
         }
 
         // trigger the global onMorsePartial event
@@ -166,13 +174,13 @@ var MorseInput = {
      */
     getDirection: function() {
         switch (this.dotsAndDashes) {
-            case '-.':
+            case this.NORTH:
                 return 'N';
-            case '...':
+            case this.SOUTH:
                 return 'S';
-            case '.--':
+            case this.WEST:
                 return 'W';
-            case '.':
+            case this.EAST:
                 return 'E';
             default:
                 return 'INVALID';
