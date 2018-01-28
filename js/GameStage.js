@@ -196,7 +196,7 @@ GameStage.prototype = {
         //this.flowers.forEachAlive(this.renderGroup, this);
         //this.bees.forEach(this.renderGroup, this);
         //this.borders.forEachAlive(this.renderGroup, this);
-        this.obstacles.forEachAlive(this.renderGroup, this);
+        //this.obstacles.forEachAlive(this.renderGroup, this);
 	},
     updateTimeText: function () {
         //Time elapsed in seconds

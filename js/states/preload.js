@@ -118,6 +118,6 @@ Preload.prototype = {
 		// gameManager.reset();
 
 		// TODO remove the following code for skipping straight to stage 1
-		game.state.start('GameStage', true, false, 2);
+		game.state.start('GameStage', true, false, 1);
 	}
 }
