@@ -8,31 +8,25 @@ MainMenu.prototype = {
 	preload: function(){
 	},
 	create: function(){
-		this.stage.backgroundColor = '#000000';
+		game.add.image(0, 0, 'background-title');
 
 		gameManager = new GameManager();
 
 		var key = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 		key.onDown.add(this.start, this);
 
-		var x = game.world.centerX, y = game.world.centerY;
-
-		var titleText = this.game.add.text(x, y, 'oh no not the BEES! not the BEEEESS!', {
-			fill: '#fff',
-		});
-		titleText.anchor.set(0.5, 0.5);
-
-		var startBtn = game.add.button(x, y + 100, 'play-button', this.start, this, 1, 0, 1, 0);
-		startBtn.anchor.set(0.5, 0.5);
-
-		var aboutBtn = game.add.button(x, y + 200, 'controls-button', this.about, this, 1, 0, 1, 0);
-		aboutBtn.anchor.set(0.5, 0.5);
+		var startBtn = game.add.button(463, 344, 'play-button', this.start, this, 1, 0, 1, 0);
+		var controlsBtn = game.add.button(710, 344, 'controls-button', this.controls, this, 1, 0, 1, 0);
+		var creditsBtn = game.add.button(585, 484, 'credits-button', this.credits, this, 1, 0, 1, 0);
 	},
 	start: function(){
 		gameManager.loadStage();
 	},
-	about: function(){
-		this.game.state.start('About');
+	controls: function(){
+		this.game.state.start('ControlsMenu');
+	},
+	credits: function(){
+		this.game.state.start('CreditsMenu');
 	},
 	update: function(){
 	},
@@ -42,13 +36,28 @@ MainMenu.prototype = {
 	}
 };
 
-var About = function(game){
+var ControlsMenu = function(game){
 };
 
-About.prototype = {
+ControlsMenu.prototype = {
 	create: function(){
-		this.stage.backgroundColor = '#0000ff';
+		console.log("controls screen!");
+		var x = game.world.centerX, y = game.world.centerY;
 
+		var backBtn = game.add.button(x, y + 200, 'play-button', this.menu, this, 1, 0, 1, 0);
+		backBtn.anchor.set(0.5, 0.5);
+	},
+	menu: function(){
+		this.game.state.start('MainMenu');
+	},
+}
+
+var CreditsMenu = function(game){
+};
+
+CreditsMenu.prototype = {
+	create: function(){
+		console.log("credits screen!");
 		var x = game.world.centerX, y = game.world.centerY;
 
 		var backBtn = game.add.button(x, y + 200, 'play-button', this.menu, this, 1, 0, 1, 0);

@@ -25,9 +25,6 @@ Preload.prototype = {
 		game.load.image('queen-bubble', 'assets/images/QueenBubble.png');
 
 		// Load obstacles
-		game.load.image('test1', 'assets/images/test1.jpg');
-		game.load.image('test2', 'assets/images/test2.jpg');
-		game.load.image('test3', 'assets/images/test3.jpg');
 		game.load.image('collision', 'assets/images/collision.png');
 		game.load.image('LLog1', 'assets/images/llog1.png');
 		game.load.image('LLog2', 'assets/images/llog2.png');
@@ -54,6 +51,7 @@ Preload.prototype = {
 		game.load.image('directions', 'assets/images/Directions.png');
 
 		//Backgrounds
+		game.load.image('background-title', 'assets/images/TitleScreen.png');
 		game.load.image('background-stage-1', 'assets/images/Background.png');
 		game.load.image('background-stage-2', 'assets/images/Backgroundwater.png');
 		game.load.image('background-stage-3', 'assets/images/Background3.png');
@@ -63,9 +61,11 @@ Preload.prototype = {
 		game.load.image('level-end-info-box', 'assets/images/LevelEndInfoBox.png');
 
 		// Buttons
-        game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 93);
-        game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
-        game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
+		game.load.spritesheet('controls-button', 'assets/images/controls_button_ss.png', 201, 92);
+		// TODO use real credits button
+		game.load.spritesheet('credits-button', 'assets/images/controls_button_ss.png', 201, 92);
+		game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
+		game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
 
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
@@ -135,9 +135,9 @@ Preload.prototype = {
 	},
 	loadComplete: function() {
 		text.setText("Load Complete");
-		// gameManager.reset();
+		gameManager.reset();
 
 		// TODO remove the following code for skipping straight to stage 1
-		gameManager.loadStage();
+		// gameManager.loadStage();
 	}
 }
