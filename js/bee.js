@@ -28,8 +28,13 @@ Bee = function(game){
     this.body.onCollide = new Phaser.Signal();
     this.body.onWorldBounds = new Phaser.Signal();
     var self = this;
-    this.body.onCollide.add(this.stopMoving);
-    this.body.onWorldBounds.add(this.stopMoving);
+    function colliding (){
+        // Perform colliding behavior.
+        // This method gets called AS the bee is colliding.
+        self.stopMoving();
+    };
+    this.body.onCollide.add(colliding);
+    this.body.onWorldBounds.add(colliding);
 
     this.startDir = this.game.rnd.realInRange(0.5 * Math.PI, 1 * Math.PI);
     this.body.velocity.y = Math.sin(this.startDir) * this.moveConst;
