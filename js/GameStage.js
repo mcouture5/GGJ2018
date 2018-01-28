@@ -105,8 +105,8 @@ GameStage.prototype = {
         this.failedMask.alpha = 0;
 
         // Create the mask tweens
-        this.resultMaskTween = game.add.tween(this.resultMask).to( { alpha: 0.5 }, 500, Phaser.Easing.Linear.None, false);
-        this.failedMaskTween = game.add.tween(this.failedMask).to( { alpha: 0.5 }, 500, Phaser.Easing.Linear.None, false);
+        this.resultMaskTween = game.add.tween(this.resultMask).to( { alpha: 0.75 }, 500, Phaser.Easing.Linear.None, false);
+        this.failedMaskTween = game.add.tween(this.failedMask).to( { alpha: 0.75 }, 500, Phaser.Easing.Linear.None, false);
         this.fadeInTween = game.add.tween(this.fadeMask).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, false);
 
         // After all has been created, reveal the stage!
@@ -252,17 +252,17 @@ GameStage.prototype = {
 
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
-            // Wait for input
-            var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'You done got all that pollens!', globalStyle);
+            // Show results
+            game.add.sprite(game.world.centerX - 192, 175, 'level-end-info-box');
+
+            // Show time completed
+            let style = { font: "58px Arial", fill: "#000", align: "center" };
+            var t = game.add.text(game.world.centerX, 290, this.timerText.text, style);
             t.anchor.set(0.5);
+
+            // Add next button
             if (this.level < 6) {
-                t.inputEnabled = true;
-                t.input.useHandCursor = true;
-                t.events.onInputDown.add(function(){
-                    t.destroy();
-                    // Fade out the stage, going to the next level after.
-                    this.fadeAndGoToNextStage();
-                }, this);
+                game.add.button(game.world.centerX - 101, 450, 'next-button', this.fadeAndGoToNextStage, this, 0, 0, 1, 0);
             }
         }, this);
     },
@@ -299,15 +299,14 @@ GameStage.prototype = {
         this.showFailedMask().onComplete.add(function () {
             // Shoot the bee into the hive for a spectacular finale
             rageQuitBee.suicide();
+
             // Wait for input
             var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
             t.anchor.set(0.5);
-            t.inputEnabled = true;
-            t.input.useHandCursor = true;
-            t.events.onInputDown.add(function() {
-                // Restart the stage
-                gameManager.restartStage();
-            }, this);
+
+            // Add try agaim
+            var btn = game.add.button(game.world.centerX, game.world.centerY, 'play-button', gameManager.restartStage, gameManager, 0, 0, 1, 0);
+            btn.anchor.set(0.5);
         }, this);
     },
     showResultMask: function () {

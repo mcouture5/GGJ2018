@@ -55,6 +55,11 @@ Preload.prototype = {
 		game.load.image('stage-mask', 'assets/images/stage-mask.jpg');
 		game.load.image('result-mask', 'assets/images/result-mask.jpg');
 		game.load.image('stage-begin-mask', 'assets/images/stage-begin-mask.jpg');
+		game.load.image('level-end-info-box', 'assets/images/LevelEndInfoBox.png');
+
+		// Buttons
+        game.load.spritesheet('next-button', 'assets/images/nextbutton_ss.png', 202, 93);
+        game.load.spritesheet('play-button', 'assets/images/play_button_ss.png', 202, 93);
 
 		// Load the stage metadata before the stages are created
 		game.load.json('stage_1', 'assets/data/stage_1.json');
