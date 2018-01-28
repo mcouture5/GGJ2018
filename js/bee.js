@@ -212,9 +212,11 @@ Bee.prototype.update = function(){
             break;
         case "STOP":
             this.damage(1);
+            /*
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
             }
+            */
             if (this.health < this.maxHealth * 0.6 && this.audioAngryIndex === 0) {
                 // first warning
                 AudioManager.playSound('angry-2');
