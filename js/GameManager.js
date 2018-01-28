@@ -14,17 +14,33 @@ GameManager.prototype = {
 		game.state.start("MainMenu", true, false);
     	},
 	beginStage: function () {
-        	// Start listening to input
-        	MorseInput.start();
+		// Start listening to input
+		MorseInput.start();
+
+        // create and stop playing the interlude music
+		if (!this.interludeMusic) {
+            this.interludeMusic = game.add.audio('song-about-bees-loop', 0, true);
+        }
+        this.interludeMusic.fadeTo(1000, 0);
+
 		EventBus.onMorseComplete.add(this.testMorseInput, this);
 	},
 	stageCleared: function () {
-        	// Stop listening to input
-        	MorseInput.stop();
+        // start playing the interlude music
+        this.interludeMusic.play();
+        this.interludeMusic.fadeTo(1000, 0.1);
+
+        // Stop listening to input
+		MorseInput.stop();
 	},
 	stageFailed: function (bee) {
+        // start playing the interlude music
+        this.interludeMusic.play();
+        this.interludeMusic.fadeTo(1000, 0.1);
+
 		// Stop listening to input
 		MorseInput.stop();
+
 		// Multiple bees cane rage quite, lets just deal with one
 		if (!this.rageQuittingBee) {
 			this.rageQuittingBee = bee;
