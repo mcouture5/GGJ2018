@@ -253,6 +253,9 @@ GameStage.prototype = {
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
 
+        // stop the buzz sound
+        this.buzzLoopSound.stop();
+
         // Fade in the result mask
         this.showResultMask().onComplete.add(function () {
             // Show results
@@ -281,6 +284,9 @@ GameStage.prototype = {
         // stop listening to space key up and down
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
+
+        // if needed, stop the buzz sound
+        this.buzzLoopSound.stop();
 
         // Stage has been failed. The manager will tell the stage
         // if it can kill the raged be, or just ignore its rage request
