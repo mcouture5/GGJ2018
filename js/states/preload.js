@@ -35,6 +35,8 @@ Preload.prototype = {
 		game.load.image('rocks', 'assets/images/rocks.png');
 		game.load.image('waterlog', 'assets/images/waterlog.png');
 		game.load.image('waterrocks', 'assets/images/waterrocks.png');
+		game.load.image('desertrock', 'assets/images/desertrock.png');
+		game.load.image('desertrock2', 'assets/images/desertrock2.png');
 
 		// Flowers
         game.load.spritesheet('Flower1', 'assets/images/Flower1.png', 130, 130);
@@ -42,9 +44,11 @@ Preload.prototype = {
         game.load.spritesheet('Flower2', 'assets/images/Flower2.png', 130, 130);
 		game.load.image('Petal2', 'assets/images/Petal2.png');
         game.load.spritesheet('Flower3', 'assets/images/Flower3.png', 130, 130);
-//		game.load.image('Petal3', 'assets/images/Petal3.png');
+		game.load.image('Petal3', 'assets/images/Petal3.png');
         game.load.spritesheet('Flower4', 'assets/images/Flower4.png', 130, 130);
 //		game.load.image('Petal4', 'assets/images/Petal4.png');
+        game.load.spritesheet('Flower5', 'assets/images/Flower5.png', 130, 130);
+        game.load.spritesheet('Flower6', 'assets/images/Flower6.png', 130, 130);
 
 		// Directions
 		game.load.image('directions', 'assets/images/Directions.png');
@@ -52,6 +56,7 @@ Preload.prototype = {
 		//Backgrounds
 		game.load.image('background-stage-1', 'assets/images/Background.png');
 		game.load.image('background-stage-2', 'assets/images/Backgroundwater.png');
+		game.load.image('background-stage-3', 'assets/images/Background3.png');
 		game.load.image('stage-mask', 'assets/images/stage-mask.jpg');
 		game.load.image('result-mask', 'assets/images/result-mask.jpg');
 		game.load.image('stage-begin-mask', 'assets/images/stage-begin-mask.jpg');

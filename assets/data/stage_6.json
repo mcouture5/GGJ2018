@@ -1,40 +1,40 @@
 {
     "name": "Stage 6",
-    "background": "background-stage-1",
+    "background": "background-stage-3",
     "theme": "ladida",
     "obstacles": [
         {
-            "sprite": "test3",
+            "sprite": "desertrock",
             "x": 250,
-            "y": 468
+            "y": 330
         },
         {
-            "sprite": "test1",
+            "sprite": "desertrock2",
             "x": 600,
             "y": 450
         }
     ],
     "flowers": [
         {
-            "flowerSprite": "Flower2",
-            "petalSprite": "Petal2",
-            "flowerCenter": { "x": -5, "y": -30 },
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": -5, "y": -22 },
             "x": 150,
             "y": 500,
             "gatherTime": 2
         },
         {
-            "flowerSprite": "Flower1",
-            "petalSprite": "Petal1",
-            "flowerCenter": { "x": 5, "y": -25 },
+            "flowerSprite": "Flower6",
+            "petalSprite": "Petal3",
+            "flowerCenter": { "x": 0, "y": -18 },
             "x": 500,
             "y": 600,
             "gatherTime": 2
         },
         {
-            "flowerSprite": "Flower2",
-            "petalSprite": "Petal2",
-            "flowerCenter": { "x": -5, "y": -30 },
+            "flowerSprite": "Flower5",
+            "petalSprite": "Petal1",
+            "flowerCenter": { "x": -5, "y": -22 },
             "x": 850,
             "y": 600,
             "gatherTime": 2

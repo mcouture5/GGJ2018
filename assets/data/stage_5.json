@@ -12,7 +12,7 @@
     "flowers": [
         {
             "flowerSprite": "Flower4",
-            "petalSprite": "Petal2",
+            "petalSprite": "Petal3",
             "flowerCenter": { "x": 0, "y": -20 },
             "x": 225,
             "y": 600,
@@ -20,7 +20,7 @@
         },
         {
             "flowerSprite": "Flower3",
-            "petalSprite": "Petal1",
+            "petalSprite": "Petal3",
             "flowerCenter": { "x": 0, "y": -20 },
             "x": 550,
             "y": 600,
@@ -28,7 +28,7 @@
         },
         {
             "flowerSprite": "Flower4",
-            "petalSprite": "Petal2",
+            "petalSprite": "Petal3",
             "flowerCenter": { "x": 0, "y": -20 },
             "x": 850,
             "y": 600,
