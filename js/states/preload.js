@@ -57,6 +57,7 @@ Preload.prototype = {
 		// Bee spritesheets
         game.load.spritesheet('bee', 'assets/images/bee.png', 80, 80);
         game.load.spritesheet('bee-glow', 'assets/images/bee-glow.png', 80, 80);
+        game.load.spritesheet('bee-shadow', 'assets/images/bee-shadow.png');
         game.load.image('status1', 'assets/images/StatusIcon1.png');
         game.load.image('status2', 'assets/images/StatusIcon2.png');
         game.load.image('status3', 'assets/images/StatusIcon3.png');

@@ -22,6 +22,9 @@ GameStage.prototype = {
         //Background
         game.add.image(0, 0, this.stageData.background);
 
+        // Bee shadows are under everything except the background
+        this.beeShadowGroup = game.add.group();
+
         // initialize the queen bee
         this.queenBee = new QueenBee();
         game.add.existing(this.queenBee);
@@ -114,6 +117,7 @@ GameStage.prototype = {
                 (function(j) {
                     setTimeout(function(){
                         self.bees[j] = self.beeGroup.add(new Bee(game, self.stageData.bees[j].speedMultiplier));
+                        self.beeShadowGroup.add(new BeeShadow(game, self.bees[j]));
                         (function(k) {
                             if (!self.selectedBee) {
                                 self.selectedBee = self.bees[j];
