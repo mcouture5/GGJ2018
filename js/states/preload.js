@@ -28,6 +28,10 @@ Preload.prototype = {
 		game.load.image('test2', 'assets/images/test2.jpg');
 		game.load.image('test3', 'assets/images/test3.jpg');
 		game.load.image('collision', 'assets/images/collision.png');
+		game.load.image('LLog1', 'assets/images/llog1.png');
+		game.load.image('LLog2', 'assets/images/llog2.png');
+		game.load.image('log', 'assets/images/log.png');
+		game.load.image('rocks', 'assets/images/rocks.png');
 
 		// Flowers
         game.load.spritesheet('stage-1-flower', 'assets/images/Flower1.png', 130, 130);

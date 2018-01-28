@@ -3,14 +3,14 @@
     "background": "background-stage-1",
     "obstacles": [
         {
-            "sprite": "test3",
-            "x": 500,
+            "sprite": "log",
+            "x": 450,
             "y": 225
         }
     ],
     "flowers": [
         {
-            "x": 400,
+            "x": 365,
             "y": 375,
             "gatherTime": 2
         },

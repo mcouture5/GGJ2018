@@ -3,7 +3,7 @@
     "background": "background-stage-1",
     "obstacles": [
         {
-            "sprite": "test1",
+            "sprite": "rocks",
             "x": 125,
             "y": 350
         }
