@@ -23,6 +23,7 @@
 		<script type="text/javascript" src="js/events/EventBus.js"></script>
 		<script type="text/javascript" src="js/states/preload.js"></script>
 		<script type="text/javascript" src="js/states/mainMenu.js"></script>
+		<script type="text/javascript" src="js/states/GameEnd.js"></script>
 		<script type="text/javascript" src="js/input/MorseInput.js"></script>
         <script type="text/javascript" src="js/AudioManager.js"></script>
 
@@ -46,6 +47,7 @@
 				game.state.add("MainMenu", MainMenu);
 				game.state.add("ControlsMenu", ControlsMenu);
 				game.state.add("CreditsMenu", CreditsMenu);
+				game.state.add("GameEnd", GameEnd);
 				//Add the game stage, this is dynamically generated based on JSON
 				game.state.add("GameStage", GameStage);
 				game.state.start("Preload");

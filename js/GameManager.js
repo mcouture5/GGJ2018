@@ -49,6 +49,12 @@ GameManager.prototype = {
 		this.currentStage++;
 		this.loadStage();
 	},
+	gameEnd: function () {
+		MorseInput.stop();
+		this.rageQuittingBee = null;
+		EventBus.onMorseComplete.remove(this.testMorseInput, this);
+		game.state.start("GameEnd", true, false);
+	},
 	testMorseInput: function (result) {
 		console.log(result);
 	}

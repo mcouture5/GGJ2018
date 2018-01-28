@@ -103,10 +103,14 @@ GameStage.prototype = {
         // Failed
         this.failedMask = game.add.sprite(0, 0, 'result-mask');
         this.failedMask.alpha = 0;
+        // Game Won
+        this.gameWonMask = game.add.sprite(0, 0, 'result-mask');
+        this.gameWonMask.alpha = 0;
 
         // Create the mask tweens
         this.resultMaskTween = game.add.tween(this.resultMask).to( { alpha: 0.75 }, 500, Phaser.Easing.Linear.None, false);
         this.failedMaskTween = game.add.tween(this.failedMask).to( { alpha: 0.75 }, 500, Phaser.Easing.Linear.None, false);
+        this.gameWonMaskTween = game.add.tween(this.gameWonMask).to( { alpha: 1 }, 500, Phaser.Easing.Linear.None, false);
         this.fadeInTween = game.add.tween(this.fadeMask).to( { alpha: 0 }, 1500, Phaser.Easing.Linear.None, false);
 
         // After all has been created, reveal the stage!
@@ -253,24 +257,26 @@ GameStage.prototype = {
         spaceKey.onDown.remove(this.handleSpaceKeyDown, this);
         spaceKey.onUp.remove(this.handleSpaceKeyUp, this);
 
-        // stop the buzz sound
-        this.buzzLoopSound.stop();
+        // Stop sounds
+	    this.buzzLoopSound.stop();
 
-        // Fade in the result mask
-        this.showResultMask().onComplete.add(function () {
-            // Show results
-            game.add.sprite(game.world.centerX - 192, 175, 'level-end-info-box');
+        if (this.level < 6) {
+            // Fade in the result mask
+            this.showResultMask().onComplete.add(function () {
+                // Show results
+                game.add.sprite(game.world.centerX - 192, 175, 'level-end-info-box');
 
-            // Show time completed
-            var style = { font: "58px Arial", fill: "#000", align: "center" };
-            var t = game.add.text(game.world.centerX, 290, this.timerText.text, style);
-            t.anchor.set(0.5);
+                // Show time completed
+                var style = { font: "58px Arial", fill: "#000", align: "center" };
+                var t = game.add.text(game.world.centerX, 290, this.timerText.text, style);
+                t.anchor.set(0.5);
 
-            // Add next button
-            if (this.level < 6) {
+                // Add next button
                 game.add.button(game.world.centerX - 101, 450, 'next-button', this.fadeAndGoToNextStage, this, 0, 0, 1, 0);
-            }
-        }, this);
+            }, this);
+        } else {
+            this.onGameWon();
+        }
     },
     onStageFailed: function (rageQuitBee) {
         // Stop time
@@ -313,10 +319,16 @@ GameStage.prototype = {
             var t = game.add.text(game.width/2, game.height/2 + game.height/4, 'TRY AGAIN STOOPID', globalStyle);
             t.anchor.set(0.5);
 
-            // Add try agaim
+            // Add try again
             var btn = game.add.button(game.world.centerX, game.world.centerY, 'play-button', gameManager.restartStage, gameManager, 0, 0, 1, 0);
             btn.anchor.set(0.5);
         }, this);
+    },
+    // DO NOT CALL THIS FROM ANYWHERE BUT onStageFailed
+    onGameWon: function () {
+        this.showGameWonMask().onComplete.add(function () {
+            gameManager.gameEnd();
+        });
     },
     showResultMask: function () {
         this.resultMask.alpha = 0;
@@ -325,6 +337,10 @@ GameStage.prototype = {
     showFailedMask: function () {
         this.failedMask.alpha = 0;
         return this.failedMaskTween.start();
+    },
+    showGameWonMask: function () {
+        this.gameWonMask.alpha = 0;
+        return this.gameWonMaskTween.start();
     },
     fadeIn: function () {
         this.fadeMask.alpha = 1;
