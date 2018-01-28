@@ -59,6 +59,11 @@ Preload.prototype = {
         game.load.audio('angry-3', ['assets/sounds/angry-3.mp3']);
         game.load.audio('angry-rage-quit', ['assets/sounds/angry-rage-quit.mp3']);
         game.load.audio('pollen-collected', ['assets/sounds/pollen-collected-2.mp3']);
+        game.load.audio('north', ['assets/sounds/north-2.mp3']);
+        game.load.audio('south', ['assets/sounds/south-2.mp3']);
+        game.load.audio('west', ['assets/sounds/west-2.mp3']);
+        game.load.audio('east', ['assets/sounds/east-2.mp3']);
+        game.load.audio('invalid', ['assets/sounds/invalid-2.mp3']);
 
 		// Force loading assets
     	game.load.start();

@@ -9,6 +9,12 @@ var QueenBee = function() {
     this.animations.add('queen-speech-whoops', [2], 1, false);
     this.animations.play('queen-idle');
 
+    this.northSound = game.add.audio('north');
+    this.southSound = game.add.audio('south');
+    this.westSound = game.add.audio('west');
+    this.eastSound = game.add.audio('east');
+    this.invalidSound = game.add.audio('invalid');
+
     // enable arcade physics
     game.physics.arcade.enable(this);
     this.body.setCircle(500, -10, -560);
@@ -63,6 +69,7 @@ QueenBee.prototype.command = function(command) {
 QueenBee.prototype.north = function() {
     this.command('N -.');
     this.animations.play('queen-speech');
+    this.northSound.play();
 };
 
 /**
@@ -71,6 +78,7 @@ QueenBee.prototype.north = function() {
 QueenBee.prototype.south = function() {
     this.command('S ...');
     this.animations.play('queen-speech');
+    this.southSound.play();
 };
 
 /**
@@ -79,6 +87,7 @@ QueenBee.prototype.south = function() {
 QueenBee.prototype.west = function() {
     this.command('W .--');
     this.animations.play('queen-speech');
+    this.westSound.play();
 };
 
 /**
@@ -87,6 +96,7 @@ QueenBee.prototype.west = function() {
 QueenBee.prototype.east = function() {
     this.command('E .');
     this.animations.play('queen-speech');
+    this.eastSound.play();
 };
 
 /**
@@ -95,6 +105,7 @@ QueenBee.prototype.east = function() {
 QueenBee.prototype.confused = function(dotsAndDashes) {
     this.command('? ' + dotsAndDashes);
     this.animations.play('queen-speech-whoops');
+    this.invalidSound.play();
 };
 
 QueenBee.prototype.destroy = function() {
