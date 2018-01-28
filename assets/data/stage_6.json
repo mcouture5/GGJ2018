@@ -6,12 +6,24 @@
         {
             "sprite": "desertrock",
             "x": 250,
-            "y": 330
+            "y": 330,
+            "collision": {
+                "w": 100,
+                "h": 410,
+                "x": 23,
+                "y": 15
+            }
         },
         {
             "sprite": "desertrock2",
             "x": 600,
-            "y": 450
+            "y": 450,
+            "collision": {
+                "w": 250,
+                "h": 85,
+                "x": 10,
+                "y": 15
+            }
         }
     ],
     "flowers": [
