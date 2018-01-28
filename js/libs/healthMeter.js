@@ -85,6 +85,23 @@ Phaser.Plugin.HealthMeter.prototype.bar = function(char) {
 
     this.options.mode = 'bar';
     this._setupOptions(options);
+
+    var x = 0, y = - this.char.height + 30;
+
+    this.statusIcon1 = this.char.addChild(this.game.make.sprite(x, y, 'status1'));
+    this.statusIcon1.visible = false;
+    this.statusIcon1.anchor.setTo(0.5, 0.5);
+    this.statusIcon1.scale.setTo(0.6, 0.6);
+
+    this.statusIcon2 = this.char.addChild(this.game.make.sprite(x, y, 'status2'));
+    this.statusIcon2.visible = false;
+    this.statusIcon2.anchor.setTo(0.5, 0.5);
+    this.statusIcon2.scale.setTo(0.6, 0.6);
+
+    this.statusIcon3 = this.char.addChild(this.game.make.sprite(x, y, 'status3'));
+    this.statusIcon3.visible = false;
+    this.statusIcon3.anchor.setTo(0.5, 0.5);
+    this.statusIcon3.scale.setTo(0.6, 0.6);
 };
 
 Phaser.Plugin.HealthMeter.prototype._draw = function() {
@@ -129,23 +146,6 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
-    var x = this.char.x, y = this.char.y - this.char.height + 30;
-
-    if (!this.statusIcon1) {
-        this.statusIcon1 = this.game.add.sprite(x, y, 'status1');
-        this.statusIcon1.visible = false;
-        this.statusIcon1.anchor.setTo(0.5, 0.5);
-    }
-    if (!this.statusIcon2) {
-        this.statusIcon2 = this.game.add.sprite(x, y, 'status2');
-        this.statusIcon2.visible = false;
-        this.statusIcon2.anchor.setTo(0.5, 0.5);
-    }
-    if (!this.statusIcon3) {
-        this.statusIcon3 = this.game.add.sprite(x, y, 'status3');
-        this.statusIcon3.visible = false;
-        this.statusIcon3.anchor.setTo(0.5, 0.5);
-    }
     if (this.currentIcon) {
         this.currentIcon.visible = false;
     }
@@ -161,10 +161,6 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
     }
 
     if (this.currentIcon) {
-        // Follow the character
-        this.currentIcon.x = x;
-        this.currentIcon.y = y;
-        this.currentIcon.scale.setTo(0.6, 0.6);
         this.currentIcon.visible = true;
     }
 };
