@@ -1,7 +1,7 @@
 {
     "name": "Stage 6",
     "background": "background-stage-3",
-    "theme": "chords",
+    "theme": "transmission",
     "obstacles": [
         {
             "sprite": "desertrock",
