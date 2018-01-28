@@ -13,6 +13,8 @@ var AudioManager = {
         this.ladidaSong = null;
         this.transmissionSong = null;
         this.songAboutBeesSong = null;
+        this.buzzMelodySong = null;
+        this.chordsSong = null;
 
         // keep track of the old song and the new song
         this.oldSong = null;
@@ -87,6 +89,16 @@ var AudioManager = {
                     this.songAboutBeesSong = game.add.audio('song-about-bees-loop', 0, true);
                 }
                 return this.songAboutBeesSong;
+            case 'buzz-melody':
+                if (!this.buzzMelodySong) {
+                    this.buzzMelodySong = game.add.audio('buzz-melody-loop', 0, true);
+                }
+                return this.buzzMelodySong;
+            case 'chords':
+                if (!this.chordsSong) {
+                    this.chordsSong = game.add.audio('chords-loop', 0, true);
+                }
+                return this.chordsSong;
             default:
                 throw new Error('unexpected songKey=' + songKey);
         }
@@ -102,6 +114,10 @@ var AudioManager = {
             case 'transmission':
                 return 0.2;
             case 'song-about-bees':
+                return 0.2;
+            case 'buzz-melody':
+                return 0.2;
+            case 'chords':
                 return 0.2;
             default:
                 throw new Error('unexpected songKey=' + songKey);

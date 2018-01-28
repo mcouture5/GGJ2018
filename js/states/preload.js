@@ -96,6 +96,8 @@ Preload.prototype = {
         game.load.audio('chords-loop', ['assets/sounds/chords-loop.mp3']);
         game.load.audio('buzz-melody-loop', ['assets/sounds/buzz-melody-loop.mp3']);
         game.load.audio('song-about-bees-loop', ['assets/sounds/song-about-bees-loop-harmony.mp3']);
+        game.load.audio('buzz-melody-loop', ['assets/sounds/buzz-melody-loop.mp3']);
+        game.load.audio('chords-loop', ['assets/sounds/chords-loop.mp3']);
 
 		// Force loading assets
     	game.load.start();
