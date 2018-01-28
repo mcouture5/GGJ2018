@@ -40,6 +40,8 @@ Phaser.Plugin.HealthMeter = function(game, parent) {
     this.options.foreground = '#00ff00';
     this.options.background = '#333333';
     this.options.alpha = 0.4;
+
+    this.currentIcon = null;
 };
 
 Phaser.Plugin.HealthMeter.prototype = Object.create(Phaser.Plugin.prototype);
@@ -127,44 +129,38 @@ Phaser.Plugin.HealthMeter.prototype.updatePercent = function() {};
 
 Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
 
-    var x = this.char.x + this.options.x - this.char.width / 2,
-        y = this.char.y + this.options.y;
+    var x = this.char.x, y = this.char.y + this.options.y;
 
-    if (!this.healthBar) {
-        var bmd = this.game.add.bitmapData(this.options.width, this.options.height);
-        bmd.ctx.beginPath();
-        bmd.ctx.rect(0, 0, this.options.width, this.options.height);
-        bmd.ctx.fillStyle = this.options.background;
-        bmd.ctx.fill();
-
-        this.backBar = this.game.add.sprite(x, y, bmd);
-        this.backBar.alpha = this.options.alpha;
-        //this.backBar.fixedToCamera = true;
-
-        bmd = this.game.add.bitmapData(this.options.width, this.options.height);
-        bmd.ctx.beginPath();
-        bmd.ctx.rect(0, 0, this.options.width, this.options.height);
-        bmd.ctx.fillStyle = this.options.foreground;;
-        bmd.ctx.fill();
-        this.healthBar = this.game.add.sprite(x, y, bmd);
-        this.healthBar.width = (this.char.health / this.char.maxHealth) * this.options.width;
-        //this.healthBar.fixedToCamera = true;
-
-        return;
+    if (!this.statusIcon1) {
+        this.statusIcon1 = this.game.add.sprite(x, y, 'status1');
+        this.statusIcon1.visible = false;
+        this.statusIcon1.anchor.setTo(0.5, 0.5);
+    }
+    if (!this.statusIcon2) {
+        this.statusIcon2 = this.game.add.sprite(x, y, 'status2');
+        this.statusIcon2.visible = false;
+        this.statusIcon2.anchor.setTo(0.5, 0.5);
+    }
+    if (!this.statusIcon3) {
+        this.statusIcon3 = this.game.add.sprite(x, y, 'status3');
+        this.statusIcon3.visible = false;
+        this.statusIcon3.anchor.setTo(0.5, 0.5);
+    }
+    if (this.currentIcon) {
+        this.currentIcon.visible = false;
     }
 
+    if (this.char.health < this.char.maxHealth * 0.25) {
+        this.currentIcon = this.statusIcon3;
+    } else if (this.char.health < this.char.maxHealth * 0.5) {
+        this.currentIcon = this.statusIcon2;
+    } else {
+        this.currentIcon = this.statusIcon1;
+    }
+    this.currentIcon.visible = true;
     // Follow the character
-    this.healthBar.x = this.backBar.x = x;
-    this.healthBar.y = this.backBar.y = y;
-
-    this.healthBar.width = (this.char.health / this.char.maxHealth) * this.options.width;
-
-    /*
-    this.game.add.tween(this.healthBar).to(
-        {width: (this.char.health / this.char.maxHealth) * this.options.width},
-        200, "Linear", true
-    );
-    */
+    this.currentIcon.x = x;
+    this.currentIcon.y = y;
 };
 
 Phaser.Plugin.HealthMeter.prototype.updateIcons = function() {
@@ -227,7 +223,8 @@ Phaser.Plugin.HealthMeter.prototype.healthPrint = function() {
 
 Phaser.Plugin.HealthMeter.prototype.destroy = function() {
     if (this.options.mode == 'bar') {
-        this.healthBar.destroy();
-        this.backBar.destroy();
+        this.statusIcon1.destroy();
+        this.statusIcon2.destroy();
+        this.statusIcon3.destroy();
     }
 }
