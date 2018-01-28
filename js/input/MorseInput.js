@@ -24,7 +24,7 @@ var MorseInput = {
     init: function() {
         // dot duration is 250 milliseconds
         // pause duration is 2x dot duration
-        this.dotDuration = 250;
+        this.dotDuration = 200;
         this.pauseDuration = this.dotDuration * 2;
 
         // keep track of the last space key down date
