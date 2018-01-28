@@ -28,14 +28,8 @@ Bee = function(game){
     this.body.onCollide = new Phaser.Signal();
     this.body.onWorldBounds = new Phaser.Signal();
     var self = this;
-    function colliding (){
-        // Perform colliding behavior.
-        // This method gets called AS the bee is colliding.
-        console.log("stopped");
-        self.stopMoving();
-    };
-    this.body.onCollide.add(colliding);
-    this.body.onWorldBounds.add(colliding);
+    this.body.onCollide.add(this.stopMoving);
+    this.body.onWorldBounds.add(this.stopMoving);
 
     this.startDir = this.game.rnd.realInRange(0.5 * Math.PI, 1 * Math.PI);
     this.body.velocity.y = Math.sin(this.startDir) * this.moveConst;
@@ -182,13 +176,13 @@ Bee.prototype.getPollen = function(flower){
     timer.start();
 };
 
-Bee.prototype.finishPollen = function(gatherTime){
+Bee.prototype.finishPollen = function(chillTime){
     this.animHappy();
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
     this.audioPollenCollected.play();
     var timer = game.time.create();
-    timer.add(gatherTime * 800, function() {
+    timer.add(chillTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
             // still not moved
             this.stopMoving();
