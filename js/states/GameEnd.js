@@ -48,11 +48,48 @@ GameEnd.prototype = {
         stage7Score.anchor.set(0.5);
 
         // Load up a bunch of happy bees!
+		this.beeGroup = game.add.group();
+		this.beeGroup.enableBody = true;
+		for (var i = 0; i < 20; i++) {
+			var bee = new WanderingBee(game, this.game.rnd.integerInRange(1,3));
+            this.beeGroup.add(bee);
+		}
+		this.beeGroup.setAll('body.collideWorldBounds', true);
+		this.beeGroup.setAll('body.bounce.x', 1);
+		this.beeGroup.setAll('body.bounce.y', 1);
 	},
 	update: function(){
+    	game.physics.arcade.collide(this.beeGroup);
 	},
 	render: function(){
 	},
 	shutdown: function(){
+	}
+};
+
+WanderingBee = function(game){
+	Phaser.Sprite.call(this, game, game.rnd.integerInRange(-2000, 2000), game.rnd.integerInRange(-2000, 2000), 'bee');
+    this.anchor.setTo(0.5, 0.5);
+	var randScale = game.rnd.integerInRange(5, 10) / 10;
+	this.scale.setTo(randScale,randScale);
+    this.speed = this.game.rnd.integerInRange(8,12);
+    this.animations.add('bee-happy', [12,13,14,15], this.speed, true);
+    this.animations.play('bee-happy');
+
+    game.physics.arcade.enable(this);
+    //this.body.setSize(55, 35, 10, 35);
+    this.body.collideWorldBounds = true;
+    this.body.velocity.set(game.rnd.integerInRange(-200, 200), game.rnd.integerInRange(-200, 200));
+};
+
+WanderingBee.prototype = Object.create(Phaser.Sprite.prototype);
+WanderingBee.prototype.constructor = WanderingBee;
+
+WanderingBee.prototype.update = function(){
+	Phaser.Sprite.prototype.update.call(this);
+	if (this.body.velocity.x < 0) {
+    	this.scale.x = Math.abs(this.scale.x);
+	} else {
+    	this.scale.x = -Math.abs(this.scale.x);
 	}
 };
