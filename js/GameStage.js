@@ -16,6 +16,9 @@ GameStage.prototype = {
         // Get stage data from the cache
         this.stageData = game.cache.getJSON('stage_' + this.level);
 
+        //  Create our Timer
+        this.timer = game.time.create(false);
+
         //Background
         game.add.image(0, 0, this.stageData.background);
 
@@ -68,11 +71,14 @@ GameStage.prototype = {
         // Run through the obsctacles and create/place them
         var obstacleData = this.stageData.obstacles;
 
-        //  Here we'll create 12 of them evenly spaced apart
+        //  Obstacles!
         obstacleData.forEach(function (ob) {
             var obstacle = this.obstacles.create(ob.x, ob.y, ob.sprite);
             obstacle.body.immovable = true;
         }, this);
+
+        // Timer text
+        this.timerText = game.add.text(20, 20, 'Time: 00:00', globalStyle);
 
         // Listen for bee events
         EventBus.onBeeRageQuit.add(this.onStageFailed, this);
@@ -99,6 +105,8 @@ GameStage.prototype = {
 
         // After all has been created, reveal the stage!
         this.fadeIn().onComplete.add(function () {
+            // Start timer!
+            this.timer.start();
             // Add bees!
             this.bees = new Array(this.stageData.bees.length);
             for(var i = 0; i < this.stageData.bees.length; i++) {
@@ -141,6 +149,10 @@ GameStage.prototype = {
         }, this);
 	},
 	update: function(){
+        // Update timer text
+        if (this.timer.running) {
+            this.updateTimeText();
+        }
         game.physics.arcade.collide(this.beeGroup, this.obstacles);
         game.physics.arcade.collide(this.beeGroup, this.borders);
         game.physics.arcade.overlap(this.beeGroup, this.flowers, function(bee, flower) {
@@ -165,12 +177,29 @@ GameStage.prototype = {
         }, null, this);
 	},
 	render: function(){
+        //game.debug.text('Time until event: ' + this.timer.seconds.toFixed(0), 32, 32);
         //game.debug.body(this.queenBee, 'rgba(255,0,0,0.4)');
         //this.flowers.forEachAlive(this.renderGroup, this);
         //this.bees.forEach(this.renderGroup, this);
         //this.borders.forEachAlive(this.renderGroup, this);
         //this.obstacles.forEachAlive(this.renderGroup, this);
 	},
+    updateTimeText: function () {
+        //Time elapsed in seconds
+        var elapsed = this.timer.seconds.toFixed(0);
+    
+        //Convert seconds into minutes and seconds
+        var minutes = Math.floor(elapsed / 60);
+        var seconds = Math.floor(elapsed) - (60 * minutes);
+    
+        //Display minutes, add a 0 to the start if less than 10
+        var result = (minutes < 10) ? "0" + minutes : minutes;
+    
+        //Display seconds, add a 0 to the start if less than 10
+        result += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+    
+        this.timerText.text = "Time: " + result;
+    },
     renderGroup: function(member)
     {
         game.debug.body(member, 'rgba(255,0,0,0.4)');
@@ -194,6 +223,9 @@ GameStage.prototype = {
         }
     },
     onStageCleared: function () {
+        // Stop time
+        this.timer.stop();
+
         // Stage has been cleared
         gameManager.stageCleared();
 
@@ -224,6 +256,8 @@ GameStage.prototype = {
         }, this);
     },
     onStageFailed: function (rageQuitBee) {
+        // Stop time
+        this.timer.stop();
         this.selectedBee = null;
 
         // stop listening to morse input
