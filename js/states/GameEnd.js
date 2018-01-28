@@ -47,6 +47,10 @@ GameEnd.prototype = {
 		var stage7Score = game.add.text(scoreStartX, scoreStartY + (ySpacing * 6), 'Stage 7: ' + scores[7], globalStyle);
         stage7Score.anchor.set(0.5);
 
+        var backBtn = game.add.button(10, game.world.height - 10, 'back-button', this.menu, this, 1, 0, 1, 0);
+        backBtn.scale.setTo(0.5, 0.5);
+        backBtn.anchor.setTo(0, 1);
+
         // Load up a bunch of happy bees!
 		this.beeGroup = game.add.group();
 		this.beeGroup.enableBody = true;
@@ -64,7 +68,10 @@ GameEnd.prototype = {
 	render: function(){
 	},
 	shutdown: function(){
-	}
+	},
+    menu: function(){
+        this.game.state.start('MainMenu');
+    }
 };
 
 WanderingBee = function(game){
