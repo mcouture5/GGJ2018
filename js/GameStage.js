@@ -302,6 +302,8 @@ GameStage.prototype = {
 
                 // Add next button
                 game.add.button(game.world.centerX - 101, 450, 'next-button', this.fadeAndGoToNextStage, this, 0, 0, 1, 0);
+
+                game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onDown.add(this.fadeAndGoToNextStage, this);
             }, this);
         } else {
             this.onGameWon();
@@ -352,6 +354,8 @@ GameStage.prototype = {
             // Add try again
             var btn = game.add.button(game.world.centerX, game.world.centerY + 80, 'play-button', gameManager.restartStage, gameManager, 0, 0, 1, 0);
             btn.anchor.set(0.5);
+
+            game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onDown.add(gameManager.restartStage, gameManager);
         }, this);
     },
     // DO NOT CALL THIS FROM ANYWHERE BUT onStageFailed

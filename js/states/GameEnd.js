@@ -51,6 +51,8 @@ GameEnd.prototype = {
         backBtn.scale.setTo(0.5, 0.5);
         backBtn.anchor.setTo(0, 1);
 
+		game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR).onDown.add(this.menu, this);
+
         // Load up a bunch of happy bees!
 		this.beeGroup = game.add.group();
 		this.beeGroup.enableBody = true;
