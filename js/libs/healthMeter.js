@@ -150,17 +150,22 @@ Phaser.Plugin.HealthMeter.prototype.updateBar = function() {
         this.currentIcon.visible = false;
     }
 
-    if (this.char.health < this.char.maxHealth * 0.25) {
+    if (this.char.health <= 0) {
         this.currentIcon = this.statusIcon3;
-    } else if (this.char.health < this.char.maxHealth * 0.5) {
+    } else if (this.char.health < this.char.maxHealth * 0.3) {
         this.currentIcon = this.statusIcon2;
-    } else {
+    } else if (this.char.health < this.char.maxHealth * 0.6) {
         this.currentIcon = this.statusIcon1;
+    } else {
+        this.currentIcon = null;
     }
-    this.currentIcon.visible = true;
-    // Follow the character
-    this.currentIcon.x = x;
-    this.currentIcon.y = y;
+
+    if (this.currentIcon) {
+        // Follow the character
+        this.currentIcon.x = x;
+        this.currentIcon.y = y;
+        this.currentIcon.visible = true;
+    }
 };
 
 Phaser.Plugin.HealthMeter.prototype.updateIcons = function() {

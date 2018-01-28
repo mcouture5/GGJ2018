@@ -168,6 +168,8 @@ Bee.prototype.getPollen = function(flower){
     this.body.velocity.x = 0;
     this.body.velocity.y = 0;
     this.inputEnabled = false;
+    this.health = this.maxHealth;
+    this.audioAngryIndex = 0;
 
     var flowerAlignTween = game.add.tween(this).to({ x: flower.x + 5, y: flower.y - 25 }, 1000, null, true);
     flowerAlignTween.onComplete.add(function() {
@@ -187,7 +189,6 @@ Bee.prototype.finishPollen = function(chillTime){
     this.inputEnabled = true;
     this.state = 'POLLEN_DONE';
     this.audioPollenCollected.play();
-    this.health = this.maxHealth;
     var timer = game.time.create();
     timer.add(chillTime * 800, function() {
         if (this.state === 'POLLEN_DONE') {
@@ -221,11 +222,11 @@ Bee.prototype.update = function(){
             if (this.health % 100 === 0 && this.health > 0) {
                 console.log(this.health);
             }
-            if (this.health < this.maxHealth * 0.5 && this.audioAngryIndex === 0) {
+            if (this.health < this.maxHealth * 0.6 && this.audioAngryIndex === 0) {
                 // first warning
                 this.audioAngry[this.audioAngryIndex++].play();
             }
-            if (this.health < this.maxHealth * 0.25 && this.audioAngryIndex === 1) {
+            if (this.health < this.maxHealth * 0.3 && this.audioAngryIndex === 1) {
                 // second warning
                 this.audioAngry[this.audioAngryIndex++].play();
             }
